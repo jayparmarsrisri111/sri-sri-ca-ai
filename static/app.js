@@ -1218,6 +1218,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 async function initApp() {
+    recordOriginalGujaratiDOM();
     const savedLang = localStorage.getItem("sri_sri_lang");
     if (savedLang) {
         currentLang = savedLang;
@@ -1229,8 +1230,11 @@ async function initApp() {
     setupEventListeners();
     setupPwaEngine();
     updateUserInterfaceForRole();
-    applyLanguage(currentLang);
-    loadAllData();
+    await applyLanguage(currentLang);
+    await loadAllData();
+    if (currentLang !== "gu") {
+        await performDeepDOMTranslation(currentLang);
+    }
 }
 
 // Progressive Web App (PWA) Engine
@@ -1382,11 +1386,14 @@ function setupEventListeners() {
         loadAllData();
     });
 
-    // Universal Language Selector
-    document.getElementById("langSelect").addEventListener("change", (e) => {
+    // Universal Language Selector (Supports all 20+ World Languages)
+    document.getElementById("langSelect").addEventListener("change", async (e) => {
         currentLang = e.target.value;
-        applyLanguage(currentLang);
-        loadAllData();
+        await applyLanguage(currentLang);
+        await loadAllData();
+        if (currentLang !== "gu") {
+            await performDeepDOMTranslation(currentLang);
+        }
     });
 
     // Quick Switch Role
@@ -2488,19 +2495,13 @@ const FULL_I18N_PHRASES = [
     ["રકમ", "amount", "मात्रा"]
 ];
 
-function performDeepDOMTranslation(lang) {
-    if (lang === "gu") {
-        const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
-        let node;
-        while (node = walker.nextNode()) {
-            if (node.__sriOriginal !== undefined) {
-                node.nodeValue = node.__sriOriginal;
-            }
-        }
-        return;
-    }
+// In-memory cache of loaded language phrase pairs: { "en": [["gu", "en"], ...], "mr": [...] }
+const LOADED_LOCALES = {};
 
-    const langIdx = lang === "hi" ? 2 : 1;
+// Record pure original Gujarati on initial DOM load before ANY translation
+function recordOriginalGujaratiDOM() {
+    if (window.__sriGuRecorded) return;
+    window.__sriGuRecorded = true;
     const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
         acceptNode: function(node) {
             const parent = node.parentElement;
@@ -2515,15 +2516,78 @@ function performDeepDOMTranslation(lang) {
 
     let node;
     while (node = walker.nextNode()) {
-        if (node.__sriOriginal === undefined) {
-            node.__sriOriginal = node.nodeValue;
+        if (node.__sriOriginalGu === undefined) {
+            node.__sriOriginalGu = node.nodeValue;
         }
-        let text = node.__sriOriginal;
-        let modified = false;
+    }
+}
 
-        for (let i = 0; i < FULL_I18N_PHRASES.length; i++) {
-            const guText = FULL_I18N_PHRASES[i][0];
-            const transText = FULL_I18N_PHRASES[i][langIdx];
+// Load language phrases from local cache, /locales/{lang}.json, or fallback embedded pairs
+async function getLanguagePhrases(lang) {
+    if (lang === "gu") return [];
+    if (LOADED_LOCALES[lang]) return LOADED_LOCALES[lang];
+
+    try {
+        const res = await fetch(`locales/${lang}.json`);
+        if (res.ok) {
+            const pairs = await res.json();
+            LOADED_LOCALES[lang] = pairs;
+            return pairs;
+        }
+    } catch(e) {}
+
+    // Fallback to embedded pairs for en and hi
+    if (typeof FULL_I18N_PHRASES !== "undefined") {
+        const langIdx = lang === "hi" ? 2 : 1;
+        const pairs = FULL_I18N_PHRASES.map(p => [p[0], p[langIdx]]);
+        LOADED_LOCALES[lang] = pairs;
+        return pairs;
+    }
+    return [];
+}
+
+// Apply translation to all recorded text nodes
+async function performDeepDOMTranslation(lang) {
+    recordOriginalGujaratiDOM();
+
+    if (lang === "gu") {
+        const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
+        let node;
+        while (node = walker.nextNode()) {
+            if (node.__sriOriginalGu !== undefined) {
+                node.nodeValue = node.__sriOriginalGu;
+            }
+        }
+        return;
+    }
+
+    const phrasePairs = await getLanguagePhrases(lang);
+    if (!phrasePairs || phrasePairs.length === 0) return;
+
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+        acceptNode: function(node) {
+            const parent = node.parentElement;
+            if (!parent) return NodeFilter.FILTER_REJECT;
+            const tag = parent.tagName;
+            if (tag === "SCRIPT" || tag === "STYLE" || tag === "NOSCRIPT" || tag === "CODE" || tag === "PRE") {
+                return NodeFilter.FILTER_REJECT;
+            }
+            return NodeFilter.FILTER_ACCEPT;
+        }
+    }, false);
+
+    let node;
+    while (node = walker.nextNode()) {
+        if (node.__sriOriginalGu === undefined) {
+            node.__sriOriginalGu = node.nodeValue;
+        }
+        let text = node.__sriOriginalGu;
+        if (!/[઀-૿]/.test(text)) continue;
+
+        let modified = false;
+        for (let i = 0; i < phrasePairs.length; i++) {
+            const guText = phrasePairs[i][0];
+            const transText = phrasePairs[i][1];
             if (text.includes(guText)) {
                 text = text.split(guText).join(transText);
                 modified = true;
@@ -2537,7 +2601,7 @@ function performDeepDOMTranslation(lang) {
 }
 
 // 100% Comprehensive Translation Handler across Entire App (Pure Native Client-Side)
-function applyLanguage(lang) {
+async function applyLanguage(lang) {
     currentLang = lang;
     localStorage.setItem("sri_sri_lang", lang);
     purgeGoogleTranslateCookies();
@@ -2560,7 +2624,7 @@ function applyLanguage(lang) {
     }
 
     // 3. Deep DOM text node replacement for 100% of the entire application
-    performDeepDOMTranslation(lang);
+    await performDeepDOMTranslation(lang);
 
     // 4. Update user interface for role & badges
     updateUserInterfaceForRole();
@@ -2575,7 +2639,6 @@ function applyLanguage(lang) {
         }
     }
 }
-
 
 function toggleRoleQuick() {
     if (currentUser.role === "ca") {
