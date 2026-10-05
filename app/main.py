@@ -300,12 +300,37 @@ def get_financial_statements(country: Optional[str] = None):
 def get_countries():
     return ALL_WORLD_COUNTRIES
 
+# Dynamic GST Rates Storage
+ACTIVE_GST_CONFIG = {
+    "standard_rate": 18.0,
+    "slabs": [0.0, 5.0, 12.0, 18.0, 28.0],
+    "last_council_notification": "CBIC Notification No. 12/2026-CT: Standard 18% Rate Active",
+    "effective_date": "2026-04-01"
+}
+
+@app.get("/api/gst-rates")
+def get_gst_rates():
+    return ACTIVE_GST_CONFIG
+
+@app.post("/api/gst-rates")
+def update_gst_rates(data: Dict[str, Any], request: Request):
+    client_ip = request.client.host if request.client else "127.0.0.1"
+    new_rate = float(data.get("standard_rate", 18.0))
+    notification = sanitize_input(str(data.get("notification", f"CBIC Rate Order: {new_rate}%")))
+    ACTIVE_GST_CONFIG["standard_rate"] = new_rate
+    ACTIVE_GST_CONFIG["last_council_notification"] = notification
+    ACTIVE_GST_CONFIG["effective_date"] = datetime.now().strftime("%Y-%m-%d")
+    security_guard.log_event("GST_RATE_UPDATED", client_ip, f"Active GST Rate changed to {new_rate}%", "INFO")
+    return {"success": True, "config": ACTIVE_GST_CONFIG}
+
 @app.get("/api/tax-calculation")
-def get_tax_calculation(country: str = "IN"):
+def get_tax_calculation(country: str = "IN", gst_rate: Optional[float] = None):
     statements = accounting.get_financial_statements(country)
     p_and_l = statements.get("profit_and_loss", {})
     revenue = float(p_and_l.get("total_revenue", 0.0))
     expenses = float(p_and_l.get("total_expenses", 0.0))
+
+    active_gst = (gst_rate / 100.0) if (gst_rate is not None and gst_rate > 0) else (ACTIVE_GST_CONFIG["standard_rate"] / 100.0)
 
     # Calculate approximate tax from ledger
     ledger = accounting.get_ledger(country)
@@ -314,9 +339,9 @@ def get_tax_calculation(country: str = "IN"):
 
     if country == "IN":
         if output_tax == 0.0 and revenue > 0:
-            output_tax = revenue * 0.18
+            output_tax = revenue * active_gst
         if input_tax == 0.0 and expenses > 0:
-            input_tax = expenses * 0.18
+            input_tax = expenses * active_gst
         return TaxEngine.calculate_india_taxes(revenue, expenses, output_tax, input_tax)
     else:
         return TaxEngine.calculate_global_country_taxes(country, revenue, expenses, output_tax, input_tax)

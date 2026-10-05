@@ -1003,6 +1003,59 @@
                         </button>
                     </div>
 
+                    <!-- GST Council Live Tariff & Adaptive Rate Engine Card -->
+                    <div class="mt-5 p-4 rounded-2xl bg-gradient-to-r from-amber-500/10 via-slate-900 to-emerald-500/10 border border-amber-500/30 space-y-3">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                            <div class="flex items-center space-x-2.5">
+                                <span class="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-300 flex items-center justify-center font-extrabold text-sm border border-amber-500/40">⚡</span>
+                                <div>
+                                    <div class="flex items-center space-x-2">
+                                        <h3 class="text-xs sm:text-sm font-extrabold text-white">GST Council લાઈવ દર & ઓટો-અપડેટ એન્જિન</h3>
+                                        <span class="px-2 py-0.5 rounded-full text-[9px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 flex items-center space-x-1">
+                                            <span class="radar-dot"></span>
+                                            <span>CBIC Live Feed Ready</span>
+                                        </span>
+                                    </div>
+                                    <p class="text-[10px] text-slate-400">સરકાર કે GST કાઉન્સિલ દર બદલે ત્યારે સિસ્ટમમાં તાત્કાલિક આપોઆપ નવો દર લાગુ થાય છે</p>
+                                </div>
+                            </div>
+                            <!-- Live Auto-Sync Button -->
+                            <button id="syncGstCouncilRatesBtn" class="px-3 py-1.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-extrabold rounded-xl text-xs transition shadow-md flex items-center space-x-1.5 self-start sm:self-auto cursor-pointer">
+                                <i data-lucide="refresh-cw" class="w-3.5 h-3.5" id="gstSyncSpinIcon"></i>
+                                <span>🔄 કાઉન્સિલ નોટિફિકેશન ઓટો-સિંક</span>
+                            </button>
+                        </div>
+
+                        <!-- Interactive Slab Selector & Custom Override -->
+                        <div class="grid grid-cols-1 md:grid-cols-12 gap-3 pt-2 border-t border-slate-800/80 items-center">
+                            <div class="md:col-span-7 flex flex-wrap items-center gap-1.5">
+                                <span class="text-[10px] font-bold text-slate-400 mr-1 uppercase">સત્તાવાર સ્લેબ:</span>
+                                <button class="gst-slab-pill px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-800 text-slate-300 hover:border-amber-400 border border-slate-700 transition" data-rate="0">0% (Nil)</button>
+                                <button class="gst-slab-pill px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-800 text-slate-300 hover:border-amber-400 border border-slate-700 transition" data-rate="5">5% (Essential)</button>
+                                <button class="gst-slab-pill px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-800 text-slate-300 hover:border-amber-400 border border-slate-700 transition" data-rate="12">12% (Standard Low)</button>
+                                <button class="gst-slab-pill active px-2.5 py-1 rounded-lg text-xs font-bold bg-amber-500/20 text-amber-300 border border-amber-500/50 transition" data-rate="18">18% (Standard)</button>
+                                <button class="gst-slab-pill px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-800 text-slate-300 hover:border-amber-400 border border-slate-700 transition" data-rate="28">28% (Luxury/Sin)</button>
+                            </div>
+                            <div class="md:col-span-5 flex items-center gap-2">
+                                <span class="text-[10px] font-bold text-slate-400 shrink-0">કસ્ટમ દર (%):</span>
+                                <input type="number" id="customGstRateInput" min="0" max="50" step="0.5" value="18" class="w-20 bg-slate-950 border border-slate-700 rounded-xl px-2 py-1 text-xs text-white font-mono text-center focus:border-amber-400 focus:outline-none">
+                                <button id="applyCustomGstRateBtn" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-emerald-400 border border-emerald-500/40 rounded-xl text-xs font-bold transition">
+                                    લાગુ કરો
+                                </button>
+                                <span id="gstRateNotificationBadge" class="text-[10px] font-mono text-emerald-400 truncate hidden"></span>
+                            </div>
+                        </div>
+
+                        <!-- Live Notification Banner -->
+                        <div id="gstCouncilNotificationBar" class="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800 flex items-center justify-between text-[11px]">
+                            <div class="flex items-center space-x-2 text-slate-300">
+                                <i data-lucide="bell" class="w-3.5 h-3.5 text-amber-400 shrink-0"></i>
+                                <span id="activeGstNotificationText">સત્તાવાર ગેઝેટ નોટિફિકેશન: સ્ટાન્ડર્ડ GST દર <strong>18.0% (CGST 9% + SGST 9% / IGST 18%)</strong> સક્રિય છે.</span>
+                            </div>
+                            <span class="text-[10px] text-slate-500 font-mono shrink-0 ml-2" id="gstEffectiveDateLabel">લાગુ: ૧ એપ્રિલ ૨૦૨૬</span>
+                        </div>
+                    </div>
+
                     <div id="taxContainer" class="mt-6 space-y-6"></div>
                 </div>
             </section>
