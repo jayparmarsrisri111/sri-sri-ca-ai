@@ -266,6 +266,16 @@
                     <span data-i18n="badge_security">૨૫૬-Bit SSL સુરક્ષિત</span>
                 </button>
 
+                <!-- Cloud Gateway & Multi-Device Sync Hub Modal Trigger -->
+                <button id="openCloudSyncModalBtn" class="flex items-center space-x-1.5 px-2.5 py-1.5 rounded-xl bg-slate-900 border border-cyan-500/40 hover:border-cyan-400 hover:bg-cyan-500/10 text-xs font-bold text-cyan-300 transition shadow-sm cursor-pointer" title="ક્લાઉડ સિંક & મલ્ટિ-ડિવાઇસ હબ (Cloud Sync Hub)">
+                    <span class="relative flex h-2 w-2">
+                        <span id="cloudStatusPing" class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                        <span id="cloudStatusDot" class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                    </span>
+                    <i data-lucide="cloud" class="w-3.5 h-3.5 text-cyan-400"></i>
+                    <span id="cloudSyncBtnLabel" class="hidden sm:inline">ક્લાઉડ સિંક</span>
+                </button>
+
                 <!-- PWA 1-Click Install App Button (Desktop & Mobile) -->
                 <button id="pwaInstallBtn" class="hidden items-center space-x-1 px-2 sm:px-2.5 py-1.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 text-white text-xs font-bold shadow-md hover:from-emerald-500 hover:to-teal-500 transition cursor-pointer pwa-install-badge" title="એપ ઇન્સ્ટોલ કરો (Install Native App)">
                     <i data-lucide="download" class="w-3.5 h-3.5"></i>
@@ -2461,6 +2471,122 @@
                     </button>
                 </div>
             </form>
+        </div>
+    <!-- Modal: Hybrid Cloud Gateway, Multi-Device Sync & Fortress Sync -->
+    <div id="cloudSyncModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="bg-slate-900 border border-cyan-500/40 rounded-3xl max-w-2xl w-full p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+            <button id="closeCloudSyncModalBtn" class="absolute top-5 right-5 text-slate-400 hover:text-white p-1">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+
+            <div class="flex items-center space-x-3.5 pb-4 border-b border-slate-800">
+                <div class="w-12 h-12 rounded-2xl bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center text-cyan-400 shrink-0">
+                    <i data-lucide="cloud" class="w-7 h-7"></i>
+                </div>
+                <div>
+                    <div class="flex items-center space-x-2">
+                        <h3 class="text-base font-extrabold text-white">Sri Sri ❤️ હાઇબ્રિડ ક્લાઉડ & મલ્ટિ-ડિવાઇસ હબ</h3>
+                        <span id="cloudModalStatusBadge" class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">100% Free Multi-Device Sync</span>
+                    </div>
+                    <p class="text-[11px] text-cyan-400/90 font-semibold">મોબાઈલ અને લેપટોપ વચ્ચે રીઅલ-ટાઇમ સિંક્રોનાઇઝેશન & ઝીરો ડેટા લોસ આર્કિટેક્ચર</p>
+                </div>
+            </div>
+
+            <!-- Server Connection Settings -->
+            <div class="mt-4 p-4 rounded-2xl bg-slate-950/70 border border-slate-800 space-y-3">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <span class="font-bold text-white text-xs">🌐 ક્લાઉડ બેકએન્ડ API સર્વર (Python FastAPI Server)</span>
+                        <p class="text-[10px] text-slate-400">તમારા ફ્રી ક્લાઉડ સર્વર (Render/Koyeb/Railway) નું URL દાખલ કરો જેથી મોબાઈલ & લેપટોપ સિંક થાય</p>
+                    </div>
+                    <span id="backendStatusIndicator" class="px-2.5 py-1 rounded-xl text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">ઓટો-ડિટેક્ટ</span>
+                </div>
+                <div class="flex gap-2">
+                    <input type="url" id="backendUrlInput" placeholder="https://your-backend.onrender.com (ખાલી રાખો તો ઓટો)" class="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white font-mono focus:border-cyan-400 focus:outline-none">
+                    <button id="saveBackendUrlBtn" class="px-3.5 py-2 bg-cyan-600 hover:bg-cyan-500 text-white font-bold rounded-xl text-xs transition">
+                        કનેક્ટ & ટેસ્ટ
+                    </button>
+                    <button id="resetBackendUrlBtn" class="px-2.5 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs transition" title="રીસેટ">
+                        રીસેટ
+                    </button>
+                </div>
+                <div id="backendTestResult" class="text-[11px] font-medium hidden"></div>
+            </div>
+
+            <!-- 1-Click Multi-Device Cloud Sync -->
+            <div class="mt-4 p-4 rounded-2xl bg-slate-950/70 border border-slate-800 space-y-3">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-2">
+                        <i data-lucide="refresh-cw" class="w-4 h-4 text-emerald-400"></i>
+                        <span class="font-bold text-white text-xs">૧-ક્લિક મલ્ટિ-ડિવાઇસ રીઅલ-ટાઇમ સિંક (Instant Sync)</span>
+                    </div>
+                    <span class="text-[10px] text-slate-400 font-mono" id="lastSyncTimeLabel">છેલ્લું સિંક: હમણાં</span>
+                </div>
+                <p class="text-[11px] text-slate-400">
+                    આ બટન દબાવવાથી તમારા ફોન/લેપટોપના તમામ વાઉચર્સ ક્લાઉડ ડેટાબેઝમાં સંગ્રહિત થશે અને બીજા ડિવાઇસમાં તરત દેખાશે.
+                </p>
+                <button id="triggerCloudSyncNowBtn" class="w-full py-2.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold rounded-xl text-xs transition shadow-lg shadow-emerald-950 flex items-center justify-center space-x-2">
+                    <i data-lucide="refresh-cw" class="w-4 h-4" id="syncBtnSpinIcon"></i>
+                    <span>🔄 તમામ વાઉચર્સ & એકાઉન્ટ્સ ક્લાઉડ સાથે સિંક કરો</span>
+                </button>
+                <div id="syncStatusResult" class="text-[11px] text-center font-semibold hidden"></div>
+            </div>
+
+            <!-- Zero Data Loss Vault (Cache Clear Protection) -->
+            <div class="mt-4 p-4 rounded-2xl bg-slate-950/70 border border-slate-800 space-y-3">
+                <div class="flex items-center space-x-2">
+                    <i data-lucide="shield-alert" class="w-4 h-4 text-amber-400"></i>
+                    <span class="font-bold text-white text-xs">બ્રાઉઝર કેશ પ્રોટેક્શન & ઓફલાઇન વોલ્ટ (Zero Data Loss Vault)</span>
+                </div>
+                <p class="text-[11px] text-slate-400">
+                    જો કોઈ બ્રાઉઝર કેશ ક્લિયર કરી દે તો પણ ૧ સેકન્ડમાં તમારો તમામ ડેટા પાછો લાવવા માટે ઓફલાઇન વોલ્ટ બેકઅપ ડાઉનલોડ અથવા અપલોડ કરો:
+                </p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    <button id="downloadVaultBackupBtn" class="py-2 px-3 bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold rounded-xl text-xs transition flex items-center justify-center space-x-1.5 border border-amber-500/30">
+                        <i data-lucide="download" class="w-3.5 h-3.5"></i>
+                        <span>🔐 ડાઉનલોડ વોલ્ટ (.ca-vault)</span>
+                    </button>
+                    <label class="py-2 px-3 bg-slate-800 hover:bg-slate-700 text-cyan-300 font-bold rounded-xl text-xs transition flex items-center justify-center space-x-1.5 border border-cyan-500/30 cursor-pointer">
+                        <i data-lucide="upload" class="w-3.5 h-3.5"></i>
+                        <span>📥 રિસ્ટોર વોલ્ટ (.ca-vault)</span>
+                        <input type="file" id="restoreVaultFileInput" accept=".ca-vault,.json" class="hidden">
+                    </label>
+                </div>
+            </div>
+
+            <!-- 6 Solved Advantages Showcase -->
+            <div class="mt-4 pt-3 border-t border-slate-800">
+                <h4 class="text-xs font-bold text-amber-400 mb-2 flex items-center space-x-1.5">
+                    <i data-lucide="check-circle" class="w-3.5 h-3.5"></i>
+                    <span>૬ મર્યાદાઓનું ૧૦૦% સુવર્ણ સમાધાન (All 6 Disadvantages Converted to Advantages):</span>
+                </h4>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px]">
+                    <div class="p-2 rounded-xl bg-slate-950 border border-emerald-500/30">
+                        <span class="text-emerald-400 font-bold">✅ ૧. મલ્ટિ-ડિવાઇસ સિંક:</span>
+                        <p class="text-slate-400 text-[10px]">લેપટોપ & મોબાઈલ બંને એક જ ક્લાઉડ DB સાથે સિંક થાય છે.</p>
+                    </div>
+                    <div class="p-2 rounded-xl bg-slate-950 border border-emerald-500/30">
+                        <span class="text-emerald-400 font-bold">✅ ૨. ઝીરો ડેટા લોસ વોરંટી:</span>
+                        <p class="text-slate-400 text-[10px]">કેશ ડિલીટ થાય તો પણ ક્લાઉડમાંથી ૧૦૦% ઓટો-રિકવર થાય છે.</p>
+                    </div>
+                    <div class="p-2 rounded-xl bg-slate-950 border border-emerald-500/30">
+                        <span class="text-emerald-400 font-bold">✅ ૩. CA ફર્મ ટીમ કન્કરન્સી:</span>
+                        <p class="text-slate-400 text-[10px]">CA અને ૫-૧૦ સ્ટાફ એકસાથે કામ કરી શકે, કન્કરન્સી લોકિંગ સાથે.</p>
+                    </div>
+                    <div class="p-2 rounded-xl bg-slate-950 border border-emerald-500/30">
+                        <span class="text-emerald-400 font-bold">✅ ૪. હેવી AI & Python પાવર:</span>
+                        <p class="text-slate-400 text-[10px]">૫૦ પાનાની PDF, Gemini Vision & Tesseract OCR બેકએન્ડ પર રન થાય છે.</p>
+                    </div>
+                    <div class="p-2 rounded-xl bg-slate-950 border border-emerald-500/30">
+                        <span class="text-emerald-400 font-bold">✅ ૫. MCA Rule 11(g) કાનૂની બ્લોકચેન:</span>
+                        <p class="text-slate-400 text-[10px]">F12 થી કોઈ પણ આંકડા બદલી શકાતા નથી; સર્વર હેશ વેરિફાય કરે છે.</p>
+                    </div>
+                    <div class="p-2 rounded-xl bg-slate-950 border border-emerald-500/30">
+                        <span class="text-emerald-400 font-bold">✅ ૬. સિક્રેટ API કી સિક્યોરિટી:</span>
+                        <p class="text-slate-400 text-[10px]">Gemini, GSP અને બેંક API કીઝ સર્વર પર એનક્રિપ્ટેડ અને સુરક્ષિત રહે છે.</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
