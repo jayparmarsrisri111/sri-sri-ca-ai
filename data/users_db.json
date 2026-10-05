@@ -1,0 +1,123 @@
+[
+  {
+    "id": "CA-001",
+    "name": "CA જયદીપ શાહ (FCA)",
+    "email": "ca@srisri.com",
+    "password": "pbkdf2:sha256:100000$6cbf3a3a2e3463af814d9e56b71a9af1$6d57266c9db4a81b57fa06aa41987ba1eaf38daacf5bf57e97554ec10703c0f6",
+    "role": "ca",
+    "role_title": "Chartered Accountant / Auditor",
+    "company_or_firm_name": "શાહ & એસોસિયેટ્સ CA ફર્મ",
+    "membership_or_gstin": "ICAI M.No: 542190",
+    "clients_count": 18
+  },
+  {
+    "id": "USR-001",
+    "name": "શ્રી શ્રી એન્ટરપ્રાઇઝ (માલિક)",
+    "email": "user@srisri.com",
+    "password": "pbkdf2:sha256:100000$923873b53d9f760809bf5cd6750e2912$1b105ae1862250c5bafbf4c4679598f488eb789a3c2fd64e9d250aec5b7b8590",
+    "role": "user",
+    "role_title": "Business Owner / Client",
+    "company_or_firm_name": "Sri Sri ❤️ Global Traders",
+    "membership_or_gstin": "GSTIN: 24AAACS9981M1Z5",
+    "clients_count": 0
+  },
+  {
+    "id": "CA-003",
+    "name": "Jay Parmar",
+    "email": "jayparmar4450@gmail.com",
+    "password": "pbkdf2:sha256:100000$1d3e4b537f5d94e984733531371b16b9$d9959c4caa48ea85b2273497bb52ea2ff7fc9aea5a0ffe11c184050325bc8e7e",
+    "role": "ca",
+    "role_title": "Chartered Accountant / Auditor",
+    "company_or_firm_name": "Sri Sri ❤️",
+    "membership_or_gstin": "111111",
+    "clients_count": 0
+  },
+  {
+    "id": "USR-004",
+    "name": "ટેસ્ટ યુઝર",
+    "email": "test_1791038810@srisri.com",
+    "password": "pbkdf2:sha256:100000$8131bf9670afed47c039a53915e15fae$62082a2fbbf47ea1aea5de98ea4e7a703c4339a066f88fc4dfb35ad927d00a6b",
+    "role": "user",
+    "role_title": "Business Owner / Client",
+    "company_or_firm_name": "ટેસ્ટ કંપની",
+    "membership_or_gstin": "",
+    "clients_count": 0
+  },
+  {
+    "id": "USR-005",
+    "name": "ટેસ્ટ યુઝર",
+    "email": "test_1791039676@srisri.com",
+    "password": "pbkdf2:sha256:100000$f7a7e14e24f181850b42cb60f80fd1f2$b0942938660f5c4280651b9ae94b4185b727f68d90e71eb26ce6831cde8e9de3",
+    "role": "user",
+    "role_title": "Business Owner / Client",
+    "company_or_firm_name": "ટેસ્ટ કંપની",
+    "membership_or_gstin": "",
+    "clients_count": 0
+  },
+  {
+    "id": "USR-006",
+    "name": "ટેસ્ટ યુઝર",
+    "email": "test_1791040190@srisri.com",
+    "password": "pbkdf2:sha256:100000$cdd017c29386a6b9e68074381dc11be6$f63eda3e25a1b71735ef518f148b8f079bd9f985ae8d9b180c16404b736fa006",
+    "role": "user",
+    "role_title": "Business Owner / Client",
+    "company_or_firm_name": "ટેસ્ટ કંપની",
+    "membership_or_gstin": "",
+    "clients_count": 0
+  },
+  {
+    "id": "USR-007",
+    "name": "ટેસ્ટ યુઝર",
+    "email": "test_1791109405@srisri.com",
+    "password": "pbkdf2:sha256:100000$807fab68ea96615613b97f30b7539ac6$1425705dfc9511888bcb1e0f926daeb666f97a9c06889cb1f608b3f853e031e0",
+    "role": "user",
+    "role_title": "Business Owner / Client",
+    "company_or_firm_name": "ટેસ્ટ કંપની",
+    "membership_or_gstin": "",
+    "clients_count": 0
+  },
+  {
+    "id": "USR-008",
+    "name": "ટેસ્ટ યુઝર",
+    "email": "test_1791112387@srisri.com",
+    "password": "pbkdf2:sha256:100000$7d368d8457533cf1c75ff8d624e4ad6d$b8980c7ecb57f753378b2cf4c607ac1af2952412930436e1361ba76bf95e695a",
+    "role": "user",
+    "role_title": "Business Owner / Client",
+    "company_or_firm_name": "ટેસ્ટ કંપની",
+    "membership_or_gstin": "",
+    "clients_count": 0
+  },
+  {
+    "id": "USR-009",
+    "name": "ટેસ્ટ યુઝર",
+    "email": "test_1791113752@srisri.com",
+    "password": "pbkdf2:sha256:100000$0abe7f24abac49d7c52eceb5f7afe137$756e01153099ba7daa51d7feb443a0066f91f3fd812b8bd3d6dd49635a145ea1",
+    "role": "user",
+    "role_title": "Business Owner / Client",
+    "company_or_firm_name": "ટેસ્ટ કંપની",
+    "membership_or_gstin": "",
+    "clients_count": 0
+  },
+  {
+    "id": "USR-010",
+    "name": "ટેસ્ટ યુઝર",
+    "email": "test_1791121384@srisri.com",
+    "password": "pbkdf2:sha256:100000$259585a8b433b2ec5434929346794404$a4fc09396560f32c39f850fd8379fa79d0e289f229818540addae209341244b4",
+    "role": "user",
+    "role_title": "Business Owner / Client",
+    "company_or_firm_name": "ટેસ્ટ કંપની",
+    "membership_or_gstin": "",
+    "clients_count": 0
+  },
+  {
+    "id": "USR-011",
+    "name": "ટેસ્ટ યુઝર",
+    "email": "test_1791180215@srisri.com",
+    "password": "pbkdf2:sha256:100000$ff326a9a3d4930d31044a61a5d968913$8f05da0c648646919a325e3aa60546df4c362ba20a0561519049f239f8d7112e",
+    "role": "user",
+    "role_title": "Business Owner / Client",
+    "company_or_firm_name": "ટેસ્ટ કંપની",
+    "membership_or_gstin": "",
+    "clients_count": 0
+  }
+]

@@ -1,0 +1,306 @@
+[
+  {
+    "id": "INV-2026-011",
+    "customer_name": "શ્રીજી ગ્લોબલ ટ્રેડિંગ કોર્પોરેશન",
+    "customer_gstin": "24AAACG1122H1Z4",
+    "customer_email": "info@shreejicorp.com",
+    "date": "2026-10-05",
+    "due_date": "2026-10-05",
+    "currency": "INR",
+    "items": [
+      {
+        "description": "AI ક્લાઉડ એકાઉન્ટિંગ સૉફ્ટવેર લાયસન્સ",
+        "hsn": "998313",
+        "qty": 1,
+        "rate": 50000.0,
+        "tax_rate": 18.0,
+        "amount": 50000.0
+      }
+    ],
+    "subtotal": 50000.0,
+    "tax_amount": 9000.0,
+    "total_amount": 59000.0,
+    "status": "Unpaid",
+    "irn": "08d5c0794c7ece97ea7538ceae4d82056350515865a4eed362ee25afe4456a23",
+    "ack_no": "112691180216",
+    "qr_data": "SRISRI-IRN-08d5c0794c7ece97-AMT-59000.0",
+    "posted_to_ledger": false
+  },
+  {
+    "id": "INV-2026-010",
+    "customer_name": "શ્રીજી ગ્લોબલ ટ્રેડિંગ કોર્પોરેશન",
+    "customer_gstin": "24AAACG1122H1Z4",
+    "customer_email": "info@shreejicorp.com",
+    "date": "2026-10-04",
+    "due_date": "2026-10-04",
+    "currency": "INR",
+    "items": [
+      {
+        "description": "AI ક્લાઉડ એકાઉન્ટિંગ સૉફ્ટવેર લાયસન્સ",
+        "hsn": "998313",
+        "qty": 1,
+        "rate": 50000.0,
+        "tax_rate": 18.0,
+        "amount": 50000.0
+      }
+    ],
+    "subtotal": 50000.0,
+    "tax_amount": 9000.0,
+    "total_amount": 59000.0,
+    "status": "Unpaid",
+    "irn": "0c6c351bd4997402b96203f436e6fd8189865a1afafa8479e42dc99cc32cfaff",
+    "ack_no": "112691121384",
+    "qr_data": "SRISRI-IRN-0c6c351bd4997402-AMT-59000.0",
+    "posted_to_ledger": false
+  },
+  {
+    "id": "INV-2026-009",
+    "customer_name": "શ્રીજી ગ્લોબલ ટ્રેડિંગ કોર્પોરેશન",
+    "customer_gstin": "24AAACG1122H1Z4",
+    "customer_email": "info@shreejicorp.com",
+    "date": "2026-10-04",
+    "due_date": "2026-10-04",
+    "currency": "INR",
+    "items": [
+      {
+        "description": "AI ક્લાઉડ એકાઉન્ટિંગ સૉફ્ટવેર લાયસન્સ",
+        "hsn": "998313",
+        "qty": 1,
+        "rate": 50000.0,
+        "tax_rate": 18.0,
+        "amount": 50000.0
+      }
+    ],
+    "subtotal": 50000.0,
+    "tax_amount": 9000.0,
+    "total_amount": 59000.0,
+    "status": "Unpaid",
+    "irn": "60c89e47266fa7403996547b2d29f8d9ed3cac502672d2aa86747748256e2286",
+    "ack_no": "112691113753",
+    "qr_data": "SRISRI-IRN-60c89e47266fa740-AMT-59000.0",
+    "posted_to_ledger": false
+  },
+  {
+    "id": "INV-2026-008",
+    "customer_name": "શ્રીજી ગ્લોબલ ટ્રેડિંગ કોર્પોરેશન",
+    "customer_gstin": "24AAACG1122H1Z4",
+    "customer_email": "info@shreejicorp.com",
+    "date": "2026-10-04",
+    "due_date": "2026-10-04",
+    "currency": "INR",
+    "items": [
+      {
+        "description": "AI ક્લાઉડ એકાઉન્ટિંગ સૉફ્ટવેર લાયસન્સ",
+        "hsn": "998313",
+        "qty": 1,
+        "rate": 50000.0,
+        "tax_rate": 18.0,
+        "amount": 50000.0
+      }
+    ],
+    "subtotal": 50000.0,
+    "tax_amount": 9000.0,
+    "total_amount": 59000.0,
+    "status": "Unpaid",
+    "irn": "fdc53d0165071fbf7881eacaafa39f93ae3ae05db036786c49af2dda15106631",
+    "ack_no": "112691112388",
+    "qr_data": "SRISRI-IRN-fdc53d0165071fbf-AMT-59000.0",
+    "posted_to_ledger": false
+  },
+  {
+    "id": "INV-2026-007",
+    "customer_name": "શ્રીજી ગ્લોબલ ટ્રેડિંગ કોર્પોરેશન",
+    "customer_gstin": "24AAACG1122H1Z4",
+    "customer_email": "info@shreejicorp.com",
+    "date": "2026-10-04",
+    "due_date": "2026-10-04",
+    "currency": "INR",
+    "items": [
+      {
+        "description": "AI ક્લાઉડ એકાઉન્ટિંગ સૉફ્ટવેર લાયસન્સ",
+        "hsn": "998313",
+        "qty": 1,
+        "rate": 50000.0,
+        "tax_rate": 18.0,
+        "amount": 50000.0
+      }
+    ],
+    "subtotal": 50000.0,
+    "tax_amount": 9000.0,
+    "total_amount": 59000.0,
+    "status": "Unpaid",
+    "irn": "9885c91f6dc7b8ea6c16ac2aaee84b80586977a8631019517f32e42139a92048",
+    "ack_no": "112691109406",
+    "qr_data": "SRISRI-IRN-9885c91f6dc7b8ea-AMT-59000.0",
+    "posted_to_ledger": false
+  },
+  {
+    "id": "INV-2026-006",
+    "customer_name": "શ્રીજી ગ્લોબલ ટ્રેડિંગ કોર્પોરેશન",
+    "customer_gstin": "24AAACG1122H1Z4",
+    "customer_email": "info@shreejicorp.com",
+    "date": "2026-10-03",
+    "due_date": "2026-10-03",
+    "currency": "INR",
+    "items": [
+      {
+        "description": "AI ક્લાઉડ એકાઉન્ટિંગ સૉફ્ટવેર લાયસન્સ",
+        "hsn": "998313",
+        "qty": 1,
+        "rate": 50000.0,
+        "tax_rate": 18.0,
+        "amount": 50000.0
+      }
+    ],
+    "subtotal": 50000.0,
+    "tax_amount": 9000.0,
+    "total_amount": 59000.0,
+    "status": "Unpaid",
+    "irn": "f2b13e2a57cdbd17cacb7397cd34d71719c1414a2c586c6577cff15c441082f6",
+    "ack_no": "112691040191",
+    "qr_data": "SRISRI-IRN-f2b13e2a57cdbd17-AMT-59000.0",
+    "posted_to_ledger": false
+  },
+  {
+    "id": "INV-2026-005",
+    "customer_name": "શ્રીજી ગ્લોબલ ટ્રેડિંગ કોર્પોરેશન",
+    "customer_gstin": "24AAACG1122H1Z4",
+    "customer_email": "info@shreejicorp.com",
+    "date": "2026-10-03",
+    "due_date": "2026-10-03",
+    "currency": "INR",
+    "items": [
+      {
+        "description": "AI ક્લાઉડ એકાઉન્ટિંગ સૉફ્ટવેર લાયસન્સ",
+        "hsn": "998313",
+        "qty": 1,
+        "rate": 50000.0,
+        "tax_rate": 18.0,
+        "amount": 50000.0
+      }
+    ],
+    "subtotal": 50000.0,
+    "tax_amount": 9000.0,
+    "total_amount": 59000.0,
+    "status": "Unpaid",
+    "irn": "0f748c12e9a055853d5fe57ba219ba842fa7bbf53d82519488249b977c9dddc2",
+    "ack_no": "112691039677",
+    "qr_data": "SRISRI-IRN-0f748c12e9a05585-AMT-59000.0",
+    "posted_to_ledger": false
+  },
+  {
+    "id": "INV-2026-004",
+    "customer_name": "શ્રીજી ગ્લોબલ ટ્રેડિંગ કોર્પોરેશન",
+    "customer_gstin": "24AAACG1122H1Z4",
+    "customer_email": "info@shreejicorp.com",
+    "date": "2026-10-03",
+    "due_date": "2026-10-03",
+    "currency": "INR",
+    "items": [
+      {
+        "description": "AI ક્લાઉડ એકાઉન્ટિંગ સૉફ્ટવેર લાયસન્સ",
+        "hsn": "998313",
+        "qty": 1,
+        "rate": 50000.0,
+        "tax_rate": 18.0,
+        "amount": 50000.0
+      }
+    ],
+    "subtotal": 50000.0,
+    "tax_amount": 9000.0,
+    "total_amount": 59000.0,
+    "status": "Unpaid",
+    "irn": "052261a6b2a66c79b454015a9d1ddaf796e876a373c518cdcc55e4a5051745c6",
+    "ack_no": "112691038811",
+    "qr_data": "SRISRI-IRN-052261a6b2a66c79-AMT-59000.0",
+    "posted_to_ledger": false
+  },
+  {
+    "id": "INV-2026-003",
+    "customer_name": "નવકાર એન્ટરપ્રાઇઝ",
+    "customer_gstin": "24AABCN1234E1Z1",
+    "customer_email": "",
+    "date": "2026-10-03",
+    "due_date": "2026-10-03",
+    "currency": "INR",
+    "items": [
+      {
+        "description": "AI ઓટોમેશન લાયસન્સ",
+        "hsn": "997331",
+        "qty": 1,
+        "rate": 50000.0,
+        "tax_rate": 18.0
+      }
+    ],
+    "subtotal": 50000.0,
+    "tax_amount": 9000.0,
+    "total_amount": 59000.0,
+    "status": "Unpaid",
+    "irn": "06a3b0684bcdbd2e0c2dd46bd7867a6e83c43ca12c3f6dcdcb7e737c15b0a50f",
+    "ack_no": "112691031562",
+    "qr_data": "SRISRI-IRN-06a3b0684bcdbd2e-AMT-59000.0",
+    "posted_to_ledger": false
+  },
+  {
+    "id": "INV-2026-001",
+    "customer_name": "આર્યન ટેકનોલોજીસ પ્રા. લી.",
+    "customer_gstin": "24AAACA1234F1Z5",
+    "customer_email": "finance@aryantech.in",
+    "date": "2026-09-15",
+    "due_date": "2026-10-15",
+    "currency": "INR",
+    "items": [
+      {
+        "description": "AI સોફ્ટવેર કન્સલ્ટિંગ & ઓડિટ સર્વિસ",
+        "hsn": "998313",
+        "qty": 1,
+        "rate": 100000.0,
+        "tax_rate": 18.0,
+        "amount": 100000.0
+      },
+      {
+        "description": "ક્લાઉડ એકાઉન્ટિંગ સેટઅપ લાયસન્સ",
+        "hsn": "997331",
+        "qty": 2,
+        "rate": 25000.0,
+        "tax_rate": 18.0,
+        "amount": 50000.0
+      }
+    ],
+    "subtotal": 150000.0,
+    "tax_amount": 27000.0,
+    "total_amount": 177000.0,
+    "status": "Paid",
+    "irn": "4a7f29b19e23098f98a287c88b9e6f33d7890123456789abcdef0123456789ab",
+    "ack_no": "112610998244",
+    "qr_data": "SRISRI-EINV-2026-001-GSTIN24AAACA1234F1Z5-AMT177000",
+    "posted_to_ledger": true
+  },
+  {
+    "id": "INV-2026-002",
+    "customer_name": "શ્રીજી ગ્લોબલ ટ્રેડર્સ",
+    "customer_gstin": "24BBBCB5678G1Z2",
+    "customer_email": "accounts@shreejiglobal.com",
+    "date": "2026-09-28",
+    "due_date": "2026-10-28",
+    "currency": "INR",
+    "items": [
+      {
+        "description": "ટેક્સ ઓડિટ અને કમ્પ્લાયન્સ પેકેજ",
+        "hsn": "998231",
+        "qty": 1,
+        "rate": 65000.0,
+        "tax_rate": 18.0,
+        "amount": 65000.0
+      }
+    ],
+    "subtotal": 65000.0,
+    "tax_amount": 11700.0,
+    "total_amount": 76700.0,
+    "status": "Pending",
+    "irn": "8f3e12c49a11077d87b176b77a8e5e22c67890123456789bcdef0123456789cd",
+    "ack_no": "112610998299",
+    "qr_data": "SRISRI-EINV-2026-002-GSTIN24BBBCB5678G1Z2-AMT76700",
+    "posted_to_ledger": false
+  }
+]

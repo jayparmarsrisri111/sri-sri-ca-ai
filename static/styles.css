@@ -1,0 +1,774 @@
+/*
+Sri Sri ❤️ AI CA & Global Tax Intelligence
+ICAI Royal Navy & Imperial Gold Master Design System (Supreme Chartered Accountant Standard)
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+Gujarati:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap');
+
+:root {
+    --bg-base: #07162c;
+    --bg-surface: #0b2240;
+    --bg-surface-elevated: #0f2d52;
+    --border-subtle: rgba(212, 175, 55, 0.22);
+    --border-highlight: rgba(212, 175, 55, 0.55);
+    --brand-navy: #07162c;
+    --brand-blue: #1d4ed8;
+    --brand-gold: #d4af37;
+    --brand-gold-glow: #fbbf24;
+    --brand-emerald: #10b981;
+    --text-primary: #f8fafc;
+    --text-secondary: #cbd5e1;
+    --text-muted: #94a3b8;
+}
+
+body {
+    font-family: 'Plus Jakarta Sans', 'Noto Sans Gujarati', 'Noto Sans Devanagari', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: var(--bg-base);
+    background-image: 
+        radial-gradient(at 0% 0%, rgba(29, 78, 216, 0.25) 0px, transparent 48%),
+        radial-gradient(at 100% 0%, rgba(212, 175, 55, 0.16) 0px, transparent 48%),
+        radial-gradient(at 50% 100%, rgba(16, 185, 129, 0.15) 0px, transparent 52%);
+    background-attachment: fixed;
+    color: var(--text-primary);
+    overflow-x: hidden;
+}
+
+.font-mono {
+    font-family: 'JetBrains Mono', monospace;
+}
+
+/* Sidebar Styles - ICAI Royal Navy & Imperial Gold */
+.app-sidebar {
+    width: 280px;
+    background-color: rgba(7, 22, 44, 0.96);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-right: 1px solid var(--border-subtle);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 40;
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.45);
+}
+
+@media (max-width: 1024px) {
+    .app-sidebar {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        transform: translateX(-100%);
+    }
+    .app-sidebar.sidebar-open {
+        transform: translateX(0);
+    }
+}
+
+.sidebar-nav-item {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 0.65rem 0.9rem;
+    border-radius: 0.85rem;
+    color: #94a3b8;
+    font-size: 0.825rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+}
+
+.sidebar-nav-item:hover {
+    color: #f8fafc;
+    background-color: rgba(15, 45, 82, 0.65);
+    border-color: rgba(212, 175, 55, 0.3);
+}
+
+.sidebar-nav-item.active {
+    color: #fbbf24;
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.18) 0%, rgba(29, 78, 216, 0.12) 100%);
+    border-color: rgba(212, 175, 55, 0.55);
+    box-shadow: 0 2px 14px rgba(212, 175, 55, 0.22);
+    font-weight: 700;
+}
+
+.sidebar-nav-item.active svg {
+    color: #fbbf24;
+}
+
+/* Full HD Ambient Animated Aurora Mesh (Royal Sapphire, Imperial Gold, Statutory Emerald) */
+.aurora-bg-mesh {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.aurora-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(85px);
+    opacity: 0.42;
+    animation: auroraFloat 22s infinite alternate ease-in-out;
+    will-change: transform;
+}
+
+.aurora-orb-1 {
+    width: 500px;
+    height: 500px;
+    top: -80px;
+    left: -80px;
+    background: radial-gradient(circle, rgba(29, 78, 216, 0.38) 0%, rgba(29, 78, 216, 0) 70%);
+    animation-duration: 20s;
+}
+
+.aurora-orb-2 {
+    width: 620px;
+    height: 620px;
+    bottom: -100px;
+    right: -80px;
+    background: radial-gradient(circle, rgba(212, 175, 55, 0.28) 0%, rgba(212, 175, 55, 0) 70%);
+    animation-duration: 25s;
+    animation-delay: -6s;
+}
+
+.aurora-orb-3 {
+    width: 480px;
+    height: 480px;
+    top: 35%;
+    left: 45%;
+    background: radial-gradient(circle, rgba(16, 185, 129, 0.26) 0%, rgba(16, 185, 129, 0) 70%);
+    animation-duration: 28s;
+    animation-delay: -12s;
+}
+
+@keyframes auroraFloat {
+    0% { transform: translate3d(0, 0, 0) scale(1); }
+    50% { transform: translate3d(50px, -35px, 0) scale(1.12); }
+    100% { transform: translate3d(-35px, 45px, 0) scale(0.94); }
+}
+
+html.pure-white .aurora-orb {
+    opacity: 0.12;
+}
+
+/* Cards & Surfaces - Deep ICAI Royal Navy Frosted Glass with Imperial Gold Shimmer */
+.surface-card {
+    background: linear-gradient(145deg, rgba(11, 34, 64, 0.88) 0%, rgba(7, 22, 44, 0.94) 100%);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(212, 175, 55, 0.24);
+    border-radius: 1.25rem;
+    box-shadow: 0 10px 28px -6px rgba(0, 0, 0, 0.5), 0 2px 8px -2px rgba(212, 175, 55, 0.1);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.surface-card::after, .kpi-card-modern::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        60deg,
+        transparent 35%,
+        rgba(212, 175, 55, 0.18) 50%,
+        transparent 65%
+    );
+    transform: rotate(25deg) translateY(-100%);
+    transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.surface-card:hover::after, .kpi-card-modern:hover::after {
+    transform: rotate(25deg) translateY(100%);
+}
+
+.surface-card:hover {
+    border-color: rgba(212, 175, 55, 0.55);
+    transform: translateY(-2px);
+    box-shadow: 0 16px 36px -6px rgba(0, 0, 0, 0.6), 0 0 25px rgba(212, 175, 55, 0.2);
+}
+
+.kpi-card-modern {
+    background: linear-gradient(145deg, rgba(15, 45, 82, 0.85) 0%, rgba(11, 34, 64, 0.92) 100%);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid rgba(212, 175, 55, 0.24);
+    border-radius: 1.15rem;
+    padding: 1.35rem;
+    transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 6px 20px -4px rgba(0, 0, 0, 0.4);
+}
+
+.kpi-card-modern::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #d4af37, #10b981, transparent);
+}
+
+.kpi-card-modern:hover {
+    transform: translateY(-3px) scale(1.01);
+    border-color: rgba(212, 175, 55, 0.6);
+    box-shadow: 0 14px 30px -4px rgba(0, 0, 0, 0.55), 0 0 22px rgba(212, 175, 55, 0.22);
+}
+
+/* Full HD Tab Entrance Glide (60fps Spring Simulation) */
+@keyframes tabEnterHD {
+    0% {
+        opacity: 0;
+        transform: translate3d(0, 14px, 0) scale(0.995);
+        filter: blur(3px);
+    }
+    100% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0) scale(1);
+        filter: blur(0);
+    }
+}
+
+.tab-pane {
+    animation: tabEnterHD 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    will-change: opacity, transform, filter;
+}
+
+/* HD Laser Scan Animation for OCR DropZone */
+@keyframes laserScanHD {
+    0% {
+        top: 0%;
+        opacity: 0;
+    }
+    15% {
+        opacity: 1;
+    }
+    85% {
+        opacity: 1;
+    }
+    100% {
+        top: 98%;
+        opacity: 0;
+    }
+}
+
+.laser-scanner-line {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #10b981, #d4af37, #fbbf24, transparent);
+    box-shadow: 0 0 16px #10b981, 0 0 28px #d4af37;
+    animation: laserScanHD 2.8s infinite ease-in-out;
+    pointer-events: none;
+    z-index: 10;
+}
+
+/* Live Pulse Radar Dot with HD Glow */
+.radar-dot {
+    position: relative;
+    width: 8px;
+    height: 8px;
+    background-color: #10b981;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #10b981;
+}
+
+.radar-dot::after {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #10b981;
+    border-radius: 50%;
+    animation: pulseDot 2s infinite cubic-bezier(0, 0.2, 0.8, 1);
+}
+
+@keyframes pulseDot {
+    0% { transform: scale(0.5); opacity: 1; }
+    100% { transform: scale(2.3); opacity: 0; }
+}
+
+/* HD Breathing Glow Badge */
+@keyframes breatheGlow {
+    0%, 100% {
+        box-shadow: 0 0 10px rgba(212, 175, 55, 0.2), inset 0 0 5px rgba(212, 175, 55, 0.1);
+        border-color: rgba(212, 175, 55, 0.35);
+    }
+    50% {
+        box-shadow: 0 0 22px rgba(212, 175, 55, 0.55), inset 0 0 10px rgba(212, 175, 55, 0.3);
+        border-color: rgba(251, 191, 36, 0.75);
+    }
+}
+
+.glow-badge-hd {
+    animation: breatheGlow 3s infinite ease-in-out;
+}
+
+/* Accessible Reduced Motion Fallback */
+@media (prefers-reduced-motion: reduce) {
+    *, ::before, ::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    .aurora-bg-mesh {
+        display: none !important;
+    }
+}
+
+/* Custom Scrollbars in Royal Gold */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: #07162c;
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(212, 175, 55, 0.35);
+    border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(212, 175, 55, 0.65);
+}
+
+/* Print styles */
+@media print {
+    .app-sidebar, header, button, .no-print {
+        display: none !important;
+    }
+    body {
+        background: #ffffff !important;
+        color: #000000 !important;
+    }
+    .surface-card, .kpi-card-modern {
+        border: 1px solid #ccc !important;
+        background: none !important;
+        box-shadow: none !important;
+        color: #000 !important;
+    }
+    table, th, td {
+        color: #000 !important;
+        border-color: #ddd !important;
+    }
+}
+
+/* ================= ICAI ROYAL NAVY BLUE & IMPERIAL GOLD DESIGN SYSTEM ================= */
+
+/* Background utilities in ICAI Royal Navy */
+body,
+.bg-slate-950 {
+    background-color: #07162c !important;
+}
+
+.bg-slate-900 {
+    background-color: #0b2240 !important;
+}
+
+.bg-slate-950\/70,
+.bg-slate-950\/80,
+.bg-slate-950\/85 {
+    background-color: rgba(7, 22, 44, 0.94) !important;
+}
+
+.bg-slate-900\/40,
+.bg-slate-900\/50,
+.bg-slate-900\/80,
+.bg-slate-900\/90 {
+    background-color: rgba(11, 34, 64, 0.92) !important;
+}
+
+.bg-slate-800,
+.bg-slate-800\/50,
+.bg-slate-800\/60,
+.bg-slate-800\/70,
+.bg-slate-800\/80 {
+    background-color: #0f2d52 !important;
+}
+
+/* Borders in ICAI Royal Navy & Imperial Gold Trim */
+.border-slate-800,
+.border-slate-800\/80,
+.border-slate-700,
+.border-slate-700\/80 {
+    border-color: rgba(212, 175, 55, 0.22) !important;
+}
+
+.divide-slate-800 > :not([hidden]) ~ :not([hidden]) {
+    border-color: rgba(212, 175, 55, 0.18) !important;
+}
+
+/* Typography in ICAI Royal Navy (Crisp Diamond White & Gold Accents) */
+.text-white {
+    color: #f8fafc !important;
+}
+
+/* Action buttons with colored gradients keep white text */
+button.bg-gradient-to-r,
+button.bg-gradient-to-r *,
+button.bg-emerald-600,
+button.bg-emerald-600 *,
+button.bg-indigo-600,
+button.bg-indigo-600 *,
+.btn-primary,
+.bg-emerald-600,
+.bg-emerald-600 * {
+    color: #ffffff !important;
+}
+
+.text-slate-100,
+.text-slate-200 {
+    color: #f1f5f9 !important;
+}
+
+.text-slate-300 {
+    color: #cbd5e1 !important;
+}
+
+.text-slate-400 {
+    color: #94a3b8 !important;
+}
+
+.text-slate-500 {
+    color: #64748b !important;
+}
+
+/* Header in ICAI Royal Navy */
+header {
+    background-color: rgba(7, 22, 44, 0.95) !important;
+    border-bottom-color: rgba(212, 175, 55, 0.24) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.45) !important;
+}
+
+/* Form Controls & Dropdowns in ICAI Royal Navy */
+select,
+input,
+textarea {
+    background-color: #0b2240 !important;
+    color: #f8fafc !important;
+    border-color: rgba(212, 175, 55, 0.3) !important;
+}
+
+select option {
+    background-color: #0b2240 !important;
+    color: #f8fafc !important;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: #64748b !important;
+}
+
+/* Tables in ICAI Royal Navy */
+thead {
+    background: linear-gradient(90deg, #0b2240, #0f2d52) !important;
+    color: #fbbf24 !important;
+}
+
+tbody tr:hover {
+    background-color: rgba(15, 45, 82, 0.7) !important;
+}
+
+tbody tr, th, td {
+    border-color: rgba(212, 175, 55, 0.16) !important;
+}
+
+/* Modals in ICAI Royal Navy */
+#authModal > div,
+#newEntryModal > div,
+#securityModal > div,
+#salarySlipModal > div,
+#invoiceDetailModal > div,
+#exportModal > div,
+#newInvoiceModal > div,
+#addSkuModal > div,
+#addEmpModal > div {
+    background-color: #0b2240 !important;
+    border-color: rgba(212, 175, 55, 0.35) !important;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.75) !important;
+}
+
+/* DropZone in ICAI Royal Navy */
+#dropZone {
+    background-color: rgba(11, 34, 64, 0.75) !important;
+    border-color: rgba(212, 175, 55, 0.45) !important;
+}
+
+/* Notice & Chat in ICAI Royal Navy */
+#chatMessages .bg-slate-900 {
+    background-color: #0b2240 !important;
+    border-color: rgba(212, 175, 55, 0.25) !important;
+    color: #f8fafc !important;
+}
+
+#noticeResultArea {
+    background-color: #091c36 !important;
+    border-color: rgba(212, 175, 55, 0.25) !important;
+}
+
+/* Scrollbars in ICAI Royal Navy */
+::-webkit-scrollbar-track {
+    background: #07162c !important;
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(212, 175, 55, 0.35) !important;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(212, 175, 55, 0.65) !important;
+}
+
+/* ================= OPTIONAL PURE WHITE ACCENT MODE ================= */
+html.pure-white body,
+html.pure-white .bg-slate-950 {
+    background-color: #f8fafc !important;
+    color: #0c2340 !important;
+}
+
+html.pure-white .surface-card {
+    background: #ffffff !important;
+    border-color: #e2e8f0 !important;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08) !important;
+}
+
+html.pure-white .app-sidebar {
+    background-color: rgba(255, 255, 255, 0.98) !important;
+    border-right-color: #e2e8f0 !important;
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.06) !important;
+}
+
+html.pure-white header {
+    background-color: rgba(255, 255, 255, 0.96) !important;
+    border-bottom-color: #e2e8f0 !important;
+    box-shadow: 0 2px 14px rgba(0, 0, 0, 0.05) !important;
+}
+
+html.pure-white .text-white {
+    color: #0c2340 !important;
+}
+
+html.pure-white .text-slate-200,
+html.pure-white .text-slate-300 {
+    color: #1e293b !important;
+}
+
+html.pure-white .text-slate-400 {
+    color: #475569 !important;
+}
+
+html.pure-white select,
+html.pure-white input,
+html.pure-white textarea {
+    background-color: #ffffff !important;
+    color: #0c2340 !important;
+    border-color: #cbd5e1 !important;
+}
+
+/* ================= COMPREHENSIVE CROSS-DEVICE RESPONSIVE SUITE ================= */
+
+/* Safe area insets for iOS notches, rounded corners and Android gesture bars */
+:root {
+    --safe-area-top: env(safe-area-inset-top, 0px);
+    --safe-area-bottom: env(safe-area-inset-bottom, 0px);
+    --safe-area-left: env(safe-area-inset-left, 0px);
+    --safe-area-right: env(safe-area-inset-right, 0px);
+}
+
+/* Mobile Sidebar Backdrop */
+.sidebar-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(7, 22, 44, 0.7);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 39;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.sidebar-backdrop.active {
+    display: block;
+    opacity: 1;
+}
+
+/* Mobile Floating Bottom Navigation Bar (< 768px) */
+.mobile-bottom-nav {
+    display: none;
+}
+
+@media (max-width: 767px) {
+    .mobile-bottom-nav {
+        display: flex;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: calc(58px + var(--safe-area-bottom));
+        padding-bottom: var(--safe-area-bottom);
+        background: rgba(7, 22, 44, 0.96);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-top: 1px solid rgba(212, 175, 55, 0.25);
+        z-index: 45;
+        align-items: center;
+        justify-content: space-around;
+        box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.55);
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+
+    html.pure-white .mobile-bottom-nav {
+        background: rgba(255, 255, 255, 0.98) !important;
+        border-top-color: #e2e8f0 !important;
+        box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.08) !important;
+    }
+
+    .mobile-bottom-nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
+        height: 100%;
+        color: #94a3b8;
+        font-size: 0.625rem;
+        font-weight: 600;
+        transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        padding: 4px 1px;
+        min-width: 0;
+        text-decoration: none;
+        cursor: pointer;
+        user-select: none;
+        border-radius: 0.5rem;
+    }
+
+    .mobile-bottom-nav-item:active {
+        transform: scale(0.92);
+    }
+
+    .mobile-bottom-nav-item.active {
+        color: #fbbf24;
+    }
+
+    .mobile-bottom-nav-item svg {
+        width: 1.25rem;
+        height: 1.25rem;
+        margin-bottom: 2px;
+        transition: transform 0.2s ease;
+    }
+
+    .mobile-bottom-nav-item.active svg {
+        transform: translateY(-2px);
+        color: #fbbf24;
+    }
+
+    /* Add bottom breathing room so content isn't covered by bottom navigation */
+    main {
+        padding-bottom: calc(76px + var(--safe-area-bottom)) !important;
+    }
+}
+
+/* Touch Ergonomics & Responsive Table Wrappers */
+.table-responsive-wrapper,
+.overflow-x-auto {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 0.75rem;
+}
+
+.table-responsive-wrapper::-webkit-scrollbar,
+.overflow-x-auto::-webkit-scrollbar {
+    height: 4px;
+}
+
+.table-responsive-wrapper::-webkit-scrollbar-thumb,
+.overflow-x-auto::-webkit-scrollbar-thumb {
+    background: rgba(212, 175, 55, 0.45);
+    border-radius: 2px;
+}
+
+.overflow-x-auto > table {
+    min-width: 580px;
+}
+
+/* Responsive Breakpoints Fine-Tuning */
+
+/* Small Smartphones (320px - 480px) */
+@media (max-width: 480px) {
+    header {
+        padding-left: 0.75rem !important;
+        padding-right: 0.75rem !important;
+        height: 3.75rem !important;
+    }
+
+    .surface-card {
+        padding: 1rem !important;
+        border-radius: 1rem !important;
+    }
+
+    .kpi-card-modern {
+        padding: 0.85rem !important;
+    }
+
+    /* Prevent mobile input zooming on iOS */
+    input, select, textarea {
+        font-size: 16px !important;
+    }
+
+    /* Modal full-bleed on small screens */
+    #authModal > div,
+    #newEntryModal > div,
+    #securityModal > div {
+        max-width: 95vw !important;
+        padding: 1.25rem !important;
+        margin: 0.5rem !important;
+    }
+}
+
+/* Tablets (481px - 1024px) */
+@media (min-width: 481px) and (max-width: 1024px) {
+    .app-sidebar {
+        width: 300px;
+    }
+    
+    .surface-card {
+        padding: 1.35rem;
+    }
+}
+
+/* Desktops & Large Displays (> 1025px) */
+@media (min-width: 1025px) {
+    .app-sidebar {
+        width: 280px;
+    }
+}
+
+/* Ultra-Wide Monitors (> 1920px) */
+@media (min-width: 1921px) {
+    main {
+        max-width: 1600px !important;
+    }
+}
+
+/* PWA Install Banner & Badge */
+.pwa-install-badge {
+    animation: bounceSlow 3s infinite ease-in-out;
+}
+
+@keyframes bounceSlow {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+}

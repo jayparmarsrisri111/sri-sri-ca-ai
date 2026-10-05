@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: sri-sri-ca-ai
+    env: python
+    region: singapore
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: DEFAULT_COUNTRY
+        value: IN
+    customDomains:
+      - www.srisricaai.com
+      - srisricaai.com

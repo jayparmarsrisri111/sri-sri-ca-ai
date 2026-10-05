@@ -1,0 +1,702 @@
+[
+  {
+    "timestamp": "2026-10-02 14:03:59 UTC",
+    "event_type": "LOGIN_SUCCESS",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "User ca@srisri.com authenticated successfully"
+  },
+  {
+    "timestamp": "2026-10-03 12:45:36 UTC",
+    "event_type": "UDIN_GENERATED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Generated UDIN 26542190005D031536 for Shree Ram"
+  },
+  {
+    "timestamp": "2026-10-03 12:46:02 UTC",
+    "event_type": "E_INVOICE_GENERATED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Invoice INV-2026-003 generated with IRN 06a3b0684bcdbd2e..."
+  },
+  {
+    "timestamp": "2026-10-03 13:33:09 UTC",
+    "event_type": "AUDIT_REPORT_SIGNED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Report Form 3CD signed by CA 542190"
+  },
+  {
+    "timestamp": "2026-10-03 14:46:50 UTC",
+    "event_type": "LOGIN_SUCCESS",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "User test_1791038810@srisri.com authenticated successfully"
+  },
+  {
+    "timestamp": "2026-10-03 14:46:50 UTC",
+    "event_type": "LOGIN_SUCCESS",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "User test_1791038810@srisri.com authenticated successfully"
+  },
+  {
+    "timestamp": "2026-10-03 14:46:51 UTC",
+    "event_type": "LOGIN_FAILURE",
+    "client_ip": "127.0.0.1",
+    "severity": "WARNING",
+    "details": "Failed login for test_1791038810@srisri.com. Total failures: 1"
+  },
+  {
+    "timestamp": "2026-10-03 14:46:51 UTC",
+    "event_type": "JOURNAL_ENTRY_POSTED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Ref: TEST-VCH-1791038811, Amount: 25000.0"
+  },
+  {
+    "timestamp": "2026-10-03 14:46:51 UTC",
+    "event_type": "E_INVOICE_GENERATED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Invoice INV-2026-004 generated with IRN 052261a6b2a66c79..."
+  },
+  {
+    "timestamp": "2026-10-03 14:46:51 UTC",
+    "event_type": "INVENTORY_SKU_ADDED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Added SKU: હાઇ-સ્પીડ બારકોડ / QR સ્કેનર ટર્મિનલ"
+  },
+  {
+    "timestamp": "2026-10-03 14:46:51 UTC",
+    "event_type": "PAYROLL_PROCESSED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Processed payroll for દિલીપ જોશી"
+  },
+  {
+    "timestamp": "2026-10-03 14:46:51 UTC",
+    "event_type": "UDIN_GENERATED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Generated UDIN 265421900FBD038811 for આર્યન ટેકનોલોજીસ"
+  },
+  {
+    "timestamp": "2026-10-03 14:46:51 UTC",
+    "event_type": "AUDIT_REPORT_SIGNED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Report Form 3CD Tax Audit signed by CA 542190"
+  },
+  {
+    "timestamp": "2026-10-03 14:46:51 UTC",
+    "event_type": "GOVT_GSP_SYNCED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Synced GSTR-1 to Govt Portal with ARN ARN1791038811023"
+  },
+  {
+    "timestamp": "2026-10-03 14:46:51 UTC",
+    "event_type": "AA_BANK_FEED_SYNCED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Live bank feeds pulled via RBI Account Aggregator"
+  },
+  {
+    "timestamp": "2026-10-03 14:46:51 UTC",
+    "event_type": "JOURNAL_ENTRY_POSTED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Ref: XSS-REF, Amount: 1000.0"
+  },
+  {
+    "timestamp": "2026-10-03 15:01:16 UTC",
+    "event_type": "LOGIN_SUCCESS",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "User test_1791039676@srisri.com authenticated successfully"
+  },
+  {
+    "timestamp": "2026-10-03 15:01:17 UTC",
+    "event_type": "LOGIN_SUCCESS",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "User test_1791039676@srisri.com authenticated successfully"
+  },
+  {
+    "timestamp": "2026-10-03 15:01:17 UTC",
+    "event_type": "LOGIN_FAILURE",
+    "client_ip": "127.0.0.1",
+    "severity": "WARNING",
+    "details": "Failed login for test_1791039676@srisri.com. Total failures: 1"
+  },
+  {
+    "timestamp": "2026-10-03 15:01:17 UTC",
+    "event_type": "JOURNAL_ENTRY_POSTED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Ref: TEST-VCH-1791039677, Amount: 25000.0"
+  },
+  {
+    "timestamp": "2026-10-03 15:01:17 UTC",
+    "event_type": "E_INVOICE_GENERATED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Invoice INV-2026-005 generated with IRN 0f748c12e9a05585..."
+  },
+  {
+    "timestamp": "2026-10-03 15:01:17 UTC",
+    "event_type": "INVENTORY_SKU_ADDED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Added SKU: હાઇ-સ્પીડ બારકોડ / QR સ્કેનર ટર્મિનલ"
+  },
+  {
+    "timestamp": "2026-10-03 15:01:17 UTC",
+    "event_type": "PAYROLL_PROCESSED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Processed payroll for દિલીપ જોશી"
+  },
+  {
+    "timestamp": "2026-10-03 15:01:17 UTC",
+    "event_type": "UDIN_GENERATED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Generated UDIN 26542190B24D039677 for આર્યન ટેકનોલોજીસ"
+  },
+  {
+    "timestamp": "2026-10-03 15:01:17 UTC",
+    "event_type": "AUDIT_REPORT_SIGNED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Report Form 3CD Tax Audit signed by CA 542190"
+  },
+  {
+    "timestamp": "2026-10-03 15:01:17 UTC",
+    "event_type": "GOVT_GSP_SYNCED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Synced GSTR-1 to Govt Portal with ARN ARN1791039677023"
+  },
+  {
+    "timestamp": "2026-10-03 15:01:17 UTC",
+    "event_type": "AA_BANK_FEED_SYNCED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Live bank feeds pulled via RBI Account Aggregator"
+  },
+  {
+    "timestamp": "2026-10-03 15:01:17 UTC",
+    "event_type": "JOURNAL_ENTRY_POSTED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Ref: XSS-REF, Amount: 1000.0"
+  },
+  {
+    "timestamp": "2026-10-03 15:09:50 UTC",
+    "event_type": "LOGIN_SUCCESS",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "User test_1791040190@srisri.com authenticated successfully"
+  },
+  {
+    "timestamp": "2026-10-03 15:09:50 UTC",
+    "event_type": "LOGIN_SUCCESS",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "User test_1791040190@srisri.com authenticated successfully"
+  },
+  {
+    "timestamp": "2026-10-03 15:09:51 UTC",
+    "event_type": "LOGIN_FAILURE",
+    "client_ip": "127.0.0.1",
+    "severity": "WARNING",
+    "details": "Failed login for test_1791040190@srisri.com. Total failures: 1"
+  },
+  {
+    "timestamp": "2026-10-03 15:09:51 UTC",
+    "event_type": "JOURNAL_ENTRY_POSTED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Ref: TEST-VCH-1791040191, Amount: 25000.0"
+  },
+  {
+    "timestamp": "2026-10-03 15:09:51 UTC",
+    "event_type": "E_INVOICE_GENERATED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Invoice INV-2026-006 generated with IRN f2b13e2a57cdbd17..."
+  },
+  {
+    "timestamp": "2026-10-03 15:09:51 UTC",
+    "event_type": "INVENTORY_SKU_ADDED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Added SKU: હાઇ-સ્પીડ બારકોડ / QR સ્કેનર ટર્મિનલ"
+  },
+  {
+    "timestamp": "2026-10-03 15:09:51 UTC",
+    "event_type": "PAYROLL_PROCESSED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Processed payroll for દિલીપ જોશી"
+  },
+  {
+    "timestamp": "2026-10-03 15:09:51 UTC",
+    "event_type": "UDIN_GENERATED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Generated UDIN 26542190BFEA040191 for આર્યન ટેકનોલોજીસ"
+  },
+  {
+    "timestamp": "2026-10-03 15:09:51 UTC",
+    "event_type": "AUDIT_REPORT_SIGNED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Report Form 3CD Tax Audit signed by CA 542190"
+  },
+  {
+    "timestamp": "2026-10-03 15:09:51 UTC",
+    "event_type": "GOVT_GSP_SYNCED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Synced GSTR-1 to Govt Portal with ARN ARN1791040191023"
+  },
+  {
+    "timestamp": "2026-10-03 15:09:51 UTC",
+    "event_type": "AA_BANK_FEED_SYNCED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Live bank feeds pulled via RBI Account Aggregator"
+  },
+  {
+    "timestamp": "2026-10-03 15:09:51 UTC",
+    "event_type": "JOURNAL_ENTRY_POSTED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Ref: XSS-REF, Amount: 1000.0"
+  },
+  {
+    "timestamp": "2026-10-04 10:23:25 UTC",
+    "event_type": "LOGIN_SUCCESS",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "User test_1791109405@srisri.com authenticated successfully"
+  },
+  {
+    "timestamp": "2026-10-04 10:23:25 UTC",
+    "event_type": "LOGIN_SUCCESS",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "User test_1791109405@srisri.com authenticated successfully"
+  },
+  {
+    "timestamp": "2026-10-04 10:23:26 UTC",
+    "event_type": "LOGIN_FAILURE",
+    "client_ip": "127.0.0.1",
+    "severity": "WARNING",
+    "details": "Failed login for test_1791109405@srisri.com. Total failures: 1"
+  },
+  {
+    "timestamp": "2026-10-04 10:23:26 UTC",
+    "event_type": "JOURNAL_ENTRY_POSTED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Ref: TEST-VCH-1791109406, Amount: 25000.0"
+  },
+  {
+    "timestamp": "2026-10-04 10:23:26 UTC",
+    "event_type": "E_INVOICE_GENERATED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Invoice INV-2026-007 generated with IRN 9885c91f6dc7b8ea..."
+  },
+  {
+    "timestamp": "2026-10-04 10:23:26 UTC",
+    "event_type": "INVENTORY_SKU_ADDED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Added SKU: હાઇ-સ્પીડ બારકોડ / QR સ્કેનર ટર્મિનલ"
+  },
+  {
+    "timestamp": "2026-10-04 10:23:26 UTC",
+    "event_type": "PAYROLL_PROCESSED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Processed payroll for દિલીપ જોશી"
+  },
+  {
+    "timestamp": "2026-10-04 10:23:26 UTC",
+    "event_type": "UDIN_GENERATED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Generated UDIN 26542190F962109406 for આર્યન ટેકનોલોજીસ"
+  },
+  {
+    "timestamp": "2026-10-04 10:23:26 UTC",
+    "event_type": "AUDIT_REPORT_SIGNED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Report Form 3CD Tax Audit signed by CA 542190"
+  },
+  {
+    "timestamp": "2026-10-04 10:23:26 UTC",
+    "event_type": "GOVT_GSP_SYNCED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Synced GSTR-1 to Govt Portal with ARN ARN1791109406023"
+  },
+  {
+    "timestamp": "2026-10-04 10:23:26 UTC",
+    "event_type": "AA_BANK_FEED_SYNCED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Live bank feeds pulled via RBI Account Aggregator"
+  },
+  {
+    "timestamp": "2026-10-04 10:23:26 UTC",
+    "event_type": "JOURNAL_ENTRY_POSTED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Ref: XSS-REF, Amount: 1000.0"
+  },
+  {
+    "timestamp": "2026-10-04 11:13:08 UTC",
+    "event_type": "LOGIN_SUCCESS",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "User test_1791112387@srisri.com authenticated successfully"
+  },
+  {
+    "timestamp": "2026-10-04 11:13:08 UTC",
+    "event_type": "LOGIN_SUCCESS",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "User test_1791112387@srisri.com authenticated successfully"
+  },
+  {
+    "timestamp": "2026-10-04 11:13:08 UTC",
+    "event_type": "LOGIN_FAILURE",
+    "client_ip": "127.0.0.1",
+    "severity": "WARNING",
+    "details": "Failed login for test_1791112387@srisri.com. Total failures: 1"
+  },
+  {
+    "timestamp": "2026-10-04 11:13:08 UTC",
+    "event_type": "JOURNAL_ENTRY_POSTED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Ref: TEST-VCH-1791112388, Amount: 25000.0"
+  },
+  {
+    "timestamp": "2026-10-04 11:13:08 UTC",
+    "event_type": "E_INVOICE_GENERATED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Invoice INV-2026-008 generated with IRN fdc53d0165071fbf..."
+  },
+  {
+    "timestamp": "2026-10-04 11:13:08 UTC",
+    "event_type": "INVENTORY_SKU_ADDED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Added SKU: હાઇ-સ્પીડ બારકોડ / QR સ્કેનર ટર્મિનલ"
+  },
+  {
+    "timestamp": "2026-10-04 11:13:08 UTC",
+    "event_type": "PAYROLL_PROCESSED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Processed payroll for દિલીપ જોશી"
+  },
+  {
+    "timestamp": "2026-10-04 11:13:09 UTC",
+    "event_type": "UDIN_GENERATED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Generated UDIN 265421909AF1112389 for આર્યન ટેકનોલોજીસ"
+  },
+  {
+    "timestamp": "2026-10-04 11:13:09 UTC",
+    "event_type": "AUDIT_REPORT_SIGNED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Report Form 3CD Tax Audit signed by CA 542190"
+  },
+  {
+    "timestamp": "2026-10-04 11:13:09 UTC",
+    "event_type": "GOVT_GSP_SYNCED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Synced GSTR-1 to Govt Portal with ARN ARN1791112389023"
+  },
+  {
+    "timestamp": "2026-10-04 11:13:09 UTC",
+    "event_type": "AA_BANK_FEED_SYNCED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Live bank feeds pulled via RBI Account Aggregator"
+  },
+  {
+    "timestamp": "2026-10-04 11:13:09 UTC",
+    "event_type": "JOURNAL_ENTRY_POSTED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Ref: XSS-REF, Amount: 1000.0"
+  },
+  {
+    "timestamp": "2026-10-04 11:35:52 UTC",
+    "event_type": "LOGIN_SUCCESS",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "User test_1791113752@srisri.com authenticated successfully"
+  },
+  {
+    "timestamp": "2026-10-04 11:35:52 UTC",
+    "event_type": "LOGIN_SUCCESS",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "User test_1791113752@srisri.com authenticated successfully"
+  },
+  {
+    "timestamp": "2026-10-04 11:35:52 UTC",
+    "event_type": "LOGIN_FAILURE",
+    "client_ip": "127.0.0.1",
+    "severity": "WARNING",
+    "details": "Failed login for test_1791113752@srisri.com. Total failures: 1"
+  },
+  {
+    "timestamp": "2026-10-04 11:35:52 UTC",
+    "event_type": "JOURNAL_ENTRY_POSTED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Ref: TEST-VCH-1791113752, Amount: 25000.0"
+  },
+  {
+    "timestamp": "2026-10-04 11:35:53 UTC",
+    "event_type": "E_INVOICE_GENERATED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Invoice INV-2026-009 generated with IRN 60c89e47266fa740..."
+  },
+  {
+    "timestamp": "2026-10-04 11:35:53 UTC",
+    "event_type": "INVENTORY_SKU_ADDED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Added SKU: હાઇ-સ્પીડ બારકોડ / QR સ્કેનર ટર્મિનલ"
+  },
+  {
+    "timestamp": "2026-10-04 11:35:53 UTC",
+    "event_type": "PAYROLL_PROCESSED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Processed payroll for દિલીપ જોશી"
+  },
+  {
+    "timestamp": "2026-10-04 11:35:53 UTC",
+    "event_type": "UDIN_GENERATED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Generated UDIN 265421901B26113753 for આર્યન ટેકનોલોજીસ"
+  },
+  {
+    "timestamp": "2026-10-04 11:35:53 UTC",
+    "event_type": "AUDIT_REPORT_SIGNED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Report Form 3CD Tax Audit signed by CA 542190"
+  },
+  {
+    "timestamp": "2026-10-04 11:35:53 UTC",
+    "event_type": "GOVT_GSP_SYNCED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Synced GSTR-1 to Govt Portal with ARN ARN1791113753023"
+  },
+  {
+    "timestamp": "2026-10-04 11:35:53 UTC",
+    "event_type": "AA_BANK_FEED_SYNCED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Live bank feeds pulled via RBI Account Aggregator"
+  },
+  {
+    "timestamp": "2026-10-04 11:35:53 UTC",
+    "event_type": "JOURNAL_ENTRY_POSTED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Ref: XSS-REF, Amount: 1000.0"
+  },
+  {
+    "timestamp": "2026-10-04 13:43:04 UTC",
+    "event_type": "LOGIN_SUCCESS",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "User test_1791121384@srisri.com authenticated successfully"
+  },
+  {
+    "timestamp": "2026-10-04 13:43:04 UTC",
+    "event_type": "LOGIN_SUCCESS",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "User test_1791121384@srisri.com authenticated successfully"
+  },
+  {
+    "timestamp": "2026-10-04 13:43:04 UTC",
+    "event_type": "LOGIN_FAILURE",
+    "client_ip": "127.0.0.1",
+    "severity": "WARNING",
+    "details": "Failed login for test_1791121384@srisri.com. Total failures: 1"
+  },
+  {
+    "timestamp": "2026-10-04 13:43:04 UTC",
+    "event_type": "JOURNAL_ENTRY_POSTED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Ref: TEST-VCH-1791121384, Amount: 25000.0"
+  },
+  {
+    "timestamp": "2026-10-04 13:43:04 UTC",
+    "event_type": "E_INVOICE_GENERATED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Invoice INV-2026-010 generated with IRN 0c6c351bd4997402..."
+  },
+  {
+    "timestamp": "2026-10-04 13:43:05 UTC",
+    "event_type": "INVENTORY_SKU_ADDED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Added SKU: હાઇ-સ્પીડ બારકોડ / QR સ્કેનર ટર્મિનલ"
+  },
+  {
+    "timestamp": "2026-10-04 13:43:05 UTC",
+    "event_type": "PAYROLL_PROCESSED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Processed payroll for દિલીપ જોશી"
+  },
+  {
+    "timestamp": "2026-10-04 13:43:05 UTC",
+    "event_type": "UDIN_GENERATED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Generated UDIN 265421904BBB121385 for આર્યન ટેકનોલોજીસ"
+  },
+  {
+    "timestamp": "2026-10-04 13:43:05 UTC",
+    "event_type": "AUDIT_REPORT_SIGNED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Report Form 3CD Tax Audit signed by CA 542190"
+  },
+  {
+    "timestamp": "2026-10-04 13:43:05 UTC",
+    "event_type": "GOVT_GSP_SYNCED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Synced GSTR-1 to Govt Portal with ARN ARN1791121385023"
+  },
+  {
+    "timestamp": "2026-10-04 13:43:05 UTC",
+    "event_type": "AA_BANK_FEED_SYNCED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Live bank feeds pulled via RBI Account Aggregator"
+  },
+  {
+    "timestamp": "2026-10-04 13:43:05 UTC",
+    "event_type": "JOURNAL_ENTRY_POSTED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Ref: XSS-REF, Amount: 1000.0"
+  },
+  {
+    "timestamp": "2026-10-05 06:03:35 UTC",
+    "event_type": "LOGIN_SUCCESS",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "User test_1791180215@srisri.com authenticated successfully"
+  },
+  {
+    "timestamp": "2026-10-05 06:03:35 UTC",
+    "event_type": "LOGIN_SUCCESS",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "User test_1791180215@srisri.com authenticated successfully"
+  },
+  {
+    "timestamp": "2026-10-05 06:03:36 UTC",
+    "event_type": "LOGIN_FAILURE",
+    "client_ip": "127.0.0.1",
+    "severity": "WARNING",
+    "details": "Failed login for test_1791180215@srisri.com. Total failures: 1"
+  },
+  {
+    "timestamp": "2026-10-05 06:03:36 UTC",
+    "event_type": "JOURNAL_ENTRY_POSTED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Ref: TEST-VCH-1791180216, Amount: 25000.0"
+  },
+  {
+    "timestamp": "2026-10-05 06:03:36 UTC",
+    "event_type": "E_INVOICE_GENERATED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Invoice INV-2026-011 generated with IRN 08d5c0794c7ece97..."
+  },
+  {
+    "timestamp": "2026-10-05 06:03:36 UTC",
+    "event_type": "INVENTORY_SKU_ADDED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Added SKU: હાઇ-સ્પીડ બારકોડ / QR સ્કેનર ટર્મિનલ"
+  },
+  {
+    "timestamp": "2026-10-05 06:03:36 UTC",
+    "event_type": "PAYROLL_PROCESSED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Processed payroll for દિલીપ જોશી"
+  },
+  {
+    "timestamp": "2026-10-05 06:03:36 UTC",
+    "event_type": "UDIN_GENERATED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Generated UDIN 265421903ED3180216 for આર્યન ટેકનોલોજીસ"
+  },
+  {
+    "timestamp": "2026-10-05 06:03:36 UTC",
+    "event_type": "AUDIT_REPORT_SIGNED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Report Form 3CD Tax Audit signed by CA 542190"
+  },
+  {
+    "timestamp": "2026-10-05 06:03:36 UTC",
+    "event_type": "GOVT_GSP_SYNCED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Synced GSTR-1 to Govt Portal with ARN ARN1791180216023"
+  },
+  {
+    "timestamp": "2026-10-05 06:03:36 UTC",
+    "event_type": "AA_BANK_FEED_SYNCED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Live bank feeds pulled via RBI Account Aggregator"
+  },
+  {
+    "timestamp": "2026-10-05 06:03:37 UTC",
+    "event_type": "JOURNAL_ENTRY_POSTED",
+    "client_ip": "127.0.0.1",
+    "severity": "INFO",
+    "details": "Ref: XSS-REF, Amount: 1000.0"
+  }
+]
