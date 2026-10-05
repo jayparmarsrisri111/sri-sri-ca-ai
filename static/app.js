@@ -2230,7 +2230,48 @@ function performDeepDOMTranslation(lang) {
     }
 }
 
+// Active Banner Killer & Layout Protector
+function killGoogleTranslateBanner() {
+    if (document.body && document.body.style.top && document.body.style.top !== '0px') {
+        document.body.style.top = '0px';
+    }
+    const banners = document.querySelectorAll(
+        '.goog-te-banner-frame, .VIpgJd-ZVi9C-bHAdbe-ORHb-OEVmcd, .VIpgJd-ZVi9C-ORHb, body > .skiptranslate, body > div.skiptranslate, body > iframe.skiptranslate, #goog-gt-tt, .goog-te-balloon-frame'
+    );
+    banners.forEach(b => {
+        b.style.setProperty('display', 'none', 'important');
+        b.style.setProperty('visibility', 'hidden', 'important');
+        b.style.setProperty('height', '0px', 'important');
+        b.style.setProperty('max-height', '0px', 'important');
+        b.style.setProperty('opacity', '0', 'important');
+        b.style.setProperty('pointer-events', 'none', 'important');
+    });
+}
+
+// Global observer to kill Google banner immediately whenever inserted
+if (typeof window !== "undefined" && window.MutationObserver) {
+    const bannerObserver = new MutationObserver(() => {
+        killGoogleTranslateBanner();
+    });
+    document.addEventListener("DOMContentLoaded", () => {
+        bannerObserver.observe(document.documentElement, {
+            childList: true,
+            subtree: true,
+            attributes: true,
+            attributeFilter: ['style', 'class']
+        });
+    });
+}
+
 function triggerGoogleTranslate(lang) {
+    killGoogleTranslateBanner();
+    let bannerTimerCount = 0;
+    const bannerKillTimer = setInterval(() => {
+        killGoogleTranslateBanner();
+        bannerTimerCount++;
+        if (bannerTimerCount > 40) clearInterval(bannerKillTimer);
+    }, 75);
+
     if (lang === "gu") {
         document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
         document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; domain=" + window.location.hostname + "; path=/;";
@@ -2254,6 +2295,7 @@ function triggerGoogleTranslate(lang) {
         if (combo) {
             combo.value = lang;
             combo.dispatchEvent(new Event("change", { bubbles: true }));
+            killGoogleTranslateBanner();
             return true;
         }
         return false;

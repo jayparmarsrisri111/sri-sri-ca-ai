@@ -789,5 +789,77 @@
     "details": "Sealed encrypted backup created with master SHA-256: 2e4fa0d4a8e63068...",
     "prev_hash": "e406606dac0346ec59de256d5aef0787dcc3090bef6e78aeb7923e3305dee519",
     "hash": "82438f18415477cd4c65970bd714e797256f6d0cfa4ca064ebe796a3102e8ba9"
+  },
+  {
+    "block_index": 66,
+    "timestamp": "2026-10-05 16:29:59 UTC",
+    "user_id": "CA_TEST_PARTNER",
+    "action": "STATUTORY_AUDIT_SIGN",
+    "entity_type": "TAX_AUDIT",
+    "entity_id": "FORM_3CD_TEST",
+    "client_ip": "127.0.0.1",
+    "details": "Form 3CD signed with UDIN verification under Section 44AB",
+    "prev_hash": "82438f18415477cd4c65970bd714e797256f6d0cfa4ca064ebe796a3102e8ba9",
+    "hash": "30c4257941f3059f935f125ce16b9f5c1511c0ad0f1c435885b0aeeced55da28"
+  },
+  {
+    "block_index": 67,
+    "timestamp": "2026-10-05 16:30:00 UTC",
+    "user_id": "CA-001",
+    "action": "CA_PARTNER_PIN_VERIFIED",
+    "entity_type": "AUTH_STEP_UP",
+    "entity_id": "0b30bbbdc422118e9c8118630ef7557a",
+    "client_ip": "127.0.0.1",
+    "details": "CA Partner CA Jaydeep Shah verified statutory Step-Up PIN successfully",
+    "prev_hash": "30c4257941f3059f935f125ce16b9f5c1511c0ad0f1c435885b0aeeced55da28",
+    "hash": "e68e7cb27381b6bb9bc07941e220ba21cbcff02a47c68f6c1dcb743345b79814"
+  },
+  {
+    "block_index": 68,
+    "timestamp": "2026-10-05 16:30:00 UTC",
+    "user_id": "CA-001",
+    "action": "DISASTER_RECOVERY_BACKUP_CREATED",
+    "entity_type": "SYSTEM_BACKUP",
+    "entity_id": "CA-BACKUP-1791217800",
+    "client_ip": "127.0.0.1",
+    "details": "Sealed encrypted backup created with master SHA-256: 0f6f9524f97d4544...",
+    "prev_hash": "e68e7cb27381b6bb9bc07941e220ba21cbcff02a47c68f6c1dcb743345b79814",
+    "hash": "6196f9a06543b47f9b6d71f195aea032cdb0299e0efee3d09ed4219756e86b4d"
+  },
+  {
+    "block_index": 69,
+    "timestamp": "2026-10-05 16:30:00 UTC",
+    "user_id": "CA-001",
+    "action": "CA_PARTNER_PIN_VERIFIED",
+    "entity_type": "AUTH_STEP_UP",
+    "entity_id": "5da06b723476441c946a78ea8105d858",
+    "client_ip": "127.0.0.1",
+    "details": "CA Partner CA Jaydeep Shah (FCA) verified statutory Step-Up PIN successfully",
+    "prev_hash": "6196f9a06543b47f9b6d71f195aea032cdb0299e0efee3d09ed4219756e86b4d",
+    "hash": "8b6c9117b870cf3b9ad4377c234a4579ca569b41d25c5b98b17fcd42a960d001"
+  },
+  {
+    "block_index": 70,
+    "timestamp": "2026-10-05 16:30:00 UTC",
+    "user_id": "CA-001",
+    "action": "CLIENT_ENROLLED",
+    "entity_type": "CLIENT_VAULT",
+    "entity_id": "CL-124",
+    "client_ip": "testclient",
+    "details": "New client 'ઇન્ફોસિસ લિમિટેડ શાખા' (GSTIN: 24AAACI1234F1Z1) enrolled into CA vault",
+    "prev_hash": "8b6c9117b870cf3b9ad4377c234a4579ca569b41d25c5b98b17fcd42a960d001",
+    "hash": "4a0dee79ed3afbb5b07e1c56fff917c2b6d17258c3b166e49d4d824f01989951"
+  },
+  {
+    "block_index": 71,
+    "timestamp": "2026-10-05 16:30:01 UTC",
+    "user_id": "CA-001",
+    "action": "DISASTER_RECOVERY_BACKUP_CREATED",
+    "entity_type": "SYSTEM_BACKUP",
+    "entity_id": "CA-BACKUP-1791217800",
+    "client_ip": "127.0.0.1",
+    "details": "Sealed encrypted backup created with master SHA-256: 73b86c560afe0814...",
+    "prev_hash": "4a0dee79ed3afbb5b07e1c56fff917c2b6d17258c3b166e49d4d824f01989951",
+    "hash": "4d88c52ddcbbcc1714991de761b331302319cd8e325ba41636b4539e92eecfb8"
   }
 ]

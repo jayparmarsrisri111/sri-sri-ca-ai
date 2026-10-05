@@ -47,6 +47,29 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <!-- Custom Stylesheet -->
     <link rel="stylesheet" href="styles.css">
+    <!-- Instant Anti-Google-Translate-Banner Shield -->
+    <style>
+        body > .skiptranslate,
+        body > div.skiptranslate,
+        body > iframe.skiptranslate,
+        .goog-te-banner-frame,
+        .VIpgJd-ZVi9C-bHAdbe-ORHb-OEVmcd,
+        .VIpgJd-ZVi9C-ORHb,
+        #goog-gt-tt {
+            display: none !important;
+            visibility: hidden !important;
+            height: 0px !important;
+            max-height: 0px !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
+        }
+        body {
+            top: 0px !important;
+            position: static !important;
+            margin-top: 0px !important;
+            padding-top: 0px !important;
+        }
+    </style>
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex antialiased">
 
