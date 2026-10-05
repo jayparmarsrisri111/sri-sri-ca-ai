@@ -1218,6 +1218,12 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 async function initApp() {
+    const savedLang = localStorage.getItem("sri_sri_lang");
+    if (savedLang) {
+        currentLang = savedLang;
+        const langSel = document.getElementById("langSelect");
+        if (langSel) langSel.value = currentLang;
+    }
     applyTheme(currentTheme);
     await fetchWorldCountries();
     setupEventListeners();
@@ -2005,20 +2011,280 @@ function switchTab(tabId) {
     if (tabId === "tab-udin") loadERPUDIN();
     if (tabId === "tab-superpowers") loadSuperpowersData();
     if (window.lucide) lucide.createIcons();
+    if (currentLang !== "gu") {
+        setTimeout(() => performDeepDOMTranslation(currentLang), 60);
+    }
 }
 
-// 100% Comprehensive Translation Handler
-function applyLanguage(lang) {
-    // Check if we have exact dictionary or fallback to English
-    const dict = I18N[lang] || I18N["en"];
+// ================= UNIVERSAL DEEP TRANSLATION ENGINE =================
+const DEEP_PHRASE_MAPPINGS = [
+    // Navigation & Headers
+    ["મુખ્ય એકાઉન્ટિંગ", "Core Accounting", "मुख्य लेखांकन"],
+    ["ડેશબોર્ડ (Dashboard)", "Dashboard", "डैशबोर्ड"],
+    ["સ્માર્ટ બિલ સ્કેનર (AI OCR)", "Smart Bill Scanner (AI OCR)", "स्मार्ट बिल स्कैनर (AI OCR)"],
+    ["ખાતાવહી & વાઉચર્સ (Ledger)", "Ledger & Vouchers", "बहीखाता और वाउचर"],
+    ["બેંક મેળવણી (Reconciliation)", "Bank Reconciliation", "बैंक समाधान (Reconciliation)"],
+    ["ટેક્સ & વાર્ષિક હિસાબો", "Tax & Annual Accounts", "टैक्स और वार्षिक खाते"],
+    ["ટેક્સ & GST હબ (Tax Engine)", "Tax & GST Hub", "टैक्स और जीएसटी हब"],
+    ["નફો-નુકસાન & પાકું સરવૈયું (P&L)", "P&L & Balance Sheet", "लाभ-हानि और बैलेंस शीट"],
+    ["AI નોટિસ સોલ્વર & Copilot", "AI Notice Solver & Copilot", "एआई नोटिस सॉल्वर और कोपायलट"],
+    ["CA & ACCA સુપર પોર્ટલ", "CA & ACCA Super Portal", "सीए और एसीसीए सुपर पोर्टल"],
+    ["ક્લાયન્ટ પોર્ટફોલિયો (Clients)", "Client Portfolio", "क्लाइंट पोर्टफोलियो"],
+    ["હાઈ-ટેક ERP (BEYOND ODOO & ZOHO)", "Hi-Tech ERP (Beyond Odoo & Zoho)", "हाई-टेक ईआरपी (Odoo & Zoho से परे)"],
+    ["E-ઇન્વોઇસિંગ સ્ટુડિયો (IRN/QR)", "E-Invoicing Studio (IRN/QR)", "ई-इनवॉइसिंग स्टूडियो (IRN/QR)"],
+    ["ઇન્વેન્ટરી & સ્ટોક (FIFO Val)", "Inventory & Stock (FIFO)", "इन्वेंटरी और स्टॉक (FIFO)"],
+    ["સ્માર્ટ પેરોલ & પગાર સ્લિપ (EPF/TDS)", "Smart Payroll & Payslip (EPF/TDS)", "स्मार्ट पेरोल और वेतन पर्ची"],
+    ["ફિક્સ્ડ એસેટ્સ & ઘસારો (WDV)", "Fixed Assets & Depreciation (WDV)", "अचल संपत्ति और मूल्यह्रास (WDV)"],
+    ["AI ફ્રોડ & કમ્પ્લાયન્સ ગાર્ડિયન", "AI Fraud & Compliance Guardian", "एआई धोखाधड़ी और अनुपालन अभिभावक"],
+    ["ICAI UDIN & ડિજિટલ સહી", "ICAI UDIN & Digital Signature", "ICAI UDIN और डिजिटल हस्ताक्षर"],
+    ["૭ સુપર પાવર્સ (LIMITATION SOLVERS)", "7 Super Powers (Limitation Solvers)", "7 सुपर पॉवर्स (समाधान)"],
+    ["૭ સુપર પાવર્સ (All Solutions)", "7 Super Powers (All Solutions)", "7 सुपर पॉवर्स (सभी समाधान)"],
+    ["૭ સુપર પાવર્સ", "7 Super Powers", "7 सुपर पॉवर्स"],
+    ["૭ પાવર્સ", "7 Powers", "7 पॉवर्स"],
+    ["બધા મોડ્યુલ્સ (મેનુ)", "All Modules (Menu)", "सभी मॉड्यूल (मेनू)"],
+    ["મેનુ", "Menu", "मेनू"],
+    ["ઓડિટ ગાર્ડિયન સક્રિય", "Audit Guardian Active", "ऑडिट गार्जियन सक्रिय"],
+    ["૨૫૬-Bit SSL સુરક્ષિત", "256-Bit SSL Secure", "256-बिट एसएसएल सुरक्षित"],
+    ["ક્લાઉડ સિંક & મલ્ટિ-ડિવાઇસ હબ (Cloud Sync Hub)", "Cloud Sync & Multi-Device Hub", "क्लाउड सिंक और मल्टी-डिवाइस हब"],
+    ["ક્લાઉડ સિંક", "Cloud Sync", "क्लाउड सिंक"],
+    ["રોયલ CA નેવી & ગોલ્ડ", "Royal CA Navy & Gold", "रॉयल सीए नेवी और गोल्ड"],
+    ["પ્યોર વ્હાઇટ", "Pure White", "प्योर व्हाइट"],
+    ["સક્રિય મોડ:", "Active Mode:", "सक्रिय मोड:"],
+    ["મોડ બદલો", "Switch Mode", "मोड बदलें"],
+    ["CA / ACCA સ્પેશિયલ મોડ", "CA / ACCA Specialist Mode", "सीए / एसीसीए विशेषज्ञ मोड"],
+    ["CA / ACCA મોડ", "CA / ACCA Mode", "सीए / एसीसीए मोड"],
+    ["વેપારી મોડ (Client)", "Merchant Mode (Client)", "व्यापारी मोड (क्लाइंट)"],
+    ["વેપારી મોડ", "Merchant Mode", "व्यापारी मोड"],
+    ["લૉગ ઇન / સાઇન અપ", "Login / Sign Up", "लॉगिन / साइन अप"],
+    ["સ્વાગત છે!", "Welcome!", "स्वागत है!"],
+    ["૧૦૦% સ્વાયત્ત એકાઉન્ટિંગ અને કરવેરા વ્યવસ્થાપન", "100% Autonomous Accounting & Tax Management", "100% स्वायत्त लेखांकन और कर प्रबंधन"],
+    ["AI ચાર્ટર્ડ એકાઉન્ટન્ટ", "AI Chartered Accountant", "एआई चार्टर्ड अकाउंटेंट"],
+    ["નવું બિલ સ્કેન કરો (Scan Bill)", "Scan Bill", "बिल स्कैन करें"],
+    ["નવું બિલ સ્કેન કરો", "Scan New Bill", "नया बिल स्कैन करें"],
+    ["AI CA ને પ્રશ્ન પૂછો", "Ask AI CA", "एआई सीए से पूछें"],
+    ["CA & ACCA સુપર ફાયદા", "CA & ACCA Advantages", "सीए और एसीसीए लाभ"],
+    ["કુલ આવક / વેચાણ", "Total Revenue / Sales", "कुल आय / बिक्री"],
+    ["ઓડિટેડ ચોપડામાં નોંધાયેલ", "Recorded in Audited Books", "ऑडिटेड बहीखाते में दर्ज"],
+    ["કુલ ખર્ચાઓ (Expenses)", "Total Expenses", "कुल व्यय (Expenses)"],
+    ["ભાડું, પગાર, ટેકનોલોજી સાધનો", "Rent, Salary, Tech Tools", "किराया, वेतन, तकनीकी उपकरण"],
+    ["ચોખ્ખો ઓડિટેડ નફો", "Net Audited Profit", "शुद्ध ऑडिटेड लाभ"],
+    ["ટેક્સ બાદ ચોખ્ખી બચત", "Net Savings After Tax", "कर पश्चात शुद्ध बचत"],
+    ["ઇનપુટ ટેક્સ ક્રેડિટ (ITC)", "Input Tax Credit (ITC)", "इनपुट टैक्स क्रेडिट (ITC)"],
+    ["GSTR-2B માન્ય ક્લેમ", "GSTR-2B Verified Claim", "GSTR-2B सत्यापित दावा"],
+    ["સ્માર્ટ બિલ સ્કેનર & મલ્ટીમોડલ OCR", "Smart Bill Scanner & Multimodal OCR", "स्मार्ट बिल स्कैनर और मल्टीमॉडल ओसीआर"],
+    ["કોઈપણ હસ્તલિખિત કે પ્રિન્ટેડ બિલ અપલોડ કરો", "Upload any handwritten or printed bill", "कोई भी हस्तलिखित या मुद्रित बिल अपलोड करें"],
+    ["બિલ / ઇન્વોઇસ ફાઇલ અહીં ખેંચો અથવા ક્લિક કરો", "Drag & drop bill/invoice here or click to browse", "बिल/इनवॉइस यहाँ खींचें या चुनने के लिए क्लिक करें"],
+    ["PDF, JPEG, PNG ફોર્મેટ્સ સમર્થિત", "PDF, JPEG, PNG formats supported", "PDF, JPEG, PNG प्रारूप समर्थित"],
+    ["AI એક્સટ્રેક્ટ પરિણામો", "AI Extraction Results", "एआई निष्कर्षण परिणाम"],
+    ["પાર્ટીનું નામ:", "Party Name:", "पार्टी का नाम:"],
+    ["GSTIN નંબર:", "GSTIN Number:", "जीएसटीआईएन नंबर:"],
+    ["ઇન્વોઇસ તારીખ:", "Invoice Date:", "इनवॉइस दिनांक:"],
+    ["કુલ રકમ:", "Total Amount:", "कुल राशि:"],
+    ["કરપાત્ર રકમ:", "Taxable Value:", "कर योग्य मूल्य:"],
+    ["ટેક્સ રકમ (GST):", "Tax Amount (GST):", "टैक्स राशि (GST):"],
+    ["વાઉચરમાં પોસ્ટ કરો", "Post to Voucher", "वाउचर में पोस्ट करें"],
+    ["નવું વાઉચર બનાવો", "Create New Voucher", "नया वाउचर बनाएं"],
+    ["વાઉચર નંબર", "Voucher No", "वाउचर संख्या"],
+    ["તારીખ", "Date", "दिनांक"],
+    ["ખાતું (Account)", "Account", "खाता"],
+    ["ડેબિટ (Dr)", "Debit (Dr)", "डेबिट (Dr)"],
+    ["ક્રેડિટ (Cr)", "Credit (Cr)", "क्रेडिट (Cr)"],
+    ["વિગત (Narration)", "Narration", "विवरण (Narration)"],
+    ["સ્થિતિ", "Status", "स्थिति"],
+    ["ક્રિયા", "Action", "कार्रवाई"],
+    ["કાચું સરવૈયું (Trial Balance)", "Trial Balance", "तलपट (Trial Balance)"],
+    ["બેંક મેળવણી", "Bank Reconciliation", "बैंक समाधान"],
+    ["બેંક સ્ટેટમેન્ટ અપલોડ કરો", "Upload Bank Statement", "बैंक स्टेटमेंट अपलोड करें"],
+    ["ઓટો-રિકન્સાઇલેશન ચલાવો", "Run Auto-Reconciliation", "ऑटो-समाधान चलाएं"],
+    ["મેળવાયેલ ટ્રાન્ઝેક્શન્સ", "Matched Transactions", "मिलान किए गए लेनदेन"],
+    ["તફાવત વાળા વ્યવહારો", "Unmatched Differences", "बेमेल लेनदेन"],
+    ["જીએસટી કાઉન્સિલ દર અપડેટ", "GST Council Rate Updates", "जीएसटी परिषद दर अपडेट"],
+    ["લાઈવ જીએસટી ટેરિફ કાર્ડ", "Live GST Tariff Card", "लाइव जीएसटी टैरिफ कार्ड"],
+    ["જીએસટી ટેરિફ સ્લેબ્સ", "GST Tariff Slabs", "जीएसटी टैरिफ स्लैब"],
+    ["નિયમિત દર", "Standard Rate", "मानक दर"],
+    ["આવકવેરા ગણતરી એન્જિન", "Income Tax Calculation Engine", "आयकर गणना इंजन"],
+    ["નવી કર વ્યવસ્થા (New Regime)", "New Tax Regime", "नई कर व्यवस्था"],
+    ["જૂની કર વ્યવસ્થા (Old Regime)", "Old Tax Regime", "पुरानी कर व्यवस्था"],
+    ["કરપાત્ર આવક", "Taxable Income", "कर योग्य आय"],
+    ["કુલ ચૂકવવાપાત્ર કર", "Total Tax Payable", "कुल देय कर"],
+    ["ITR-1 / ITR-4 ડ્રાફ્ટ", "ITR-1 / ITR-4 Draft", "ITR-1 / ITR-4 ड्राफ्ट"],
+    ["નફો અને નુકસાન ખાતું", "Profit & Loss Account", "लाभ एवं हानि खाता"],
+    ["પાકું સરવૈયું (Balance Sheet)", "Balance Sheet", "तुलन पत्र (बैलेंस शीट)"],
+    ["પાકું સરવૈયું", "Balance Sheet", "तुलन पत्र"],
+    ["કુલ મિલકતો (Assets)", "Total Assets", "कुल संपत्तियां (Assets)"],
+    ["કુલ જવાબદારીઓ (Liabilities)", "Total Liabilities", "कुल देनदारियां (Liabilities)"],
+    ["માલિકની મૂડી (Equity)", "Owner's Equity", "मालिक की पूंजी (Equity)"],
+    ["ચોખ્ખો નફો", "Net Profit", "शुद्ध लाभ"],
+    ["કુલ આવક", "Total Revenue", "कुल आय"],
+    ["કુલ ખર્ચ", "Total Expenses", "कुल व्यय"],
+    ["ક્લાયન્ટ પોર્ટફોલિયો", "Client Portfolio", "क्लाइंट पोर्टफोलियो"],
+    ["નવો ક્લાયન્ટ ઉમેરો", "Add New Client", "नया क्लाइंट जोड़ें"],
+    ["ક્લાયન્ટનું નામ", "Client Name", "क्लाइंट का नाम"],
+    ["ફર્મ / કંપની", "Firm / Company", "फर्म / कंपनी"],
+    ["સંપર્ક નંબર", "Contact Number", "संपर्क नंबर"],
+    ["ઈમેલ", "Email", "ईमेल"],
+    ["E-ઇન્વોઇસિંગ", "E-Invoicing", "ई-इनवॉइसिंग"],
+    ["નવું E-Invoice બનાવો", "Create New E-Invoice", "नया ई-इनवॉइस बनाएं"],
+    ["કુલ બિલિંગ રકમ", "Total Invoiced Amount", "कुल बिलिंग राशि"],
+    ["સરકારને ભરવાપાત્ર ટેક્સ", "Tax Payable to Govt", "सरकार को देय कर"],
+    ["IRN હેશ વેરિફિકેશન", "IRN Hash Verification", "IRN हैश सत्यापन"],
+    ["NIC QR કોડ સાથે માન્ય", "Valid with NIC QR Code", "एनआईसी क्यूआर कोड के साथ मान्य"],
+    ["ઇન્વેન્ટરી & સ્ટોક", "Inventory & Stock", "इन्वेंटरी और स्टॉक"],
+    ["નવી પ્રોડક્ટ / SKU ઉમેરો", "Add New Product / SKU", "नया उत्पाद / SKU जोड़ें"],
+    ["કુલ સ્ટોક મૂલ્યાંકન (FIFO)", "Total Stock Valuation (FIFO)", "कुल स्टॉक मूल्यांकन (FIFO)"],
+    ["સક્રિય પ્રોડક્ટ્સ (SKUs)", "Active Products (SKUs)", "सक्रिय उत्पाद (SKUs)"],
+    ["રિઓર્ડર ચેતવણીઓ", "Reorder Alerts", "पुनः ऑर्डर चेतावनी"],
+    ["સ્માર્ટ પેરોલ", "Smart Payroll", "स्मार्ट पेरोल"],
+    ["નવો કર્મચારી ઉમેરો", "Add New Employee", "नया कर्मचारी जोड़ें"],
+    ["કુલ માસિક પગાર", "Total Monthly Payroll", "कुल मासिक वेतन"],
+    ["કર્મચારીઓની સંખ્યા", "Total Employees", "कर्मचारियों की संख्या"],
+    ["વૈધાનિક કપાત (EPF/ESIC/PT)", "Statutory Deductions (EPF/ESIC/PT)", "वैधानिक कटौती (EPF/ESIC/PT)"],
+    ["ફિક્સ્ડ એસેટ્સ & ઘસારો", "Fixed Assets & Depreciation", "अचल संपत्ति और मूल्यह्रास"],
+    ["નવી એસેટ ઉમેરો", "Add New Asset", "नई संपत्ति जोड़ें"],
+    ["કુલ એસેટ ખરીદ કિંમત", "Total Asset Cost", "कुल संपत्ति लागत"],
+    ["ચાલુ વર્ષનો ઘસારો", "Current Year Depreciation", "चालू वर्ष का मूल्यह्रास"],
+    ["ચોખ્ખી બુક વેલ્યુ (WDV)", "Net Book Value (WDV)", "शुद्ध पुस्तक मूल्य (WDV)"],
+    ["AI ફોરેન્સિક ઓડિટ", "AI Forensic Audit", "एआई फोरेंसिक ऑडिट"],
+    ["ફરીથી ઓડિટ સ્કેન કરો", "Re-run Audit Scan", "पुनः ऑडिट स्कैन करें"],
+    ["સંદિગ્ધ વિસંગતતાઓ", "Flagged Anomalies", "पहचानी गई विसंगतियां"],
+    ["સેક્શન 269ST રોકડ કેસો", "Section 269ST Cash Cases", "धारा 269ST नकद मामले"],
+    ["ડુપ્લિકેટ વાઉચર્સ", "Duplicate Vouchers", "डुप्लीकेट वाउचर"],
+    ["ICAI UDIN જનરેટર", "ICAI UDIN Generator", "ICAI UDIN जनरेटर"],
+    ["નવો UDIN જનરેટ કરો", "Generate New UDIN", "नया UDIN जनरेट करें"],
+    ["કુલ જનરેટ થયેલ UDINs", "Total Generated UDINs", "कुल जनरेट किए गए UDIN"],
+    ["સત્તાવાર પ્રમાણિત", "Officially Certified", "आधिकारिक रूप से प्रमाणित"],
+    ["ક્લાઉડ સિંક સ્થિતિ", "Cloud Sync Status", "क्लाउड सिंक स्थिति"],
+    ["સિંક થઈ ગયું", "Synchronized", "सिंक हो गया"],
+    ["ઓફલાઇન મોડ", "Offline Mode", "ऑफ़लाइन मोड"],
+    ["બેકઅપ ડાઉનલોડ કરો", "Download Backup", "बैकअप डाउनलोड करें"],
+    ["બેકઅપ રિસ્ટોર કરો", "Restore Backup", "बैकअप पुनर्स्थापित करें"],
+    ["ડેટાબેઝ રીસેટ કરો", "Reset Database", "डेटाबेस रीसेट करें"],
+    ["બધા ઉપકરણો સાથે સિંક કરો", "Sync All Devices", "सभी डिवाइस सिंक करें"],
+    ["ડાઉનલોડ કરો", "Download", "डाउनलोड करें"],
+    ["સેવ કરો", "Save", "सहेजें"],
+    ["રદ કરો", "Cancel", "रद्द करें"],
+    ["ચકાસો", "Verify", "सत्यापित करें"],
+    ["અપલોડ કરો", "Upload", "अपलोड करें"],
+    ["સબમિટ કરો", "Submit", "जमा करें"],
+    ["શોધો...", "Search...", "खोजें..."],
+    ["શોધો", "Search", "खोजें"],
+    ["બધા", "All", "सभी"],
+    ["ગ્રાહક", "Customer", "ग्राहक"],
+    ["વેપારી", "Merchant", "व्यापारी"],
+    ["સફળ", "Success", "सफल"],
+    ["બાકી", "Pending", "लंबित"],
+    ["ચેતવણી", "Warning", "चेतावनी"],
+    ["ભૂલ", "Error", "त्रुटि"],
+    ["નિયમો & શરતો", "Terms & Conditions", "नियम और शर्तें"],
+    ["ગોપનીયતા નીતિ", "Privacy Policy", "गोपनीयता नीति"]
+];
 
+function performDeepDOMTranslation(lang) {
+    if (lang === "gu") {
+        const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
+        let node;
+        while (node = walker.nextNode()) {
+            if (node.__sriOriginal !== undefined) {
+                node.nodeValue = node.__sriOriginal;
+            }
+        }
+        return;
+    }
+
+    const langIdx = lang === "hi" ? 2 : 1;
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+        acceptNode: function(node) {
+            const parent = node.parentElement;
+            if (!parent) return NodeFilter.FILTER_REJECT;
+            const tag = parent.tagName;
+            if (tag === "SCRIPT" || tag === "STYLE" || tag === "NOSCRIPT" || tag === "CODE" || tag === "PRE") {
+                return NodeFilter.FILTER_REJECT;
+            }
+            if (parent.closest("#google_translate_element") || parent.closest(".skiptranslate")) {
+                return NodeFilter.FILTER_REJECT;
+            }
+            return NodeFilter.FILTER_ACCEPT;
+        }
+    }, false);
+
+    let node;
+    while (node = walker.nextNode()) {
+        if (node.__sriOriginal === undefined) {
+            node.__sriOriginal = node.nodeValue;
+        }
+        let text = node.__sriOriginal;
+        let modified = false;
+
+        for (let i = 0; i < DEEP_PHRASE_MAPPINGS.length; i++) {
+            const guText = DEEP_PHRASE_MAPPINGS[i][0];
+            const transText = DEEP_PHRASE_MAPPINGS[i][langIdx];
+            if (text.includes(guText)) {
+                text = text.split(guText).join(transText);
+                modified = true;
+            }
+        }
+
+        if (modified) {
+            node.nodeValue = text;
+        }
+    }
+}
+
+function triggerGoogleTranslate(lang) {
+    if (lang === "gu") {
+        document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; domain=" + window.location.hostname + "; path=/;";
+        const combo = document.querySelector(".goog-te-combo");
+        if (combo) {
+            combo.value = "";
+            combo.dispatchEvent(new Event("change", { bubbles: true }));
+        }
+        if (document.documentElement.classList.contains("translated-ltr") || document.querySelector(".goog-te-banner-frame")) {
+            window.location.reload();
+        }
+        return;
+    }
+
+    const cookieVal = "/gu/" + lang;
+    document.cookie = "googtrans=" + cookieVal + "; path=/;";
+    document.cookie = "googtrans=" + cookieVal + "; domain=" + window.location.hostname + "; path=/;";
+
+    function selectCombo() {
+        const combo = document.querySelector(".goog-te-combo");
+        if (combo) {
+            combo.value = lang;
+            combo.dispatchEvent(new Event("change", { bubbles: true }));
+            return true;
+        }
+        return false;
+    }
+
+    if (!selectCombo()) {
+        let attempts = 0;
+        const interval = setInterval(() => {
+            attempts++;
+            if (selectCombo() || attempts > 30) {
+                clearInterval(interval);
+            }
+        }, 150);
+    }
+}
+
+// 100% Comprehensive Translation Handler across Entire App
+function applyLanguage(lang) {
+    currentLang = lang;
+    localStorage.setItem("sri_sri_lang", lang);
+
+    // 1. Exact dictionary replacement on data-i18n elements
+    const dict = I18N[lang] || I18N["en"];
     document.querySelectorAll("[data-i18n]").forEach(el => {
         const key = el.getAttribute("data-i18n");
-        if (dict[key]) {
+        if (dict && dict[key]) {
             el.textContent = dict[key];
         }
     });
 
+    // 2. Chat and common input placeholders
     const chatInput = document.getElementById("chatInput");
     if (chatInput) {
         if (lang === "gu") chatInput.placeholder = "તમારો પ્રશ્ન અહીં લખો... (દા.ત. ₹૫૦ લાખના ટર્નઓવર પર 44AD માં કેટલો ટેક્સ આવે?)";
@@ -2026,14 +2292,22 @@ function applyLanguage(lang) {
         else chatInput.placeholder = "Ask any global tax or accounting query (e.g. Presumptive tax, VAT, or Corporate Tax)...";
     }
 
+    // 3. Deep DOM text node replacement for en & hi
+    performDeepDOMTranslation(lang);
+
+    // 4. Universal Google Translator trigger for all 20+ world languages
+    triggerGoogleTranslate(lang);
+
+    // 5. Update user interface for role & badges
     updateUserInterfaceForRole();
 
+    // 6. Theme label sync
     const themeLabel = document.getElementById("themeToggleLabel");
     if (themeLabel) {
         if (currentTheme === "purewhite") {
-            themeLabel.textContent = dict.theme_btn_dark || "પ્યોર વ્હાઇટ";
+            themeLabel.textContent = dict.theme_btn_dark || (lang === "en" ? "Pure White" : "પ્યોર વ્હાઇટ");
         } else {
-            themeLabel.textContent = dict.theme_btn_light || "રોયલ CA નેવી & ગોલ્ડ";
+            themeLabel.textContent = dict.theme_btn_light || (lang === "en" ? "Royal CA Navy & Gold" : "રોયલ CA નેવી & ગોલ્ડ");
         }
     }
 }

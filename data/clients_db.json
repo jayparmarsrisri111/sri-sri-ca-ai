@@ -190,5 +190,77 @@
     "gstr_status": "Setup Complete",
     "itc_mismatch": "₹0 (Clean)",
     "client_id": "CL-116"
+  },
+  {
+    "name": "મહિન્દ્રા એન્ડ મહિન્દ્રા ટેસ્ટિંગ પ્રા. લી.",
+    "gstin": "24AAACM9999M1Z3",
+    "pan": "AAACM9999M",
+    "turnover": "₹8,50,00,000",
+    "bank_account": "AXIS-1234567890",
+    "contact_email": "accounts@mahindra-test.com",
+    "client_id": "CL-117",
+    "audit_status": "Newly Enrolled",
+    "gstr_status": "Pending Setup",
+    "itc_mismatch": "₹0"
+  },
+  {
+    "name": "ઇન્ફોસિસ લિમિટેડ શાખા",
+    "gstin": "24AAACI1234F1Z1",
+    "pan": "AAACI1234F",
+    "turnover": "₹12,00,00,000",
+    "bank_account": "SBI-1122334455",
+    "contact_email": "tax@infosys.com",
+    "audit_status": "Active Client",
+    "gstr_status": "Setup Complete",
+    "itc_mismatch": "₹0 (Clean)",
+    "client_id": "CL-118"
+  },
+  {
+    "name": "મહિન્દ્રા એન્ડ મહિન્દ્રા ટેસ્ટિંગ પ્રા. લી.",
+    "gstin": "24AAACM9999M1Z3",
+    "pan": "AAACM9999M",
+    "turnover": "₹8,50,00,000",
+    "bank_account": "AXIS-1234567890",
+    "contact_email": "accounts@mahindra-test.com",
+    "client_id": "CL-119",
+    "audit_status": "Newly Enrolled",
+    "gstr_status": "Pending Setup",
+    "itc_mismatch": "₹0"
+  },
+  {
+    "name": "ઇન્ફોસિસ લિમિટેડ શાખા",
+    "gstin": "24AAACI1234F1Z1",
+    "pan": "AAACI1234F",
+    "turnover": "₹12,00,00,000",
+    "bank_account": "SBI-1122334455",
+    "contact_email": "tax@infosys.com",
+    "audit_status": "Active Client",
+    "gstr_status": "Setup Complete",
+    "itc_mismatch": "₹0 (Clean)",
+    "client_id": "CL-120"
+  },
+  {
+    "name": "મહિન્દ્રા એન્ડ મહિન્દ્રા ટેસ્ટિંગ પ્રા. લી.",
+    "gstin": "24AAACM9999M1Z3",
+    "pan": "AAACM9999M",
+    "turnover": "₹8,50,00,000",
+    "bank_account": "AXIS-1234567890",
+    "contact_email": "accounts@mahindra-test.com",
+    "client_id": "CL-121",
+    "audit_status": "Newly Enrolled",
+    "gstr_status": "Pending Setup",
+    "itc_mismatch": "₹0"
+  },
+  {
+    "name": "ઇન્ફોસિસ લિમિટેડ શાખા",
+    "gstin": "24AAACI1234F1Z1",
+    "pan": "AAACI1234F",
+    "turnover": "₹12,00,00,000",
+    "bank_account": "SBI-1122334455",
+    "contact_email": "tax@infosys.com",
+    "audit_status": "Active Client",
+    "gstr_status": "Setup Complete",
+    "itc_mismatch": "₹0 (Clean)",
+    "client_id": "CL-122"
   }
 ]
