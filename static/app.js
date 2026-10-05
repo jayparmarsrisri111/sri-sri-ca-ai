@@ -2016,167 +2016,476 @@ function switchTab(tabId) {
     }
 }
 
-// ================= UNIVERSAL DEEP TRANSLATION ENGINE =================
-const DEEP_PHRASE_MAPPINGS = [
-    // Navigation & Headers
-    ["મુખ્ય એકાઉન્ટિંગ", "Core Accounting", "मुख्य लेखांकन"],
-    ["ડેશબોર્ડ (Dashboard)", "Dashboard", "डैशबोर्ड"],
-    ["સ્માર્ટ બિલ સ્કેનર (AI OCR)", "Smart Bill Scanner (AI OCR)", "स्मार्ट बिल स्कैनर (AI OCR)"],
-    ["ખાતાવહી & વાઉચર્સ (Ledger)", "Ledger & Vouchers", "बहीखाता और वाउचर"],
-    ["બેંક મેળવણી (Reconciliation)", "Bank Reconciliation", "बैंक समाधान (Reconciliation)"],
-    ["ટેક્સ & વાર્ષિક હિસાબો", "Tax & Annual Accounts", "टैक्स और वार्षिक खाते"],
-    ["ટેક્સ & GST હબ (Tax Engine)", "Tax & GST Hub", "टैक्स और जीएसटी हब"],
-    ["નફો-નુકસાન & પાકું સરવૈયું (P&L)", "P&L & Balance Sheet", "लाभ-हानि और बैलेंस शीट"],
-    ["AI નોટિસ સોલ્વર & Copilot", "AI Notice Solver & Copilot", "एआई नोटिस सॉल्वर और कोपायलट"],
-    ["CA & ACCA સુપર પોર્ટલ", "CA & ACCA Super Portal", "सीए और एसीसीए सुपर पोर्टल"],
-    ["ક્લાયન્ટ પોર્ટફોલિયો (Clients)", "Client Portfolio", "क्लाइंट पोर्टफोलियो"],
-    ["હાઈ-ટેક ERP (BEYOND ODOO & ZOHO)", "Hi-Tech ERP (Beyond Odoo & Zoho)", "हाई-टेक ईआरपी (Odoo & Zoho से परे)"],
-    ["E-ઇન્વોઇસિંગ સ્ટુડિયો (IRN/QR)", "E-Invoicing Studio (IRN/QR)", "ई-इनवॉइसिंग स्टूडियो (IRN/QR)"],
-    ["ઇન્વેન્ટરી & સ્ટોક (FIFO Val)", "Inventory & Stock (FIFO)", "इन्वेंटरी और स्टॉक (FIFO)"],
-    ["સ્માર્ટ પેરોલ & પગાર સ્લિપ (EPF/TDS)", "Smart Payroll & Payslip (EPF/TDS)", "स्मार्ट पेरोल और वेतन पर्ची"],
-    ["ફિક્સ્ડ એસેટ્સ & ઘસારો (WDV)", "Fixed Assets & Depreciation (WDV)", "अचल संपत्ति और मूल्यह्रास (WDV)"],
-    ["AI ફ્રોડ & કમ્પ્લાયન્સ ગાર્ડિયન", "AI Fraud & Compliance Guardian", "एआई धोखाधड़ी और अनुपालन अभिभावक"],
-    ["ICAI UDIN & ડિજિટલ સહી", "ICAI UDIN & Digital Signature", "ICAI UDIN और डिजिटल हस्ताक्षर"],
-    ["૭ સુપર પાવર્સ (LIMITATION SOLVERS)", "7 Super Powers (Limitation Solvers)", "7 सुपर पॉवर्स (समाधान)"],
-    ["૭ સુપર પાવર્સ (All Solutions)", "7 Super Powers (All Solutions)", "7 सुपर पॉवर्स (सभी समाधान)"],
-    ["૭ સુપર પાવર્સ", "7 Super Powers", "7 सुपर पॉवर्स"],
-    ["૭ પાવર્સ", "7 Powers", "7 पॉवर्स"],
-    ["બધા મોડ્યુલ્સ (મેનુ)", "All Modules (Menu)", "सभी मॉड्यूल (मेनू)"],
-    ["મેનુ", "Menu", "मेनू"],
-    ["ઓડિટ ગાર્ડિયન સક્રિય", "Audit Guardian Active", "ऑडिट गार्जियन सक्रिय"],
-    ["૨૫૬-Bit SSL સુરક્ષિત", "256-Bit SSL Secure", "256-बिट एसएसएल सुरक्षित"],
-    ["ક્લાઉડ સિંક & મલ્ટિ-ડિવાઇસ હબ (Cloud Sync Hub)", "Cloud Sync & Multi-Device Hub", "क्लाउड सिंक और मल्टी-डिवाइस हब"],
-    ["ક્લાઉડ સિંક", "Cloud Sync", "क्लाउड सिंक"],
-    ["રોયલ CA નેવી & ગોલ્ડ", "Royal CA Navy & Gold", "रॉयल सीए नेवी और गोल्ड"],
-    ["પ્યોર વ્હાઇટ", "Pure White", "प्योर व्हाइट"],
-    ["સક્રિય મોડ:", "Active Mode:", "सक्रिय मोड:"],
-    ["મોડ બદલો", "Switch Mode", "मोड बदलें"],
-    ["CA / ACCA સ્પેશિયલ મોડ", "CA / ACCA Specialist Mode", "सीए / एसीसीए विशेषज्ञ मोड"],
-    ["CA / ACCA મોડ", "CA / ACCA Mode", "सीए / एसीसीए मोड"],
-    ["વેપારી મોડ (Client)", "Merchant Mode (Client)", "व्यापारी मोड (क्लाइंट)"],
-    ["વેપારી મોડ", "Merchant Mode", "व्यापारी मोड"],
-    ["લૉગ ઇન / સાઇન અપ", "Login / Sign Up", "लॉगिन / साइन अप"],
-    ["સ્વાગત છે!", "Welcome!", "स्वागत है!"],
+// ================= 100% NATIVE FULL-APP TRANSLATION ENGINE (ZERO GOOGLE BANNER) =================
+// Purge all old Google Translate cookies so browser never shows translation toolbar
+function purgeGoogleTranslateCookies() {
+    const cookies = ["googtrans", "googtrans_es", "googtrans_hi"];
+    const domains = [window.location.hostname, "." + window.location.hostname, ""];
+    cookies.forEach(c => {
+        domains.forEach(d => {
+            document.cookie = c + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;" + (d ? " domain=" + d + ";" : "");
+        });
+    });
+}
+purgeGoogleTranslateCookies();
+
+const FULL_I18N_PHRASES = [
+    ["ઇન્ટરનેટ ન હોય તો પણ તમારું એકાઉન્ટિંગ ક્યારેય અટકશે નહીં! જ્યારે નેટ હોય ત્યારે ગૂગલ જેમિની AI સર્વોચ્ચ બુદ્ધિ આપે છે, અને નેટ બંધ હોય ત્યારે લોકલ એક્સપર્ટ રૂલ એન્જિન તમામ ડબલ-એન્ટ્રી, GST, પેરોલ અને ઓડિટ ચેક્સ ઓફલાઇન ચાલુ રાખે છે.", "Your accounting will never stop even if there is no internet! Google Gemini AI provides superior intelligence when on the net, and the local expert rule engine performs all double-entry, GST, payroll and audit checks offline when the net is off.", "इंटरनेट न होने पर भी आपका अकाउंटिंग कभी बंद नहीं होगा! Google जेमिनी AI नेट पर होने पर बेहतर इंटेलिजेंस प्रदान करता है, और स्थानीय विशेषज्ञ नियम इंजन नेट बंद होने पर सभी डबल-एंट्री, जीएसटी, पेरोल और ऑडिट जांच ऑफ़लाइन करता है।"],
+    ["કાયદાકીય સહી, સરકારી પોર્ટલ API, SQL ડેટાબેઝ, લાઈવ બેંકિંગ, USB વગર ડિજિટલ સહી, કાચી રસીદોનું ફિલ્ટર અને ઓફલાઇન એન્જિન - તમામ ૭ ગેરફાયદાઓ અહીં જીવંત ટેકનોલોજીકલ ફાયદા બની ગયા છે.", "Legal signature, government portal API, SQL database, live banking, digital signature without USB, filter of raw receipts and offline engine - all 7 disadvantages have become live technological advantages here.", "कानूनी हस्ताक्षर, सरकारी पोर्टल एपीआई, एसक्यूएल डेटाबेस, लाइव बैंकिंग, यूएसबी के बिना डिजिटल हस्ताक्षर, कच्ची रसीदों का फिल्टर और ऑफ़लाइन इंजन - सभी 7 नुकसान यहां लाइव तकनीकी फायदे बन गए हैं।"],
+    ["Module 1, 4 અને 5 ના તમામ ડેટાનું સંકલન કરીને આવકવેરા કે GST નોટિસનો સુપ્રીમ કોર્ટ ચુકાદાઓ સાથે સત્તાવાર પ્રત્યુત્તર અને ૨૪ કલાક કાયદેસર ટેક્સ માર્ગદર્શન પૂરું પાડે છે.", "Compiles all data from Module 1, 4 and 5 to provide official reply to Income Tax or GST notices along with Supreme Court judgments and 24 hours legal tax guidance.", "सर्वोच्च न्यायालय के निर्णयों और 24 घंटे कानूनी कर मार्गदर्शन के साथ आयकर या जीएसटी नोटिस का आधिकारिक उत्तर प्रदान करने के लिए मॉड्यूल 1, 4 और 5 से सभी डेटा संकलित करता है।"],
+    ["કાચા દસ્તાવેજ (Invoice / Bill / Excel) થી લઈને ડબલ-એન્ટ્રી ખાતાવહી, બેંક મેળવણી, GST કમ્પ્લાયન્સ, વાર્ષિક હિસાબો અને ૨૪/૭ AI Copilot સલાહ સુધીનો સંપૂર્ણ એકીકૃત પ્રવાહ.", "A fully integrated flow from raw documents (Invoice / Bill / Excel) to double-entry ledgers, bank receipts, GST compliance, annual accounts and 24/7 AI Copilot advice.", "कच्चे दस्तावेजों (चालान/बिल/एक्सेल) से लेकर डबल-एंट्री लेजर, बैंक रसीदें, जीएसटी अनुपालन, वार्षिक खाते और 24/7 एआई कोपायलट सलाह तक पूरी तरह से एकीकृत प्रवाह।"],
+    ["AI ચાર્ટર્ડ એકાઉન્ટન્ટને બદલતું નથી, પરંતુ માનવ CA માટે ૨૦ કલાકનું ઓડિટ કામ ૨ મિનિટમાં કરી આપે છે. ICAI સભ્યપદ (M.No) ચકાસીને અધિકૃત વકીલાત અને ઓડિટ સહી લાગુ કરે છે.", "AI does not replace a Chartered Accountant, but does 20 hours of audit work for a human CA in 2 minutes. ICAI enforces authorized advocacy and audit signature by verifying membership (M.No).", "एआई एक चार्टर्ड अकाउंटेंट की जगह नहीं लेता है, लेकिन एक मानव सीए के लिए 2 मिनट में 20 घंटे का ऑडिट कार्य करता है। ICAI सदस्यता (M.No) का सत्यापन करके अधिकृत वकालत और ऑडिट हस्ताक्षर लागू करता है।"],
+    ["કોઈ મેન્યુઅલ ટાઇપિંગ નહીં! સત્તાવાર GSTN v1.4 સ્કીમા મુજબ ૧-ક્લિકમાં GSTR-1 અને આવકવેરા ITR JSON જનરેટ થાય છે તથા GSP સેન્ડબોક્સ દ્વારા સત્તાવાર ARN જનરેટ થાય છે.", "No manual typing! Generate GSTR-1 and Income Tax ITR JSON in 1-click as per official GSTN v1.4 schema and generate official ARN through GSP sandbox.", "कोई मैन्युअल टाइपिंग नहीं! आधिकारिक जीएसटीएन v1.4 स्कीमा के अनुसार 1-क्लिक में जीएसटीआर-1 और आयकर आईटीआर जेएसओएन जेनरेट करें और जीएसपी सैंडबॉक्स के माध्यम से आधिकारिक एआरएन जेनरेट करें।"],
+    ["કાચી કે ઝાંખી રસીદો માટે કોન્ટ્રાસ્ટ અને નોઇઝ રિમૂવલ ફિલ્ટર. દરેક વિગતનું ચોકસાઈ રડાર (Confidence 99%+) અને ૯૦% થી નીચે હોય તો તાત્કાલિક ૧-ક્લિક ચકાસણી એલર્ટ.", "Contrast and noise removal filters for raw or blurry receipts. Accuracy radar of every detail (Confidence 99%+) and instant 1-click verification alert if below 90%.", "कच्ची या धुंधली रसीदों के लिए कंट्रास्ट और शोर हटाने वाले फ़िल्टर। प्रत्येक विवरण की सटीकता रडार (विश्वास 99%+) और 90% से कम होने पर तत्काल 1-क्लिक सत्यापन चेतावनी।"],
+    ["કમ્પ્યુટરમાં USB ટોકન લગાવવાની માથાકૂટ વગર બ્રાઉઝર-બેઝ્ડ RSA 2048-Bit Class-3 સર્ટિફિકેટ અને આધાર e-Sign દ્વારા દસ્તાવેજો પર ગ્રીન સીલ સાથે સહી થાય છે.", "Documents are signed with a green seal through browser-based RSA 2048-Bit Class-3 certificates and Aadhaar e-Sign without the hassle of inserting a USB token into a computer.", "कंप्यूटर में यूएसबी टोकन डालने की परेशानी के बिना ब्राउज़र-आधारित आरएसए 2048-बिट क्लास -3 प्रमाणपत्र और आधार ई-साइन के माध्यम से दस्तावेजों पर हरी मुहर के साथ हस्ताक्षर किए जाते हैं।"],
+    ["બેંક સ્ટેટમેન્ટ અપલોડ કરવાનો ત્રાસ ખતમ! RBI ના અધિકૃત Account Aggregator નેટવર્ક દ્વારા દરરોજ રાત્રે બેંક વ્યવહારો આપોઆપ ખેંચાઈને મેળવણી થઈ જાય છે.", "End the torture of uploading bank statements! Bank transactions are automatically pulled and collected every night through RBI's authorized Account Aggregator network.", "बैंक विवरण अपलोड करने की यातना समाप्त करें! आरबीआई के अधिकृत अकाउंट एग्रीगेटर नेटवर्क के माध्यम से हर रात बैंक लेनदेन स्वचालित रूप से खींचे और एकत्र किए जाते हैं।"],
+    ["કોઈપણ મેન્યુઅલ ટાઈપિંગ વગર ૧ ક્લિકમાં બિલ સ્કેનિંગ, ઓટોમેટિક ખાતાવહી, GSTR-2B ઇનપુટ ટેક્સ ક્રેડિટ મેળવણી અને આવકવેરા નોટિસનું કાયદેસર સમાધાન.", "1-click bill scanning, automatic ledger, GSTR-2B input tax credit receipt and legal settlement of income tax notices without any manual typing.", "1-क्लिक बिल स्कैनिंग, स्वचालित बहीखाता, जीएसटीआर-2बी इनपुट टैक्स क्रेडिट रसीद और बिना किसी मैन्युअल टाइपिंग के आयकर नोटिस का कानूनी निपटान।"],
+    ["ઇન્વોઇસિંગ, ઇન્વેન્ટરી સ્ટોક વેલ્યુએશન, કાયદેસર પગાર પેરોલ (EPF/ESIC), ઘસારો (WDV) અને સેક્શન 269ST ફ્રોડ ડિટેક્શન - બધું ૧ જ પ્લેટફોર્મ પર.", "Invoicing, Inventory Stock Valuation, Statutory Payroll (EPF/ESIC), Depreciation (WDV) and Section 269ST Fraud Detection - all on 1 platform.", "चालान, इन्वेंटरी स्टॉक मूल्यांकन, वैधानिक पेरोल (ईपीएफ/ईएसआईसी), मूल्यह्रास (डब्ल्यूडीवी) और धारा 269एसटी धोखाधड़ी का पता लगाना - सभी 1 मंच पर।"],
+    ["આવકવેરા ઓડિટ રિપોર્ટ પર કાયદેસર સહી કરવા, ૧૮-અંકનો UDIN બનાવવા કે ગુપ્ત બેંક ડેટા જોવા માટે CA પાર્ટનર સુરક્ષા PIN આવશ્યક છે. (ડિફોલ્ટ PIN:", "CA Partner Security PIN is required to legally sign Income Tax Audit Report, generate 18-digit UDIN or view confidential bank data. (Default PIN:", "आयकर ऑडिट रिपोर्ट पर कानूनी रूप से हस्ताक्षर करने, 18 अंकों का यूडीआईएन उत्पन्न करने या गोपनीय बैंक डेटा देखने के लिए सीए पार्टनर सुरक्षा पिन की आवश्यकता होती है। (डिफ़ॉल्ट पिन:"],
+    ["કોઈપણ હસ્તલિખિત કે પ્રિન્ટેડ બિલમાંથી પક્ષનું નામ, GSTIN, ઇન્વૉઇસ તારીખ, કુલ રકમ અને કરવેરા વિભાજનનું ૧ સેકન્ડમાં શૂન્ય ભૂલ સાથે નિષ્કર્ષણ.", "Extraction of party name, GSTIN, invoice date, total amount and tax breakdown from any handwritten or printed bill in 1 second with zero error.", "शून्य त्रुटि के साथ 1 सेकंड में किसी भी हस्तलिखित या मुद्रित बिल से पार्टी का नाम, जीएसटीआईएन, चालान तिथि, कुल राशि और कर विवरण निकालना।"],
+    ["JSON ફાઇલની મર્યાદા ખતમ! Write-Ahead Logging (WAL) સક્રિય હોવાથી ૧,૦૦,૦૦૦+ એકસાથે વ્યવહારો પણ ઝીરો કરપ્શન અને ઝીરો લેગ સાથે સચવાય છે.", "JSON file limit is over! With Write-Ahead Logging (WAL) enabled, 1,00,000+ concurrent transactions are also saved with zero corruption and zero lag.", "JSON फ़ाइल सीमा समाप्त हो गई है! राइट-अहेड लॉगिंग (वाल) सक्षम होने से, 1,00,000+ समवर्ती लेनदेन भी शून्य भ्रष्टाचार और शून्य अंतराल के साथ सहेजे जाते हैं।"],
+    ["જો કોઈ બ્રાઉઝર કેશ ક્લિયર કરી દે તો પણ ૧ સેકન્ડમાં તમારો તમામ ડેટા પાછો લાવવા માટે ઓફલાઇન વોલ્ટ બેકઅપ ડાઉનલોડ અથવા અપલોડ કરો:", "Download or upload an offline vault backup to get all your data back in 1 second even if a browser clears the cache:", "अपना सारा डेटा 1 सेकंड में वापस पाने के लिए ऑफ़लाइन वॉल्ट बैकअप डाउनलोड या अपलोड करें, भले ही ब्राउज़र कैश साफ़ कर दे:"],
+    ["ડેબિટ (Dr) અને ક્રેડિટ (Cr) ના સંતુલિત જર્નલ વાઉચર્સ, ખાતાવહીમાં ઓટો-પોસ્ટિંગ અને રીઅલ-ટાઇમ કાચું સરવૈયું (Trial Balance).", "Balanced journal vouchers of debit (Dr) and credit (Cr), auto-posting to ledger and real-time trial balance.", "डेबिट (डॉ) और क्रेडिट (सीआर) के संतुलित जर्नल वाउचर, लेजर में ऑटो-पोस्टिंग और वास्तविक समय परीक्षण संतुलन।"],
+    ["ઇન્વોઇસ → Multimodal OCR → Double-Entry ખાતાવહી → બેંક મેળવણી → GST Mismatch → વાર્ષિક હિસાબો → AI CA Copilot", "Invoice → Multimodal OCR → Double-Entry Ledger → Bank Receipt → GST Mismatch → Annual Accounts → AI CA Copilot", "चालान → मल्टीमॉडल ओसीआर → डबल-एंट्री लेजर → बैंक रसीद → जीएसटी बेमेल → वार्षिक खाते → एआई सीए कोपायलट"],
+    ["આ બટન દબાવવાથી તમારા ફોન/લેપટોપના તમામ વાઉચર્સ ક્લાઉડ ડેટાબેઝમાં સંગ્રહિત થશે અને બીજા ડિવાઇસમાં તરત દેખાશે.", "By pressing this button all the vouchers on your phone/laptop will be stored in the cloud database and instantly visible on the other device.", "इस बटन को दबाने से आपके फोन/लैपटॉप के सभी वाउचर क्लाउड डेटाबेस में संग्रहीत हो जाएंगे और तुरंत अन्य डिवाइस पर दिखाई देंगे।"],
+    ["આવકવેરા કે GST ની નોટિસ પેસ્ટ કરો. AI તેનો કાયદેસર અભ્યાસ કરીને સત્તાવાર પ્રત્યુત્તર પત્ર તૈયાર કરશે.", "Paste the notice of Income Tax or GST. AI will study it legitimately and prepare an official reply letter.", "इनकम टैक्स या जीएसटी का नोटिस चिपकाएं. एआई इसका विधिवत अध्ययन करेगा और एक आधिकारिक उत्तर पत्र तैयार करेगा।"],
+    ["તમામ ખાતાવહી, E-Invoices, પેરોલ, ઇન્વેન્ટરી અને MCA ઓડિટ ટ્રેઇલનું SHA-256 સીલબંધ બેકઅપ ડાઉનલોડ કરો.", "Download SHA-256 sealed backups of all ledgers, E-Invoices, payroll, inventory and MCA audit trail.", "सभी बहीखातों, ई-चालान, पेरोल, इन्वेंट्री और एमसीए ऑडिट ट्रेल के SHA-256 सीलबंद बैकअप डाउनलोड करें।"],
+    ["ઓડિટર અને ટેક્સ કન્સલ્ટન્ટ માટે વિશેષ પાઇ ચાર્ટ, ડોનટ ચાર્ટ અને રોકડ પ્રવાહ ટ્રેન્ડ ગ્રાફિક્સ", "Special pie charts, donut charts and cash flow trend graphics for auditors and tax consultants", "लेखा परीक्षकों और कर सलाहकारों के लिए विशेष पाई चार्ट, डोनट चार्ट और नकदी प्रवाह प्रवृत्ति ग्राफिक्स"],
+    ["તમારા ફ્રી ક્લાઉડ સર્વર (Render/Koyeb/Railway) નું URL દાખલ કરો જેથી મોબાઈલ & લેપટોપ સિંક થાય", "Enter URL of your free cloud server (Render/Koyeb/Railway) to sync mobile & laptop", "मोबाइल और लैपटॉप को सिंक करने के लिए अपने निःशुल्क क्लाउड सर्वर (रेंडर/कोयेब/रेलवे) का यूआरएल दर्ज करें"],
+    ["ધ ઇન્સ્ટિટ્યૂટ ઓફ ચાર્ટર્ડ એકાઉન્ટન્ટ્સ ઓફ ઇન્ડિયા (ICAI) ના નિયમ મુજબ ૧૮-અંકનો સત્તાવાર UDIN", "18-digit official UDIN as per The Institute of Chartered Accountants of India (ICAI) norms", "इंस्टीट्यूट ऑफ चार्टर्ड अकाउंटेंट्स ऑफ इंडिया (आईसीएआई) के मानदंडों के अनुसार 18 अंकों का आधिकारिक यूडीआईएन"],
+    ["DPDP Act 2023 અને ICAI Code of Ethics મુજબ ક્લાયન્ટના PAN, આધાર અને બેંક એકાઉન્ટ છુપાવો", "Hide client's PAN, Aadhaar and bank account as per DPDP Act 2023 and ICAI Code of Ethics", "DPDP अधिनियम 2023 और ICAI आचार संहिता के अनुसार ग्राहक का पैन, आधार और बैंक खाता छुपाएं"],
+    ["દરેક જર્નલ એન્ટ્રી અને ફેરફાર SHA-256 હેશ સાથે કાયમી લૉક છે (Zero Tampering Guarantee)", "Every journal entry and change is permanently locked with a SHA-256 hash (Zero Tampering Guarantee).", "प्रत्येक जर्नल प्रविष्टि और परिवर्तन स्थायी रूप से SHA-256 हैश (शून्य छेड़छाड़ गारंटी) के साथ लॉक किया जाता है।"],
+    ["કોઈપણ બિલ કે રસીદ અપલોડ કરો. AI આપોઆપ તમામ વિગતો વાંચીને ખાતાવહીમાં ઓટો-એન્ટ્રી કરશે.", "Upload any bill or receipt. AI will automatically read all the details and auto-entry in the ledger.", "कोई भी बिल या रसीद अपलोड करें. एआई स्वचालित रूप से बहीखाता में सभी विवरण और ऑटो-एंट्री पढ़ेगा।"],
+    ["૬૪-કેરેક્ટર ક્રિપ્ટોગ્રાફિક IRN હેશ, QR કોડ, લાઇન આઇટમ્સ અને ખાતાવહીમાં ઓટો-પોસ્ટિંગ", "Auto-posting of 64-character cryptographic IRN hashes, QR codes, line items and ledgers", "64-वर्ण क्रिप्टोग्राफ़िक आईआरएन हैश, क्यूआर कोड, लाइन आइटम और लेजर की ऑटो-पोस्टिंग"],
+    ["બેંક સ્ટેટમેન્ટ ટ્રાન્ઝેક્શન્સ અને પુસ્તકો વચ્ચે ૧૦૦% મેળવણી તથા તફાવતોનું નિરાકરણ.", "100% retrieval and resolution of discrepancies between bank statement transactions and books.", "बैंक विवरण लेनदेन और पुस्तकों के बीच विसंगतियों की 100% पुनर्प्राप्ति और समाधान।"],
+    ["કલમ 269ST રોકડ મર્યાદા (₹૨ લાખથી વધુ), ડુપ્લિકેટ બિલિંગ અને કલમ 194J ની સતત ચકાસણી", "Continuous verification of Section 269ST cash limit (above ₹2 lakh), duplicate billing and Section 194J", "धारा 269एसटी नकद सीमा (₹2 लाख से ऊपर), डुप्लिकेट बिलिंग और धारा 194जे का निरंतर सत्यापन"],
+    ["સંપત્તિ vs દેવા ગુણોત્તર અને મૂડી સંરચના (Balance Sheet Structure & Capital Ratio)", "Asset vs Debt Ratio and Capital Structure (Balance Sheet Structure & Capital Ratio)", "संपत्ति बनाम ऋण अनुपात और पूंजी संरचना (बैलेंस शीट संरचना और पूंजी अनुपात)"],
+    ["સરકાર કે GST કાઉન્સિલ દર બદલે ત્યારે સિસ્ટમમાં તાત્કાલિક આપોઆપ નવો દર લાગુ થાય છે", "When the government or GST Council changes the rate, the new rate is automatically applied in the system immediately", "जब सरकार या जीएसटी परिषद दर में बदलाव करती है, तो नई दर तुरंत सिस्टम में लागू हो जाती है"],
+    ["GSTR-2B ઇનપુટ ટેક્સ ક્રેડિટનું રીઅલ-ટાઇમ ચેકિંગ અને પેનલ્ટી-મુક્ત ટેક્સ ફાઇલિંગ.", "Real-time checking of GSTR-2B input tax credit and penalty-free tax filing.", "जीएसटीआर-2बी इनपुट टैक्स क्रेडिट की वास्तविक समय जांच और जुर्माना-मुक्त टैक्स फाइलिंग।"],
+    ["૬ મર્યાદાઓનું ૧૦૦% સુવર્ણ સમાધાન (All 6 Disadvantages Converted to Advantages):", "100% golden solution of 6 limitations (All 6 Disadvantages Converted to Advantages):", "6 सीमाओं का 100% सुनहरा समाधान (सभी 6 नुकसान फायदे में परिवर्तित):"],
+    ["કંપની ધારા કલમ 143(3), બ્લોકચેન ઓડિટ ટ્રેઇલ & 256-Bit ક્લાયન્ટ વોલ્ટ સુરક્ષા", "Companies Act Section 143(3), Blockchain Audit Trail & 256-Bit Client Vault Security", "कंपनी अधिनियम धारा 143(3), ब्लॉकचेन ऑडिट ट्रेल और 256-बिट क्लाइंट वॉल्ट सुरक्षा"],
+    ["મોબાઈલ અને લેપટોપ વચ્ચે રીઅલ-ટાઇમ સિંક્રોનાઇઝેશન & ઝીરો ડેટા લોસ આર્કિટેક્ચર", "Real-time synchronization between mobile and laptop & zero data loss architecture", "मोबाइल और लैपटॉप और शून्य डेटा हानि आर्किटेक्चर के बीच वास्तविक समय सिंक्रनाइज़ेशन"],
+    ["તમારી ફર્મના તમામ ક્લાયન્ટ્સના ઓડિટ સ્ટેટસ, ટર્નઓવર અને જીએસટી કમ્પ્લાયન્સ", "Audit status, turnover and GST compliance of all your firm's clients", "आपकी फर्म के सभी ग्राहकों की ऑडिट स्थिति, टर्नओवर और जीएसटी अनुपालन"],
+    ["૨ સેકન્ડમાં નફો-નુકસાન ખાતું, પાકું સરવૈયું અને ૧૯૫+ દેશોની કરવેરા ગણતરી.", "Profit and loss account, balance sheet and tax calculation for 195+ countries in 2 seconds.", "2 सेकंड में 195+ देशों के लिए लाभ और हानि खाता, बैलेंस शीट और कर गणना।"],
+    ["Module 6: AI CA Copilot (ગુજરાતી / English Tax Advisory & Notice Helper)", "Module 6: AI CA Copilot (Gujarati / English Tax Advisory & Notice Helper)", "मॉड्यूल 6: एआई सीए कोपायलट (गुजराती/अंग्रेजी कर सलाहकार और नोटिस सहायक)"],
+    ["૧૨% EPF, ESIC, પ્રોફેશનલ ટેક્સ, સેક્શન 192 TDS અને ઓટોમેટિક પગાર સ્લિપ્સ", "12% EPF, ESIC, Professional Tax, Section 192 TDS and Automatic Pay Slips", "12% ईपीएफ, ईएसआईसी, व्यावसायिक कर, धारा 192 टीडीएस और स्वचालित वेतन पर्ची"],
+    ["Gemini, GSP અને બેંક API કીઝ સર્વર પર એનક્રિપ્ટેડ અને સુરક્ષિત રહે છે.", "Gemini, GSP and Bank API keys remain encrypted and secure on the server.", "जेमिनी, जीएसपी और बैंक एपीआई कुंजी सर्वर पर एन्क्रिप्टेड और सुरक्षित रहती हैं।"],
+    ["FIFO પદ્ધતિથી આખર સ્ટોકનું મૂલ્યાંકન, COGS ગણતરી અને લો-સ્ટોક એલર્ટ્સ", "FIFO method of ending stock valuation, COGS calculation and low-stock alerts", "स्टॉक मूल्यांकन समाप्त करने की फीफो विधि, सीओजीएस गणना और कम स्टॉक अलर्ट"],
+    ["ખાતાવહીમાં આપોઆપ ડબલ-એન્ટ્રી પોસ્ટ કરો (Sundry Debtors Dr / Sales Cr)", "Automatically post double-entry in the ledger (Sundry Debtors Dr / Sales Cr)", "खाता बही में स्वचालित रूप से दोहरी प्रविष्टि पोस्ट करें (विविध देनदार डॉ / बिक्री सीआर)"],
+    ["Sri Sri ❤️ AI CA સિસ્ટમ આર્કિટેક્ચર (System Architecture Pipeline)", "Sri Sri ❤️ AI CA System Architecture (System Architecture Pipeline)", "श्री श्री ❤️ एआई सीए सिस्टम आर्किटेक्चर (सिस्टम आर्किटेक्चर पाइपलाइन)"],
+    ["WDV (ઘટતી જતી બાકી) અને SLM પદ્ધતિ અનુસાર ઘસારાનું વૈધાનિક શેડ્યુલ", "Statutory Schedule of Depreciation as per WDV (Decreasing Balance) and SLM method", "डब्ल्यूडीवी (घटता हुआ संतुलन) और एसएलएम पद्धति के अनुसार मूल्यह्रास की वैधानिक अनुसूची"],
+    ["૫૦ પાનાની PDF, Gemini Vision & Tesseract OCR બેકએન્ડ પર રન થાય છે.", "50 page PDF, Gemini Vision & Tesseract OCR run on the backend.", "50 पेज पीडीएफ, जेमिनी विजन और टेसेरैक्ट ओसीआर बैकएंड पर चलते हैं।"],
+    ["ખરીદી, વેચાણ બિલો, કરવેરા ચલણ અથવા બેંક ટ્રાન્ઝેક્શન સ્ટેટમેન્ટ્સ", "Purchase, sales bills, tax invoices or bank transaction statements", "खरीद, बिक्री बिल, कर चालान या बैंक लेनदेन विवरण"],
+    ["તાજેતરના ક્રિપ્ટોગ્રાફિક ઓડિટ બ્લોક્સ (Recent Blockchain Blocks):", "Recent Cryptographic Audit Blocks (Recent Blockchain Blocks):", "हाल के क्रिप्टोग्राफ़िक ऑडिट ब्लॉक (हाल के ब्लॉकचेन ब्लॉक):"],
+    ["CA મલ્ટી-ગ્રાફ અને ઓડિટ એનાલિટિક્સ હબ (CA Visual Analytics Hub)", "CA Multi-Graph and Audit Analytics Hub (CA Visual Analytics Hub)", "सीए मल्टी-ग्राफ़ और ऑडिट एनालिटिक्स हब (सीए विज़ुअल एनालिटिक्स हब)"],
+    ["ઓડિટ, બેંક લોન અને ITR ફાઇલિંગ માટે સત્તાવાર સ્ટેન્ડર્ડ ફોર્મેટ", "Official Standard Format for Audit, Bank Loan and ITR Filing", "ऑडिट, बैंक ऋण और आईटीआर फाइलिंग के लिए आधिकारिक मानक प्रारूप"],
+    ["GSTIN, લાઇન આઇટમ્સ અને ટેક્સ સ્લેબ્સનું વિશ્લેષણ થઈ રહ્યું છે.", "GSTIN, line items and tax slabs are being analyzed.", "जीएसटीआईएन, लाइन आइटम और टैक्स स्लैब का विश्लेषण किया जा रहा है।"],
+    ["F12 થી કોઈ પણ આંકડા બદલી શકાતા નથી; સર્વર હેશ વેરિફાય કરે છે.", "No statistics can be changed with F12; The server verifies the hash.", "F12 से कोई आँकड़े नहीं बदले जा सकते; सर्वर हैश का सत्यापन करता है."],
+    ["વાર્ષિક હિસાબો: નફો-નુકસાન અને પાકું સરવૈયું (Final Accounts)", "Annual Accounts: Profit and Loss and Final Accounts", "वार्षिक खाते: लाभ और हानि और अंतिम खाते"],
+    ["સ્વાયત્ત બિઝનેસ એન્ટરપ્રાઇઝ સ્યુટ (Enterprise Autonomous ERP)", "Enterprise Autonomous ERP", "एंटरप्राइज़ स्वायत्त ईआरपी"],
+    ["CA અને ૫-૧૦ સ્ટાફ એકસાથે કામ કરી શકે, કન્કરન્સી લોકિંગ સાથે.", "CA and 5-10 staff can work together, with concurrency locking.", "समवर्ती लॉकिंग के साथ सीए और 5-10 कर्मचारी एक साथ काम कर सकते हैं।"],
+    ["પસંદ કરેલા દેશના કાયદાકીય કરવેરા નિયમો અનુસાર ઓટોમેટિક ગણતરી", "Automatic calculation according to the statutory tax rules of the selected country", "चयनित देश के वैधानिक कर नियमों के अनुसार स्वचालित गणना"],
+    ["બ્રાઉઝર કેશ પ્રોટેક્શન & ઓફલાઇન વોલ્ટ (Zero Data Loss Vault)", "Browser Cache Protection & Offline Vault (Zero Data Loss Vault)", "ब्राउज़र कैश सुरक्षा और ऑफ़लाइन वॉल्ट (शून्य डेटा हानि वॉल्ट)"],
+    ["ચાર્ટર્ડ એકાઉન્ટન્ટ ક્લાયન્ટ પોર્ટફોલિયો (CA Client Roster)", "Chartered Accountant Client Roster (CA Client Roster)", "चार्टर्ड अकाउंटेंट क्लाइंट रोस्टर (सीए क्लाइंट रोस्टर)"],
+    ["સ્માર્ટ E-ઇન્વોઇસિંગ & બિલિંગ સ્ટુડિયો (E-Invoicing Studio)", "Smart E-Invoicing & Billing Studio (E-Invoicing Studio)", "स्मार्ट ई-चालान और बिलिंग स्टूडियो (ई-चालान स्टूडियो)"],
+    ["એન્ટરપ્રાઇઝ ઇન્વેન્ટરી & સ્ટોક મૂલ્યાંકન (Stock Valuation)", "Enterprise Inventory & Stock Valuation", "एंटरप्राइज़ इन्वेंटरी और स्टॉक मूल्यांकन"],
+    ["ઓફલાઇન હાઇબ્રિડ સ્વાયત્ત એક્સપર્ટ એન્જિન (Local AI Brain)", "Offline Hybrid Autonomous Expert Engine (Local AI Brain)", "ऑफ़लाइन हाइब्रिड स्वायत्त विशेषज्ञ इंजन (स्थानीय एआई ब्रेन)"],
+    ["કોઈ બિલ અપલોડ કરો અથવા ઉપરના સેમ્પલ બિલ બટન પર ક્લિક કરો.", "Upload a bill or click on the sample bill button above.", "बिल अपलोड करें या ऊपर दिए गए नमूना बिल बटन पर क्लिक करें।"],
+    ["હાઈ-ટેક ERP કમાન્ડ સેન્ટર • ODOO & ZOHO કરતાં પણ ઉત્કૃષ્ટ", "Hi-Tech ERP Command Center • Superior to ODOO & ZOHO", "हाई-टेक ईआरपी कमांड सेंटर • ODOO और ZOHO से बेहतर"],
+    ["AI ફોરેન્સિક ઓડિટ & કમ્પ્લાયન્સ ગાર્ડિયન (Anomaly Radar)", "AI Forensic Audit & Compliance Guardian (Anomaly Radar)", "एआई फोरेंसिक ऑडिट एवं अनुपालन संरक्षक (विसंगति रडार)"],
+    ["સ્માર્ટ પેરોલ & પગાર સ્લિપ સ્ટુડિયો (Autonomous Payroll)", "Smart Payroll & Pay Slip Studio (Autonomous Payroll)", "स्मार्ट पेरोल और पे स्लिप स्टूडियो (स्वायत्त पेरोल)"],
+    ["RBI Account Aggregator લાઈવ બેંક ફીડ્સ (SBI/HDFC/ICICI)", "RBI Account Aggregator Live Bank Feeds (SBI/HDFC/ICICI)", "आरबीआई खाता एग्रीगेटर लाइव बैंक फ़ीड (एसबीआई/एचडीएफसी/आईसीआईसीआई)"],
+    ["કેશ ડિલીટ થાય તો પણ ક્લાઉડમાંથી ૧૦૦% ઓટો-રિકવર થાય છે.", "100% auto-recover from cloud even if cache is deleted.", "कैश डिलीट होने पर भी क्लाउड से 100% ऑटो-रिकवर।"],
+    ["ફિક્સ્ડ એસેટ્સ & ઘસારો એન્જિન (Fixed Asset Management)", "Fixed Assets & Depreciation Engine (Fixed Asset Management)", "अचल संपत्ति एवं मूल्यह्रास इंजन (स्थायी संपत्ति प्रबंधन)"],
+    ["ઇન્વોઇસ / બિલ / બેંક સ્ટેટમેન્ટ (PDF / Photo / Excel)", "Invoice / Bill / Bank Statement (PDF / Photo / Excel)", "चालान / बिल / बैंक विवरण (पीडीएफ / फोटो / एक्सेल)"],
+    ["તમામ જમા-ઉધાર વ્યવહારો, ઓડિટ ટ્રેલ અને ટ્રાયલ બેલેન્સ", "All credit-debit transactions, audit trail and trial balance", "सभी क्रेडिट-डेबिट लेनदेन, ऑडिट ट्रेल और ट्रायल बैलेंस"],
+    ["લેપટોપ & મોબાઈલ બંને એક જ ક્લાઉડ DB સાથે સિંક થાય છે.", "Both laptop & mobile sync with same cloud DB.", "लैपटॉप और मोबाइल दोनों एक ही क्लाउड डीबी के साथ सिंक होते हैं।"],
+    ["સ્માર્ટ બિલ અને ઇન્વૉઇસ સ્કેનર (Multimodal AI Vision)", "Smart Bill and Invoice Scanner (Multimodal AI Vision)", "स्मार्ट बिल और इनवॉइस स्कैनर (मल्टीमॉडल एआई विजन)"],
+    ["૭ અડચણોનું કાયમી ૧૦૦% સ્વાયત્ત નિવારણ (7 SUPERPOWERS)", "Permanent 100% autonomous removal of 7 obstacles (7 SUPERPOWERS)", "7 बाधाओं का स्थायी 100% स्वायत्त निष्कासन (7 महाशक्तियाँ)"],
+    ["આઉટપુટ GST, માન્ય ITC ક્રેડિટ & કેશ ટેક્સ લાયાબિલિટી", "Output GST, admissible ITC credit & cash tax liability", "आउटपुट जीएसटी, स्वीकार्य आईटीसी क्रेडिट और नकद कर देयता"],
+    ["કરવેરા અને એકાઉન્ટિંગ કાયદાઓ પર રીઅલ-ટાઇમ માર્ગદર્શન", "Real-time guidance on taxation and accounting laws", "कराधान और लेखांकन कानूनों पर वास्तविक समय मार्गदर्शन"],
+    ["કર્મચારી પેરોલમાં સેવ કરો & ખાતાવહીમાં ઓટો-પોસ્ટ કરો", "Save to employee payroll & auto-post to ledger", "कर्मचारी पेरोल में सहेजें और खाता बही में ऑटो-पोस्ट करें"],
+    ["વિવિધ હેડ્સમાં થતા ખર્ચાઓનું ચોક્કસ પ્રમાણ (% Share)", "Exact share (% share) of expenditure incurred under various heads", "विभिन्न मदों के अंतर्गत किए गए व्यय का सटीक हिस्सा (% हिस्सा)।"],
+    ["આંતરરાષ્ટ્રીય ડેટા પ્રાઈવસી અને એકાઉન્ટિંગ ઓડિટ લોગ", "International Data Privacy and Accounting Audit Logs", "अंतर्राष्ट्रीय डेटा गोपनीयता और लेखा ऑडिट लॉग"],
+    ["આવક, ખર્ચ અને ચોખ્ખા નફાનું વાસ્તવિક ગ્રાફિકલ ચિત્ર", "A realistic graphical representation of income, expenses and net profit", "आय, व्यय और शुद्ध लाभ का यथार्थवादी चित्रमय प्रतिनिधित्व"],
+    ["બેંક સ્ટેટમેન્ટ અને હિસાબી ચોપડા વચ્ચે આપોઆપ મેળવણી", "Automatic reconciliation between bank statements and ledgers", "बैंक विवरण और बहीखातों के बीच स्वचालित समाधान"],
+    ["સ્માર્ટ બેંક રિકન્સિલિએશન (Bank Statement Matching)", "Smart Bank Reconciliation (Bank Statement Matching)", "स्मार्ट बैंक समाधान (बैंक विवरण मिलान)"],
+    ["ICAI UDIN & ડિજિટલ સહી જનરેટર (Unique Document ID)", "ICAI UDIN & Digital Signature Generator (Unique Document ID)", "आईसीएआई यूडीआईएन और डिजिटल सिग्नेचर जेनरेटर (अद्वितीय दस्तावेज़ आईडी)"],
+    ["એડેપ્ટિવ ઇમેજ ફિલ્ટર & હ્યુમન-ઇન-ધ-લૂપ (HITL) રડાર", "Adaptive Image Filter & Human-in-the-Loop (HITL) Radar", "अनुकूली छवि फ़िल्टर और ह्यूमन-इन-द-लूप (HITL) रडार"],
+    ["માસિક આવક પ્રવાહ (Inflow) vs ખર્ચ પ્રવાહ (Outflow)", "Monthly Income Flow (Inflow) vs Expense Flow (Outflow)", "मासिक आय प्रवाह (प्रवाह) बनाम व्यय प्रवाह (बहिर्वाह)"],
+    ["૧-ક્લિક મલ્ટિ-ડિવાઇસ રીઅલ-ટાઇમ સિંક (Instant Sync)", "1-click multi-device real-time sync (Instant Sync)", "1-क्लिक मल्टी-डिवाइस रीयल-टाइम सिंक (त्वरित सिंक)"],
+    ["🌐 ક્લાઉડ બેકએન્ડ API સર્વર (Python FastAPI Server)", "🌐 Cloud Backend API Server (Python FastAPI Server)", "🌐 क्लाउड बैकएंड एपीआई सर्वर (पायथन फास्टएपीआई सर्वर)"],
+    ["MCA કલમ 143(3) અને CARO 2020 ક્રિપ્ટોગ્રાફિક ચેઇન", "MCA Section 143(3) and CARO 2020 Cryptographic Chain", "एमसीए धारा 143(3) और सीएआरओ 2020 क्रिप्टोग्राफ़िक श्रृंखला"],
+    ["ટેક્સ અને સ્ટેચ્યુટરી કમ્પ્લાયન્સ હબ (Tax Engine)", "Tax and Statutory Compliance Hub (Tax Engine)", "कर और वैधानिक अनुपालन केंद्र (टैक्स इंजन)"],
+    ["વર્ચ્યુઅલ Class-3 DSC & આધાર e-Sign Web-PKI બ્રિજ", "Virtual Class-3 DSC & Aadhaar e-Sign Web-PKI Bridge", "वर्चुअल क्लास-3 डीएससी और आधार ई-साइन वेब-पीकेआई ब्रिज"],
+    ["સ્વાયત્ત AI એકાઉન્ટિંગ પાઇપલાઇન (System Pipeline)", "Autonomous AI Accounting Pipeline (System Pipeline)", "स्वायत्त एआई लेखा पाइपलाइन (सिस्टम पाइपलाइन)"],
+    ["Class-3 ડિજિટલ સહી લાગુ કરો (Apply Digital Sign)", "Apply Class-3 Digital Sign", "क्लास-3 डिजिटल साइन लागू करें"],
+    ["ડબલ-એન્ટ્રી ખાતાવહી અને વાઉચર્સ (General Ledger)", "Double-Entry Ledger and Vouchers (General Ledger)", "डबल-एंट्री लेजर और वाउचर (सामान्य लेजर)"],
+    ["રોકડ પ્રવાહ ટ્રેન્ડ લાઇન ચાર્ટ (Cash Flow Trend)", "Cash Flow Trend Line Chart", "कैश फ्लो ट्रेंड लाइन चार्ट"],
+    ["તાજા બેંક વ્યવહારો લાઈવ ખેંચો (Trigger AA Sync)", "Live pull of latest bank transactions (Trigger AA Sync)", "नवीनतम बैंक लेनदेन का लाइव पुल (ट्रिगर एए सिंक)"],
+    ["🔄 તમામ વાઉચર્સ & એકાઉન્ટ્સ ક્લાઉડ સાથે સિંક કરો", "🔄 Sync all vouchers & accounts with cloud", "🔄 सभी वाउचर और खातों को क्लाउड के साथ सिंक करें"],
+    ["આ બિલની હિસાબમાં આપોઆપ એન્ટ્રી કરો (Auto Post)", "Auto post this bill to account", "इस बिल को खाते में स्वतः पोस्ट करें"],
+    ["ઇન્ટેલિજન્ટ વિઝન પાર્સિંગ અને કેટેગરી ડિટેક્શન", "Intelligent vision parsing and category detection", "बुद्धिमान दृष्टि पार्सिंग और श्रेणी का पता लगाना"],
+    ["ડાયરેક્ટ GSP પોર્ટલ સિન્ક (લાઈવ ARN જનરેટ કરો)", "Direct GSP Portal Sync (Generate Live ARN)", "डायरेक्ट जीएसपी पोर्टल सिंक (लाइव एआरएन जेनरेट करें)"],
+    ["સ્ટેચ્યુટરી કંપની ઓડિટ રિપોર્ટ (Companies Act)", "Statutory Company Audit Report (Companies Act)", "वैधानिक कंपनी ऑडिट रिपोर्ट (कंपनी अधिनियम)"],
     ["૧૦૦% સ્વાયત્ત એકાઉન્ટિંગ અને કરવેરા વ્યવસ્થાપન", "100% Autonomous Accounting & Tax Management", "100% स्वायत्त लेखांकन और कर प्रबंधन"],
-    ["AI ચાર્ટર્ડ એકાઉન્ટન્ટ", "AI Chartered Accountant", "एआई चार्टर्ड अकाउंटेंट"],
-    ["નવું બિલ સ્કેન કરો (Scan Bill)", "Scan Bill", "बिल स्कैन करें"],
-    ["નવું બિલ સ્કેન કરો", "Scan New Bill", "नया बिल स्कैन करें"],
-    ["AI CA ને પ્રશ્ન પૂછો", "Ask AI CA", "एआई सीए से पूछें"],
-    ["CA & ACCA સુપર ફાયદા", "CA & ACCA Advantages", "सीए और एसीसीए लाभ"],
-    ["કુલ આવક / વેચાણ", "Total Revenue / Sales", "कुल आय / बिक्री"],
-    ["ઓડિટેડ ચોપડામાં નોંધાયેલ", "Recorded in Audited Books", "ऑडिटेड बहीखाते में दर्ज"],
-    ["કુલ ખર્ચાઓ (Expenses)", "Total Expenses", "कुल व्यय (Expenses)"],
-    ["ભાડું, પગાર, ટેકનોલોજી સાધનો", "Rent, Salary, Tech Tools", "किराया, वेतन, तकनीकी उपकरण"],
-    ["ચોખ્ખો ઓડિટેડ નફો", "Net Audited Profit", "शुद्ध ऑडिटेड लाभ"],
-    ["ટેક્સ બાદ ચોખ્ખી બચત", "Net Savings After Tax", "कर पश्चात शुद्ध बचत"],
-    ["ઇનપુટ ટેક્સ ક્રેડિટ (ITC)", "Input Tax Credit (ITC)", "इनपुट टैक्स क्रेडिट (ITC)"],
-    ["GSTR-2B માન્ય ક્લેમ", "GSTR-2B Verified Claim", "GSTR-2B सत्यापित दावा"],
-    ["સ્માર્ટ બિલ સ્કેનર & મલ્ટીમોડલ OCR", "Smart Bill Scanner & Multimodal OCR", "स्मार्ट बिल स्कैनर और मल्टीमॉडल ओसीआर"],
-    ["કોઈપણ હસ્તલિખિત કે પ્રિન્ટેડ બિલ અપલોડ કરો", "Upload any handwritten or printed bill", "कोई भी हस्तलिखित या मुद्रित बिल अपलोड करें"],
-    ["બિલ / ઇન્વોઇસ ફાઇલ અહીં ખેંચો અથવા ક્લિક કરો", "Drag & drop bill/invoice here or click to browse", "बिल/इनवॉइस यहाँ खींचें या चुनने के लिए क्लिक करें"],
-    ["PDF, JPEG, PNG ફોર્મેટ્સ સમર્થિત", "PDF, JPEG, PNG formats supported", "PDF, JPEG, PNG प्रारूप समर्थित"],
-    ["AI એક્સટ્રેક્ટ પરિણામો", "AI Extraction Results", "एआई निष्कर्षण परिणाम"],
-    ["પાર્ટીનું નામ:", "Party Name:", "पार्टी का नाम:"],
-    ["GSTIN નંબર:", "GSTIN Number:", "जीएसटीआईएन नंबर:"],
-    ["ઇન્વોઇસ તારીખ:", "Invoice Date:", "इनवॉइस दिनांक:"],
-    ["કુલ રકમ:", "Total Amount:", "कुल राशि:"],
-    ["કરપાત્ર રકમ:", "Taxable Value:", "कर योग्य मूल्य:"],
-    ["ટેક્સ રકમ (GST):", "Tax Amount (GST):", "टैक्स राशि (GST):"],
-    ["વાઉચરમાં પોસ્ટ કરો", "Post to Voucher", "वाउचर में पोस्ट करें"],
-    ["નવું વાઉચર બનાવો", "Create New Voucher", "नया वाउचर बनाएं"],
-    ["વાઉચર નંબર", "Voucher No", "वाउचर संख्या"],
-    ["તારીખ", "Date", "दिनांक"],
-    ["ખાતું (Account)", "Account", "खाता"],
-    ["ડેબિટ (Dr)", "Debit (Dr)", "डेबिट (Dr)"],
-    ["ક્રેડિટ (Cr)", "Credit (Cr)", "क्रेडिट (Cr)"],
-    ["વિગત (Narration)", "Narration", "विवरण (Narration)"],
-    ["સ્થિતિ", "Status", "स्थिति"],
-    ["ક્રિયા", "Action", "कार्रवाई"],
-    ["કાચું સરવૈયું (Trial Balance)", "Trial Balance", "तलपट (Trial Balance)"],
-    ["બેંક મેળવણી", "Bank Reconciliation", "बैंक समाधान"],
-    ["બેંક સ્ટેટમેન્ટ અપલોડ કરો", "Upload Bank Statement", "बैंक स्टेटमेंट अपलोड करें"],
-    ["ઓટો-રિકન્સાઇલેશન ચલાવો", "Run Auto-Reconciliation", "ऑटो-समाधान चलाएं"],
-    ["મેળવાયેલ ટ્રાન્ઝેક્શન્સ", "Matched Transactions", "मिलान किए गए लेनदेन"],
-    ["તફાવત વાળા વ્યવહારો", "Unmatched Differences", "बेमेल लेनदेन"],
-    ["જીએસટી કાઉન્સિલ દર અપડેટ", "GST Council Rate Updates", "जीएसटी परिषद दर अपडेट"],
-    ["લાઈવ જીએસટી ટેરિફ કાર્ડ", "Live GST Tariff Card", "लाइव जीएसटी टैरिफ कार्ड"],
-    ["જીએસટી ટેરિફ સ્લેબ્સ", "GST Tariff Slabs", "जीएसटी टैरिफ स्लैब"],
-    ["નિયમિત દર", "Standard Rate", "मानक दर"],
-    ["આવકવેરા ગણતરી એન્જિન", "Income Tax Calculation Engine", "आयकर गणना इंजन"],
-    ["નવી કર વ્યવસ્થા (New Regime)", "New Tax Regime", "नई कर व्यवस्था"],
-    ["જૂની કર વ્યવસ્થા (Old Regime)", "Old Tax Regime", "पुरानी कर व्यवस्था"],
-    ["કરપાત્ર આવક", "Taxable Income", "कर योग्य आय"],
-    ["કુલ ચૂકવવાપાત્ર કર", "Total Tax Payable", "कुल देय कर"],
-    ["ITR-1 / ITR-4 ડ્રાફ્ટ", "ITR-1 / ITR-4 Draft", "ITR-1 / ITR-4 ड्राफ्ट"],
-    ["નફો અને નુકસાન ખાતું", "Profit & Loss Account", "लाभ एवं हानि खाता"],
+    ["CA પોર્ટફોલિયોમાં નવું ક્લાયન્ટ એકાઉન્ટ બનાવો", "Create a new client account in CA Portfolio", "सीए पोर्टफोलियो में एक नया ग्राहक खाता बनाएं"],
+    ["ઓડિટ રિપોર્ટ પર સત્તાવાર CA સહી કરો (1-Click)", "Official CA Sign Audit Report (1-Click)", "आधिकारिक सीए साइन ऑडिट रिपोर्ट (1-क्लिक)"],
+    ["કોઈપણ રોકડ ભંગ કે ડુપ્લિકેટ ઇન્વોઇસ મળેલ નથી.", "No cash lapses or duplicate invoices found.", "कोई नकदी चूक या डुप्लिकेट चालान नहीं मिला।"],
+    ["નવું E-ઇન્વોઇસ જનરેટર (Tax Invoice Generator)", "New E-Invoice Generator (Tax Invoice Generator)", "नया ई-इनवॉइस जेनरेटर (टैक्स इनवॉइस जेनरेटर)"],
+    ["CA-પાર્ટનર કો-પાઇલટ & COP ઓડિટ સાઇન-ઓફ ગેટવે", "CA-Partner Co-Pilot & COP Audit Sign-off Gateway", "सीए-पार्टनर सह-पायलट और सीओपी ऑडिट साइन-ऑफ गेटवे"],
+    ["Sri Sri ❤️ હાઇબ્રિડ ક્લાઉડ & મલ્ટિ-ડિવાઇસ હબ", "Sri Sri ❤️ Hybrid Cloud & Multi-Device Hub", "श्री श्री ❤️ हाइब्रिड क्लाउड और मल्टी-डिवाइस हब"],
+    ["XSS, SQL Injection & Clickjacking પ્રોટેક્શન", "XSS, SQL Injection & Clickjacking Protection", "XSS, SQL इंजेक्शन और क्लिकजैकिंग सुरक्षा"],
+    ["સત્તાવાર ગેઝેટ નોટિફિકેશન: સ્ટાન્ડર્ડ GST દર", "Official Gazette Notification: Standard GST Rate", "आधिकारिक राजपत्र अधिसूचना: मानक जीएसटी दर"],
+    ["૧૦૦% સંતુલિત (Total Debits == Total Credits)", "100% Balanced (Total Debits == Total Credits)", "100% संतुलित (कुल डेबिट == कुल क्रेडिट)"],
+    ["આ UDIN બેંક અને આવકવેરા પોર્ટલ પર માન્ય છે.", "This UDIN is valid on Bank and Income Tax Portal.", "यह यूडीआईएन बैंक और आयकर पोर्टल पर मान्य है।"],
+    ["એન્ટરપ્રાઇઝ SQLite ACID ટ્રાન્ઝેક્શન એન્જિન", "Enterprise SQLite ACID transaction engine", "एंटरप्राइज़ SQLite ACID लेनदेन इंजन"],
+    ["ક્લાયન્ટ PII ડેટા માસ્કિંગ (Privacy Shield)", "Client PII Data Masking (Privacy Shield)", "क्लाइंट PII डेटा मास्किंग (गोपनीयता शील्ड)"],
+    ["નેટ વર્થ સર્ટિફિકેટ (Net Worth Certificate)", "Net Worth Certificate", "नेट वर्थ सर्टिफिकेट"],
+    ["બેંકિંગ-ગ્રેડ એન્ડ-ટુ-એન્ડ ડેટા એન્ક્રિપ્શન", "Banking-grade end-to-end data encryption", "बैंकिंग-ग्रेड एंड-टू-एंड डेटा एन्क्रिप्शन"],
+    ["બિલનો ફોટો / PDF અહીં ખેંચો અથવા ક્લિક કરો", "Drag or click the photo / PDF of the bill here", "बिल का फोटो/पीडीएफ यहां खींचें या क्लिक करें"],
+    ["૧-ક્લિક એન્ક્રિપ્ટેડ ડિઝાસ્ટર રિકવરી બેકઅપ", "1-click encrypted disaster recovery backup", "1-क्लिक एन्क्रिप्टेड डिजास्टर रिकवरी बैकअप"],
+    ["GST અને કરવેરા ડોનટ ચાર્ટ (Tax Doughnut)", "GST and Taxation Donut Chart (Tax Donut)", "जीएसटी और कराधान डोनट चार्ट (टैक्स डोनट)"],
+    ["GSTN & Income Tax ડાયરેક્ટ API GSP બ્રિજ", "GSTN & Income Tax Direct API GSP Bridge", "जीएसटीएन और इनकम टैक्स डायरेक्ट एपीआई जीएसपी ब्रिज"],
+    ["Sri Sri ❤️ CA-ગ્રેડ સિક્યોરિટી ફોર્ટ્રેસ", "Sri Sri ❤️ CA-Grade Security Fortress", "श्री श्री ❤️ सीए-ग्रेड सुरक्षा किला"],
+    ["ખર્ચ વિતરણ પાઇ ચાર્ટ (Expense Pie Chart)", "Expense Pie Chart", "व्यय पाई चार्ट"],
+    ["વૈધાનિક ઓડિટ સાઇન-ઓફ ગાર્ડ (Step-Up 2FA)", "Statutory Audit Sign-off Guard (Step-Up 2FA)", "वैधानिक ऑडिट साइन-ऑफ गार्ड (स्टेप-अप 2FA)"],
+    ["૧૦૦% સ્વાયત્ત એન્ડ-ટુ-એન્ડ ડેટા પાઇપલાઇન", "100% autonomous end-to-end data pipeline", "100% स्वायत्त एंड-टू-एंड डेटा पाइपलाइन"],
+    ["AI Vision સ્કેનિંગ પ્રક્રિયા ચાલુ છે...", "AI Vision scanning process is in progress...", "एआई विज़न स्कैनिंग प्रक्रिया प्रगति पर है..."],
+    ["ઇક્વિટી મૂડી + રિઝર્વ & ચાલુ વર્ષનો નફો", "Equity capital + reserve & current year's profit", "इक्विटी पूंजी + आरक्षित और चालू वर्ष का लाभ"],
+    ["ટેક્સ ઓડિટ રિપોર્ટ ફોર્મ 3CD (Sec 44AB)", "Tax Audit Report Form 3CD (Sec 44AB)", "टैक्स ऑडिट रिपोर्ट फॉर्म 3सीडी (धारा 44एबी)"],
+    ["તમામ ખાતાઓ ૧૦૦% કાયદેસર અને સુરક્ષિત છે", "All accounts are 100% legit and secure", "सभी खाते 100% वैध और सुरक्षित हैं"],
+    ["GST Council લાઈવ દર & ઓટો-અપડેટ એન્જિન", "GST Council Live Rate & Auto-Update Engine", "जीएसटी काउंसिल लाइव रेट और ऑटो-अपडेट इंजन"],
+    ["એન્ક્રિપ્ટેડ બેકઅપ ડાઉનલોડ કરો (.JSON)", "Download encrypted backup (.JSON)", "एन्क्रिप्टेड बैकअप डाउनलोड करें (.JSON)"],
+    ["ચોખ્ખું પુસ્તક મૂલ્ય (Net Book Value)", "Net Book Value", "कुल पुस्तक मूल्य"],
+    ["નવો ક્લાયન્ટ ઉમેરો (Add Client Vault)", "Add a new client (Add Client Vault)", "एक नया ग्राहक जोड़ें (क्लाइंट वॉल्ट जोड़ें)"],
+    ["CA સભ્યપદ નંબર (ICAI Membership No):", "CA Membership No (ICAI Membership No):", "सीए सदस्यता संख्या (आईसीएआई सदस्यता संख्या):"],
+    ["ક્લાયન્ટ વોલ્ટ સાચવો (Enroll Client)", "Enroll Client", "ग्राहक का नामांकन करें"],
+    ["તમારી ભૂમિકા પસંદ કરો (Select Role):", "Select your role (Select Role):", "अपनी भूमिका चुनें (भूमिका चुनें):"],
+    ["નફો અને નુકસાન ખાતું (Profit & Loss)", "Profit & Loss Account", "लाभ एवं हानि खाता"],
+    ["નોટિસનું વિશ્લેષણ & જવાબ ડ્રાફ્ટ કરો", "Analyze notice & draft reply", "नोटिस और ड्राफ्ट उत्तर का विश्लेषण करें"],
+    ["સુપર પાવર ૭ • ઝીરો ઇન્ટરનેટ ડાઉનટાઇમ", "Super Power 7 • Zero internet downtime", "सुपर पावर 7 • शून्य इंटरनेट डाउनटाइम"],
+    ["સ્માર્ટ પેરોલ & પગાર સ્લિપ (EPF/TDS)", "Smart Payroll & Payslip (EPF/TDS)", "स्मार्ट पेरोल और वेतन पर्ची (EPF/TDS)"],
+    ["✅ ૫. MCA Rule 11(g) કાનૂની બ્લોકચેન:", "✅ 5. MCA Rule 11(g) Legal Blockchain:", "✅ 5. एमसीए नियम 11(जी) कानूनी ब्लॉकचेन:"],
+    ["ટ્રાન્સફર પ્રાઇસિંગ ઓડિટ ફોર્મ 3CEB", "Transfer Pricing Audit Form 3CEB", "ट्रांसफर प्राइसिंग ऑडिट फॉर्म 3सीईबी"],
+    ["Sri Sri ❤️ AI CA સલાહકાર (Copilot)", "Sri Sri ❤️ AI CA Consultant (Copilot)", "श्री श्री ❤️ एआई सीए सलाहकार (कोपायलट)"],
+    ["એડેપ્ટિવ OCR કોન્ફિડન્સ રડાર ચકાસો", "Check out the Adaptive OCR Confidence Radar", "एडाप्टिव ओसीआर कॉन्फिडेंस रडार देखें"],
+    ["ટેક્સ નોટિસ સમાધાન (Notice Solver)", "Notice Solver", "सॉल्वर को नोटिस करें"],
+    ["દસ્તાવેજનો પ્રકાર (Document Type):", "Document Type:", "दस्तावेज़ प्रकार:"],
+    ["નવી હિસાબી એન્ટ્રી (Journal Entry)", "New Journal Entry", "नई जर्नल प्रविष्टि"],
+    ["કુલ જવાબદારીઓ (Total Liabilities)", "Total Liabilities", "कुल देनदारियों"],
+    ["નોટિસ ડ્રાફ્ટિંગ અને ૨૪/૭ સલાહકાર", "Notice drafting and 24/7 advisory", "नोटिस का मसौदा तैयार करना और 24/7 सलाह"],
+    [": સંપૂર્ણ આર્કિટેક્ચર સોલ્યુશન્સ", ": Complete Architecture Solutions", ": संपूर्ण वास्तुकला समाधान"],
+    ["ઇનપુટ સ્ત્રોત / Source Documents", "Input Source / Source Documents", "इनपुट स्रोत/स्रोत दस्तावेज़"],
+    ["ઝડપી ડેમો લૉગ ઇન (1-Click Demo):", "Quick Demo Login (1-Click Demo):", "त्वरित डेमो लॉगिन (1-क्लिक डेमो):"],
+    ["નફો-નુકસાન & પાકું સરવૈયું (P&L)", "P&L & Balance Sheet", "लाभ-हानि और बैलेंस शीट"],
+    ["સેમ્પલ બિલથી ટેસ્ટ કરો (1-Click)", "Test with Sample Bill (1-Click)", "नमूना बिल के साथ परीक्षण (1-क्लिक)"],
+    ["હાઈ-ટેક ERP (BEYOND ODOO & ZOHO)", "Hi-Tech ERP (Beyond Odoo & Zoho)", "हाई-टेक ईआरपी (Odoo & Zoho से परे)"],
+    ["AI ફ્રોડ & કમ્પ્લાયન્સ ગાર્ડિયન", "AI Fraud & Compliance Guardian", "एआई धोखाधड़ी और अनुपालन अभिभावक"],
+    ["એકાઉન્ટિંગ પોર્ટલમાં પ્રવેશ કરો", "Log in to the Accounting Portal", "अकाउंटिंग पोर्टल पर लॉग इन करें"],
+    ["પાકા સરવૈયામાં કરન્ટ એસેટ તરીકે", "As a current asset in the balance sheet", "बैलेंस शीट में चालू परिसंपत्ति के रूप में"],
+    ["સુપર પાવર ૨ • સરકારી પોર્ટલ API", "Super Power 2 • Government Portal API", "सुपर पावर 2 • सरकारी पोर्टल एपीआई"],
+    ["સુપર પાવર ૩ • હાઈ-સ્પીડ ડેટાબેઝ", "Super Power 3 • High-speed database", "सुपर पावर 3 • हाई-स्पीड डेटाबेस"],
+    ["• AES-256 વોલ્ટ આઇસોલેશન સક્રિય", "• AES-256 volt isolation enabled", "• एईएस-256 वोल्ट अलगाव सक्षम"],
+    ["✅ ૬. સિક્રેટ API કી સિક્યોરિટી:", "✅ 6. Secret API Key Security:", "✅ 6. गुप्त एपीआई कुंजी सुरक्षा:"],
+    ["E-ઇન્વોઇસિંગ સ્ટુડિયો (IRN/QR)", "E-Invoicing Studio (IRN/QR)", "ई-इनवॉइसिंग स्टूडियो (IRN/QR)"],
+    ["ક્લાયન્ટ પોર્ટફોલિયો (Clients)", "Client Portfolio", "क्लाइंट पोर्टफोलियो"],
+    ["ડેટાબેઝ સિન્ક & સ્નેપશોટ ચકાસો", "Verify Database Sync & Snapshot", "डेटाबेस सिंक और स्नैपशॉट सत्यापित करें"],
+    ["નવું બિલ સ્કેન કરો (Scan Bill)", "Scan New Bill (Scan Bill)", "नया बिल स्कैन करें (बिल स्कैन करें)"],
+    ["પાર્ટનર PIN બદલો (Change PIN):", "Change Partner PIN (Change PIN):", "पार्टनर पिन बदलें (पिन बदलें):"],
+    ["મૂળ ખરીદ કિંમત (Original Cost)", "Original Cost", "असली कीमत"],
+    ["સંચિત ઘસારો (Accumulated Depr)", "Accumulated Depr", "संचित विभाग"],
+    ["🔄 કાઉન્સિલ નોટિફિકેશન ઓટો-સિંક", "🔄 Council notification auto-sync", "🔄 काउंसिल नोटिफिकेशन ऑटो-सिंक"],
+    ["GST ઓડિટ રિકન્સિલેશન ફોર્મ 9C", "GST Audit Reconciliation Form 9C", "जीएसटी ऑडिट समाधान फॉर्म 9सी"],
+    ["ઇન્વેન્ટરી & સ્ટોક (FIFO Val)", "Inventory & Stock (FIFO)", "इन्वेंटरी और स्टॉक (FIFO)"],
     ["પાકું સરવૈયું (Balance Sheet)", "Balance Sheet", "तुलन पत्र (बैलेंस शीट)"],
-    ["પાકું સરવૈયું", "Balance Sheet", "तुलन पत्र"],
-    ["કુલ મિલકતો (Assets)", "Total Assets", "कुल संपत्तियां (Assets)"],
-    ["કુલ જવાબદારીઓ (Liabilities)", "Total Liabilities", "कुल देनदारियां (Liabilities)"],
-    ["માલિકની મૂડી (Equity)", "Owner's Equity", "मालिक की पूंजी (Equity)"],
-    ["ચોખ્ખો નફો", "Net Profit", "शुद्ध लाभ"],
-    ["કુલ આવક", "Total Revenue", "कुल आय"],
-    ["કુલ ખર્ચ", "Total Expenses", "कुल व्यय"],
-    ["ક્લાયન્ટ પોર્ટફોલિયો", "Client Portfolio", "क्लाइंट पोर्टफोलियो"],
-    ["નવો ક્લાયન્ટ ઉમેરો", "Add New Client", "नया क्लाइंट जोड़ें"],
-    ["ક્લાયન્ટનું નામ", "Client Name", "क्लाइंट का नाम"],
-    ["ફર્મ / કંપની", "Firm / Company", "फर्म / कंपनी"],
-    ["સંપર્ક નંબર", "Contact Number", "संपर्क नंबर"],
-    ["ઈમેલ", "Email", "ईमेल"],
-    ["E-ઇન્વોઇસિંગ", "E-Invoicing", "ई-इनवॉइसिंग"],
-    ["નવું E-Invoice બનાવો", "Create New E-Invoice", "नया ई-इनवॉइस बनाएं"],
-    ["કુલ બિલિંગ રકમ", "Total Invoiced Amount", "कुल बिलिंग राशि"],
-    ["સરકારને ભરવાપાત્ર ટેક્સ", "Tax Payable to Govt", "सरकार को देय कर"],
-    ["IRN હેશ વેરિફિકેશન", "IRN Hash Verification", "IRN हैश सत्यापन"],
-    ["NIC QR કોડ સાથે માન્ય", "Valid with NIC QR Code", "एनआईसी क्यूआर कोड के साथ मान्य"],
-    ["ઇન્વેન્ટરી & સ્ટોક", "Inventory & Stock", "इन्वेंटरी और स्टॉक"],
-    ["નવી પ્રોડક્ટ / SKU ઉમેરો", "Add New Product / SKU", "नया उत्पाद / SKU जोड़ें"],
-    ["કુલ સ્ટોક મૂલ્યાંકન (FIFO)", "Total Stock Valuation (FIFO)", "कुल स्टॉक मूल्यांकन (FIFO)"],
-    ["સક્રિય પ્રોડક્ટ્સ (SKUs)", "Active Products (SKUs)", "सक्रिय उत्पाद (SKUs)"],
-    ["રિઓર્ડર ચેતવણીઓ", "Reorder Alerts", "पुनः ऑर्डर चेतावनी"],
-    ["સ્માર્ટ પેરોલ", "Smart Payroll", "स्मार्ट पेरोल"],
-    ["નવો કર્મચારી ઉમેરો", "Add New Employee", "नया कर्मचारी जोड़ें"],
-    ["કુલ માસિક પગાર", "Total Monthly Payroll", "कुल मासिक वेतन"],
-    ["કર્મચારીઓની સંખ્યા", "Total Employees", "कर्मचारियों की संख्या"],
-    ["વૈધાનિક કપાત (EPF/ESIC/PT)", "Statutory Deductions (EPF/ESIC/PT)", "वैधानिक कटौती (EPF/ESIC/PT)"],
-    ["ફિક્સ્ડ એસેટ્સ & ઘસારો", "Fixed Assets & Depreciation", "अचल संपत्ति और मूल्यह्रास"],
-    ["નવી એસેટ ઉમેરો", "Add New Asset", "नई संपत्ति जोड़ें"],
-    ["કુલ એસેટ ખરીદ કિંમત", "Total Asset Cost", "कुल संपत्ति लागत"],
-    ["ચાલુ વર્ષનો ઘસારો", "Current Year Depreciation", "चालू वर्ष का मूल्यह्रास"],
-    ["ચોખ્ખી બુક વેલ્યુ (WDV)", "Net Book Value (WDV)", "शुद्ध पुस्तक मूल्य (WDV)"],
-    ["AI ફોરેન્સિક ઓડિટ", "AI Forensic Audit", "एआई फोरेंसिक ऑडिट"],
-    ["ફરીથી ઓડિટ સ્કેન કરો", "Re-run Audit Scan", "पुनः ऑडिट स्कैन करें"],
-    ["સંદિગ્ધ વિસંગતતાઓ", "Flagged Anomalies", "पहचानी गई विसंगतियां"],
-    ["સેક્શન 269ST રોકડ કેસો", "Section 269ST Cash Cases", "धारा 269ST नकद मामले"],
-    ["ડુપ્લિકેટ વાઉચર્સ", "Duplicate Vouchers", "डुप्लीकेट वाउचर"],
-    ["ICAI UDIN જનરેટર", "ICAI UDIN Generator", "ICAI UDIN जनरेटर"],
-    ["નવો UDIN જનરેટ કરો", "Generate New UDIN", "नया UDIN जनरेट करें"],
-    ["કુલ જનરેટ થયેલ UDINs", "Total Generated UDINs", "कुल जनरेट किए गए UDIN"],
-    ["સત્તાવાર પ્રમાણિત", "Officially Certified", "आधिकारिक रूप से प्रमाणित"],
-    ["ક્લાઉડ સિંક સ્થિતિ", "Cloud Sync Status", "क्लाउड सिंक स्थिति"],
-    ["સિંક થઈ ગયું", "Synchronized", "सिंक हो गया"],
-    ["ઓફલાઇન મોડ", "Offline Mode", "ऑफ़लाइन मोड"],
-    ["બેકઅપ ડાઉનલોડ કરો", "Download Backup", "बैकअप डाउनलोड करें"],
-    ["બેકઅપ રિસ્ટોર કરો", "Restore Backup", "बैकअप पुनर्स्थापित करें"],
-    ["ડેટાબેઝ રીસેટ કરો", "Reset Database", "डेटाबेस रीसेट करें"],
-    ["બધા ઉપકરણો સાથે સિંક કરો", "Sync All Devices", "सभी डिवाइस सिंक करें"],
-    ["ડાઉનલોડ કરો", "Download", "डाउनलोड करें"],
-    ["સેવ કરો", "Save", "सहेजें"],
-    ["રદ કરો", "Cancel", "रद्द करें"],
-    ["ચકાસો", "Verify", "सत्यापित करें"],
-    ["અપલોડ કરો", "Upload", "अपलोड करें"],
-    ["સબમિટ કરો", "Submit", "जमा करें"],
-    ["શોધો...", "Search...", "खोजें..."],
-    ["શોધો", "Search", "खोजें"],
-    ["બધા", "All", "सभी"],
-    ["ગ્રાહક", "Customer", "ग्राहक"],
-    ["વેપારી", "Merchant", "व्यापारी"],
-    ["સફળ", "Success", "सफल"],
-    ["બાકી", "Pending", "लंबित"],
-    ["ચેતવણી", "Warning", "चेतावनी"],
-    ["ભૂલ", "Error", "त्रुटि"],
-    ["નિયમો & શરતો", "Terms & Conditions", "नियम और शर्तें"],
-    ["ગોપનીયતા નીતિ", "Privacy Policy", "गोपनीयता नीति"]
+    ["માલિકની મૂડી (Owner's Equity)", "Owner's Equity", "स्वामी की इक्विटी"],
+    ["સિસ્ટમ આર્કિટેક્ચર (Pipeline)", "System Architecture (Pipeline)", "सिस्टम आर्किटेक्चर (पाइपलाइन)"],
+    ["હાઇબ્રિડ નેટવર્ક સ્ટેટસ ચકાસો", "Check the hybrid network status", "हाइब्रिड नेटवर्क स्थिति की जाँच करें"],
+    ["હાર્ડવેર અને સોફ્ટવેર લાયસન્સ", "Hardware and Software Licenses", "हार्डवेयर और सॉफ्टवेयर लाइसेंस"],
+    ["૭ સુપર પાવર્સ (All Solutions)", "7 Super Powers (All Solutions)", "7 सुपर पॉवर्स (सभी समाधान)"],
+    ["ઓપન Copilot & નોટિસ સોલ્વર →", "Open Copilot & Notice Solver →", "कोपायलट और नोटिस सॉल्वर खोलें →"],
+    ["ટેક્સ ઓડિટ રિપોર્ટ ફોર્મ 3CD", "Tax Audit Report Form 3CD", "टैक्स ऑडिट रिपोर्ट फॉर्म 3सीडी"],
+    ["નાણાકીય પ્રવાહ અને નફાકારકતા", "Financial flow and profitability", "वित्तीय प्रवाह और लाभप्रदता"],
+    ["ફિક્સ્ડ એસેટ્સ & ઘસારો (WDV)", "Fixed Assets & Depreciation (WDV)", "अचल संपत्ति और मूल्यह्रास (WDV)"],
+    ["બેંક મેળવણી (Reconciliation)", "Bank Reconciliation", "बैंक समाधान (Reconciliation)"],
+    ["ભાડું, પગાર, ટેકનોલોજી સાધનો", "Rent, salary, technology equipment", "किराया, वेतन, प्रौद्योगिकी उपकरण"],
+    ["સંપત્તિ-દેવા (Balance Sheet)", "Asset-Debt (Balance Sheet)", "संपत्ति-ऋण (बैलेंस शीट)"],
+    ["સુપર પાવર ૫ • હાર્ડવેર મુક્ત", "Super Power 5 • Hardware free", "सुपर पावर 5 • हार्डवेयर मुफ़्त"],
+    ["CA જયદીપ શાહ (FCA - 542190)", "CA Jaideep Shah (FCA - 542190)", "सीए जयदीप शाह (एफसीए - 542190)"],
+    ["CA જયદીપ શાહ (M.No: 542190)", "CA Jaideep Shah (M.No: 542190)", "सीए जयदीप शाह (मो.नं.: 542190)"],
+    ["IT કાયદા મુજબ બાદ મળવાપાત્ર", "Available later as per IT Act", "आईटी अधिनियम के अनुसार बाद में उपलब्ध है"],
+    ["ITC બાદ કર્યા પછી ભરવાપાત્ર", "Payable after deduction of ITC", "आईटीसी की कटौती के बाद देय"],
+    ["અન્ય ભથ્થાં (Allowances ₹):", "Other Allowances (Allowances ₹):", "अन्य भत्ते (भत्ते ₹):"],
+    ["આર્કિટેક્ચર ફ્લોચાર્ટ જુઓ →", "View the architecture flowchart →", "आर्किटेक्चर फ़्लोचार्ट देखें →"],
+    ["ટેક્સ & GST હબ (Tax Engine)", "Tax & GST Hub", "टैक्स और जीएसटी हब"],
+    ["નવો વાઉચર ઉમેરો (New Entry)", "Add New Voucher (New Entry)", "नया वाउचर जोड़ें (नई प्रविष्टि)"],
+    ["બેલેન્સ શીટ ચોખ્ખી અસ્કયામત", "Balance sheet net assets", "बैलेंस शीट शुद्ध संपत्ति"],
+    ["શ્રી રામ ઇન્ફોટેક પ્રા. લી.", "Shree Ram Infotech Pvt. Lee.", "श्री राम इन्फोटेक प्रा. ली."],
+    ["સત્તાવાર ૧૮-અંકનો UDIN કોડ:", "Official 18-digit UDIN Code:", "आधिकारिक 18-अंकीय यूडीआईएन कोड:"],
+    ["સુપર પાવર ૬ • શૂન્ય OCR ભૂલ", "Super Power 6 • Zero OCR error", "सुपर पावर 6 • शून्य ओसीआर त्रुटि"],
+    ["સ્થાપિત મશીનરી & આઈટી સાધનો", "Installed machinery & IT equipment", "स्थापित मशीनरी एवं आईटी उपकरण"],
+    ["સ્માર્ટ બિલ સ્કેનર (AI OCR)", "Smart Bill Scanner (AI OCR)", "स्मार्ट बिल स्कैनर (AI OCR)"],
+    ["૧૮-અંકનો UDIN કોડ જનરેટ કરો", "Generate an 18-digit UDIN code", "18 अंकों का UDIN कोड जनरेट करें"],
+    ["✅ ૩. CA ફર્મ ટીમ કન્કરન્સી:", "✅ 3. CA Firm Team Concurrency:", "✅ 3. सीए फर्म टीम कॉनकरेंसी:"],
+    ["✅ ૪. હેવી AI & Python પાવર:", "✅ 4. Heavy AI & Python Power:", "✅ 4. भारी एआई और पायथन पावर:"],
+    ["📥 રિસ્ટોર વોલ્ટ (.ca-vault)", "📥 Restore Vault (.ca-vault)", "📥 वॉल्ट पुनर्स्थापित करें (.ca-वॉल्ट)"],
+    ["🔐 ડાઉનલોડ વોલ્ટ (.ca-vault)", "🔐 Download Vault (.ca-vault)", "🔐 वॉल्ट डाउनलोड करें (.ca-vault)"],
+    ["🖨️ પગાર સ્લિપ પ્રિન્ટ / PDF", "🖨️ Salary Slip Print / PDF", "🖨️ वेतन पर्ची प्रिंट/पीडीएफ"],
+    ["🚀 IRN & E-Invoice જનરેટ કરો", "🚀 Generate IRN & E-Invoice", "🚀 आईआरएन और ई-चालान जनरेट करें"],
+    ["કુલ સંપત્તિ (Total Assets)", "Total Assets", "कुल संपत्ति"],
+    ["કુલ સ્ટોક મૂલ્યાંકન (FIFO)", "Total Stock Valuation (FIFO)", "कुल स्टॉक मूल्यांकन (फीफो)"],
+    ["ખાતાવહી & વાઉચર્સ (Ledger)", "Ledger & Vouchers", "बहीखाता और वाउचर"],
+    ["ચાલુ દેવા + લોન લાયાબિલિટી", "Current Debt + Loan Liability", "वर्तमान ऋण + ऋण देयता"],
+    ["ચાલુ મિલકતો + સ્થિર મિલકતો", "Current Assets + Fixed Assets", "वर्तमान संपत्ति + अचल संपत्ति"],
+    ["ધન (Positive Cash Surplus)", "Positive Cash Surplus", "सकारात्मक नकदी अधिशेष"],
+    ["નવા કર્મચારીની પેરોલ વિગતો", "Payroll details of the new employee", "नये कर्मचारी का पेरोल विवरण"],
+    ["નવું રજીસ્ટ્રેશન (Sign Up)", "New Registration (Sign Up)", "नया पंजीकरण (साइन अप)"],
+    ["સુપર પાવર ૧ • કાયદાકીય કવચ", "Super Power 1 • Legal Shield", "सुपर पावर 1 • कानूनी ढाल"],
+    ["✅ ૨. ઝીરો ડેટા લોસ વોરંટી:", "✅ 2. Zero Data Loss Warranty:", "✅ 2. शून्य डेटा हानि वारंटी:"],
+    ["AI નોટિસ સોલ્વર & Copilot", "AI Notice Solver & Copilot", "एआई नोटिस सॉल्वर और कोपायलट"],
+    ["ઓડિટ શિલ્ડ સક્રિય • ૦ ભંગ", "Audit Shield active • 0 breach", "ऑडिट शील्ड सक्रिय • 0 उल्लंघन"],
+    ["ગ્લોબલ ટેક્સ & એકાઉન્ટિંગ", "Global Tax & Accounting", "वैश्विक कर एवं लेखा"],
+    ["ટેક્સ લાયબિલિટી (Tax Due)", "Tax Liability (Tax Due)", "कर देयता (कर देय)"],
+    ["માન્ય ITC ક્રેડિટ રેશિયો:", "Allowable ITC Credit Ratio:", "स्वीकार्य आईटीसी क्रेडिट अनुपात:"],
+    ["વૈધાનિક કપાત (EPF+TDS+PT)", "Statutory Deduction (EPF+TDS+PT)", "वैधानिक कटौती (ईपीएफ+टीडीएस+पीटी)"],
+    ["શ્રી શ્રી ગ્લોબલ ટ્રેડર્સ", "Mr. Mr. Global Traders", "श्रीमान श्रीमान ग्लोबल ट्रेडर्स"],
+    ["સુપર પાવર ૪ • ઓપન બેંકિંગ", "Super Power 4 • Open Banking", "सुपर पावर 4 • ओपन बैंकिंग"],
+    ["🖨️ પ્રમાણપત્ર પ્રિન્ટ કરો", "🖨️ Print the certificate", "🖨️ प्रमाणपत्र प्रिंट करें"],
+    ["100% કાયદેસર કમ્પ્લાયન્ટ", "100% Legal Compliant", "100% कानूनी अनुपालन"],
+    ["આઇટમ વિગતો (Line Items):", "Item Details (Line Items):", "आइटम विवरण (लाइन आइटम):"],
+    ["ઓડિટેડ ચોપડામાં નોંધાયેલ", "Recorded in audited books", "लेखापरीक्षित पुस्तकों में दर्ज किया गया"],
+    ["ક્લાયન્ટ / કંપનીનું નામ:", "Client / Company Name:", "ग्राहक/कंपनी का नाम:"],
+    ["નવી પ્રોડક્ટ / SKU ઉમેરો", "Add new product / SKU", "नया उत्पाद/एसकेयू जोड़ें"],
+    ["માસ્કિંગ સક્રિય (Active)", "Masking Active", "मास्किंग सक्रिय"],
+    ["વાઉચર સાચવો (Post Entry)", "Save Voucher (Post Entry)", "वाउचर सहेजें (पोस्ट एंट्री)"],
+    ["સક્રિય પ્રોડક્ટ્સ (SKUs)", "Active Products (SKUs)", "सक्रिय उत्पाद (एसकेयू)"],
+    ["👁️ PII પ્રાઈવસી માસ્કિંગ", "👁️ PII privacy masking", "👁️ पीआईआई गोपनीयता मास्किंग"],
+    ["🖨️ ઇન્વોઇસ પ્રિન્ટ / PDF", "🖨️ Invoice Print / PDF", "🖨️इनवॉइस प्रिंट/पीडीएफ"],
+    ["AI દ્વારા તારવેલી વિગતો", "Details derived by AI", "एआई द्वारा प्राप्त विवरण"],
+    ["ICAI સભ્યપદ નં / GSTIN:", "ICAI Membership No / GSTIN:", "आईसीएआई सदस्यता संख्या / जीएसटीआईएन:"],
+    ["JPG, PNG, WebP અથવા PDF", "JPG, PNG, WebP or PDF", "जेपीजी, पीएनजी, वेबपी या पीडीएफ"],
+    ["ઓપન ખાતાવહી & વાઉચર્સ →", "Open Ledger & Vouchers →", "खाता बही और वाउचर खोलें →"],
+    ["ક્લાયન્ટ / પેઢીનું નામ:", "Client / Firm Name:", "ग्राहक/फर्म का नाम:"],
+    ["ઘરભાડું ભથ્થું (HRA ₹):", "House Rent Allowance (HRA ₹):", "मकान किराया भत्ता (HRA ₹):"],
+    ["ચોખ્ખો નફો (Net Profit)", "Net Profit", "शुद्ध लाभ"],
+    ["બેંકમાં જમા ચોખ્ખો પગાર", "Net salary deposited in bank", "बैंक में जमा शुद्ध वेतन"],
+    ["સરકારને ભરવાપાત્ર ટેક્સ", "Tax payable to Govt", "सरकार को देय कर"],
+    ["સ્ટોક મર્યાદાથી નીચે છે", "Stock is below limit", "स्टॉक सीमा से नीचे है"],
+    ["✅ ૧. મલ્ટિ-ડિવાઇસ સિંક:", "✅ 1. Multi-Device Sync:", "✅ 1. मल्टी-डिवाइस सिंक:"],
+    ["👨‍💼 Demo CA (જયદીપ શાહ)", "👨‍💼 Demo CA (Jaideep Shah)", "👨‍💼 डेमो सीए (जयदीप शाह)"],
+    ["AI ચાર્ટર્ડ એકાઉન્ટન્ટ", "AI Chartered Accountant", "एआई चार्टर्ड अकाउंटेंट"],
+    ["ICAI UDIN & ડિજિટલ સહી", "ICAI UDIN & Digital Signature", "ICAI UDIN और डिजिटल हस्ताक्षर"],
+    ["Output GST (કર સંગ્રહ)", "Output GST (Tax Collection)", "आउटपुट जीएसटी (कर संग्रह)"],
+    ["ટેક્સ & વાર્ષિક હિસાબો", "Tax & Annual Accounts", "टैक्स और वार्षिक खाते"],
+    ["ટ્રાયલ બેલેન્સ સ્થિતિ:", "Trial Balance Status:", "ट्रायल बैलेंस स्थिति:"],
+    ["વેચાણ કિંમત (Price ₹):", "Selling Price (Price ₹):", "विक्रय मूल्य (मूल्य ₹):"],
+    ["સક્રિય ક્લાયન્ટ વોલ્ટ:", "Active Client Vault:", "सक्रिय क्लाइंट वॉल्ट:"],
+    ["સરકારમાં જમા કરવાપાત્ર", "Depositable to Govt", "सरकार को जमा करने योग्य"],
+    ["સ્ટોક મૂલ્યાંકન (FIFO)", "Stock Valuation (FIFO)", "स्टॉक मूल्यांकन (फीफो)"],
+    ["🏢 Demo Client (વેપારી)", "🏢 Demo Client (Trader)", "🏢 डेमो क्लाइंट (व्यापारी)"],
+    ["🔑 CA પાર્ટનર PIN (2FA)", "🔑 CA Partner PIN (2FA)", "🔑 सीए पार्टनर पिन (2एफए)"],
+    ["74.8% પ્રોફિટ માર્જિન", "74.8% profit margin", "74.8% लाभ मार्जिन"],
+    ["AI આર્કિટેક્ચર & ફ્લો", "AI Architecture & Flow", "एआई वास्तुकला और प्रवाह"],
+    ["AI સિસ્ટમ આર્કિટેક્ચર", "AI System Architecture", "एआई सिस्टम आर्किटेक्चर"],
+    ["Auto Match 100% સક્ષમ", "Auto Match 100% enabled", "ऑटो मैच 100% सक्षम"],
+    ["CA & ACCA સુપર પોર્ટલ", "CA & ACCA Super Portal", "सीए और एसीसीए सुपर पोर्टल"],
+    ["NIC QR કોડ સાથે માન્ય", "Validated with NIC QR code", "एनआईसी क्यूआर कोड के साथ मान्य"],
+    ["TDS કપાત (કલમ 192 ₹):", "TDS Deduction (Section 192 ₹):", "टीडीएस कटौती (धारा 192 ₹):"],
+    ["ઇન્વેન્ટરીમાં સેવ કરો", "Save to inventory", "इन्वेंट्री में सहेजें"],
+    ["કુલ ખર્ચાઓ (Expenses)", "Total Expenses", "कुल व्यय"],
+    ["ગ્રાહક / ફર્મનું નામ:", "Customer / Firm Name:", "ग्राहक/फर्म का नाम:"],
+    ["પ્રિન્ટ / PDF ડાઉનલોડ", "Print / PDF Download", "प्रिंट/पीडीएफ डाउनलोड करें"],
+    ["બેઝિક પગાર (Basic ₹):", "Basic Salary (Basic ₹):", "मूल वेतन (मूल ₹):"],
+    ["હોદ્દો (Designation):", "Designation:", "पद का नाम:"],
+    ["+ નવો ક્લાયન્ટ ઉમેરો", "+ Add new client", "+ नया ग्राहक जोड़ें"],
+    ["2 ઇન્વોઇસ ઇશ્યૂ થયેલ", "2 Invoices issued", "2 चालान जारी किये गये"],
+    ["AI CA ને પ્રશ્ન પૂછો", "Ask AI CA", "एआई सीए से पूछें"],
+    ["અહીં બિલ અપલોડ કરો →", "Upload bill here →", "बिल यहां अपलोड करें →"],
+    ["ઓડિટ ગાર્ડિયન સક્રિય", "Audit Guardian Active", "ऑडिट गार्जियन सक्रिय"],
+    ["ઓપન વાર્ષિક હિસાબો →", "Open Annual Accounts →", "वार्षिक खाते खोलें →"],
+    ["કુલ માસિક ગ્રોસ પગાર", "Total monthly gross salary", "कुल मासिक सकल वेतन"],
+    ["ખરીદ કિંમત (Cost ₹):", "Purchase Price (Cost ₹):", "खरीद मूल्य (लागत ₹):"],
+    ["ચાર્ટર્ડ એકાઉન્ટન્ટ:", "Chartered Accountant:", "चार्टर्ड एकाउंटेंट:"],
+    ["ડેશબોર્ડ (Dashboard)", "Dashboard", "डैशबोर्ड"],
+    ["નવું E-Invoice બનાવો", "Create a new E-Invoice", "एक नया ई-चालान बनाएं"],
+    ["પુસ્તક મૂલ્ય (NBV ₹)", "Book Value (NBV ₹)", "बुक वैल्यू (एनबीवी ₹)"],
+    ["ફરીથી ઓડિટ સ્કેન કરો", "Scan the audit again", "ऑडिट को दोबारा स्कैन करें"],
+    ["ફર્મ / કંપનીનું નામ:", "Firm / Company Name:", "फर्म/कंपनी का नाम:"],
+    ["બેઝિક + HRA + ભથ્થાં", "Basic + HRA + Allowances", "बेसिक + एचआरए + भत्ते"],
+    ["રાહ જોઈ રહ્યું છે...", "waiting...", "इंतज़ार में..."],
+    ["રોયલ CA નેવી & ગોલ્ડ", "Royal CA Navy & Gold", "रॉयल सीए नेवी और गोल्ड"],
+    ["સરેરાશ માસિક વૃદ્ધિ:", "Average Monthly Growth:", "औसत मासिक वृद्धि:"],
+    ["૨૫૬-Bit SSL સુરક્ષિત", "256-Bit SSL Secure", "256-बिट एसएसएल सुरक्षित"],
+    ["💾 એન્ક્રિપ્ટેડ બેકઅપ", "💾 Encrypted Backup", "💾 एन्क्रिप्टेड बैकअप"],
+    ["📥 ITR JSON (આવકવેરા)", "📥 ITR JSON (Income Tax)", "📥 आईटीआर जेएसओएन (आयकर)"],
+    ["Dr = Cr અવિરત સુમેળ", "Dr = Cr continuous synchronization", "डॉ = सीआर निरंतर तुल्यकालन"],
+    ["છેલ્લું સિંક: હમણાં", "Last Sync: Right now", "अंतिम सिंक: अभी"],
+    ["રીઅલ-ટાઇમ ઓટો-સિન્ક", "Real-time auto-sync", "वास्तविक समय ऑटो-सिंक"],
+    ["રોકડ પ્રવાહ સ્થિતિ:", "Cash Flow Position:", "नकदी प्रवाह की स्थिति:"],
+    ["લાગુ: ૧ એપ્રિલ ૨૦૨૬", "Applicable: 1 April 2026", "लागू: 1 अप्रैल 2026"],
+    ["વેન્ડર નામ & GSTIN:", "Vendor Name & GSTIN:", "विक्रेता का नाम और जीएसटीआईएन:"],
+    ["CA / ACCA ફર્મ મોડ", "CA / ACCA Firm Mod", "सीए/एसीसीए फर्म मॉड"],
+    ["IRN હેશ વેરિફિકેશન", "IRN Hash Verification", "आईआरएन हैश सत्यापन"],
+    ["કુલ ઓપરેટિંગ ખર્ચ:", "Total Operating Cost:", "कुल परिचालन लागत:"],
+    ["નવો UDIN જનરેટ કરો", "Generate a new UDIN", "एक नया UDIN जनरेट करें"],
+    ["નવો આઇટમ SKU ઉમેરો", "Add a new item SKU", "एक नया आइटम SKU जोड़ें"],
+    ["નવો કર્મચારી ઉમેરો", "Add a new employee", "एक नया कर्मचारी जोड़ें"],
+    ["નેટ કેશ ભરવાપાત્ર:", "Net Cash Payable:", "शुद्ध नकद देय:"],
+    ["સ્ટોક જથ્થો (Qty):", "Stock Quantity (Qty):", "स्टॉक मात्रा (मात्रा):"],
+    ["૦ સેક્શન 269ST ભંગ", "0 Violation of Section 269ST", "0 धारा 269ST का उल्लंघन"],
+    ["🛡️ MCA ઓડિટ ટ્રેઇલ", "🛡️ MCA Audit Trail", "🛡️ एमसीए ऑडिट ट्रेल"],
+    ["PII માસ્કિંગ ચાલુ", "PII masking on", "पीआईआई पर पर्दा पड़ रहा है"],
+    ["ઓપન બેંક મેળવણી →", "Open Bank Receipts →", "बैंक रसीदें खोलें →"],
+    ["કુલ મૂલ્યાંકન (₹)", "Total Valuation (₹)", "कुल मूल्यांकन (₹)"],
+    ["ખર્ચાઓ (Expenses)", "Expenses", "खर्च"],
+    ["ચોખ્ખો પગાર (Net)", "Net Salary (Net)", "शुद्ध वेतन (शुद्ध)"],
+    ["જનરેટ થયેલ તારીખ:", "Generated Date:", "उत्पन्न दिनांक:"],
+    ["તાજેતરના વ્યવહારો", "Recent transactions", "हाल के लेनदेन"],
+    ["રેફરન્સ / બિલ નં:", "Reference / Bill No:", "संदर्भ/बिल संख्या:"],
+    ["EPF + TDS ઓટો-કટ", "EPF + TDS Auto-cut", "ईपीएफ + टीडीएस ऑटो-कट"],
+    ["ઉધાર ખાતું (Dr):", "Borrowing Account (Dr):", "उधार खाता (डॉ):"],
+    ["ઓડિટ હેલ્થ સ્કોર", "Audit Health Score", "ऑडिट स्वास्थ्य स्कोर"],
+    ["ઓપન OCR સ્કેનર →", "Open OCR Scanner →", "ओसीआर स्कैनर खोलें →"],
+    ["કર્મચારીનું નામ:", "Employee Name:", "कर्मचारी का नाम:"],
+    ["કુલ રકમ & ટેક્સ:", "Total Amount & Tax:", "कुल राशि एवं कर:"],
+    ["ચેઇન વેરિફાય કરો", "Verify the chain", "श्रृंखला सत्यापित करें"],
+    ["પાન કાર્ડ (PAN):", "PAN Card (PAN):", "पैन कार्ड (पैन):"],
+    ["બેંક એકાઉન્ટ નં:", "Bank Account No:", "बैंक खाता संख्या:"],
+    ["મુખ્ય એકાઉન્ટિંગ", "Core Accounting", "मुख्य लेखांकन"],
+    ["વાર્ષિક ટર્નઓવર:", "Annual Turnover:", "वार्षिक कारोबार:"],
+    ["સેમ્પલ નોટિસ ભરો", "Fill the sample notice", "नमूना सूचना भरें"],
+    ["૬૪-અક્ષર IRN હેશ", "64-character IRN hash", "64-अक्षर आईआरएन हैश"],
+    ["EPF & TDS પેરોલ", "EPF & TDS Payroll", "ईपीएफ और टीडीएस पेरोल"],
+    ["FIFO ઇન્વેન્ટરી", "FIFO inventory", "फीफो इन्वेंटरी"],
+    ["અસ્કયામતનું નામ", "Name of the asset", "संपत्ति का नाम"],
+    ["ઉધાર ખાતું (Dr)", "Borrowing Account (Dr)", "उधार खाता (डॉ.)"],
+    ["ઓડિટ સહી સ્થિતિ", "Audit signature status", "ऑडिट हस्ताक्षर स्थिति"],
+    ["કુલ આવક / વેચાણ", "Total Revenue / Sales", "कुल आय / बिक्री"],
+    ["ક્રિયા (Action)", "Action", "कार्रवाई"],
+    ["ક્લાયન્ટનું નામ", "Client Name", "ग्राहक नाम"],
+    ["જમા ખાતું (Cr):", "Deposit Account (Cr):", "जमा खाता (सीआर):"],
+    ["પગાર (Salaries)", "Salaries", "वेतन"],
+    ["પાન નંબર (PAN):", "PAN Number (PAN):", "पैन नंबर (पैन):"],
+    ["પ્રોડક્ટનું નામ", "Product name", "प्रोडक्ट का नाम"],
+    ["માસિક પેરોલ નેટ", "Monthly Payroll Net", "मासिक पेरोल नेट"],
+    ["રિઓર્ડર ચેતવણીઓ", "Reorder Alerts", "अलर्ट पुन: व्यवस्थित करें"],
+    ["વાર્ષિક ટર્નઓવર", "Annual turnover", "वार्षिक कारोबार"],
+    ["વેપારી / ગ્રાહક", "Merchant / Customer", "व्यापारी/ग्राहक"],
+    ["સત્તાવાર સ્લેબ:", "Official Slab:", "आधिकारिक स्लैब:"],
+    ["સૌથી મોટો ખર્ચ:", "Biggest expense:", "सबसे बड़ा खर्च:"],
+    ["GSTR-3B સ્થિતિ", "GSTR-3B status", "जीएसटीआर-3बी स्थिति"],
+    ["ઇન્વોઇસ તારીખ:", "Invoice Date:", "चालान की तारीख:"],
+    ["કનેક્ટ & ટેસ્ટ", "Connect & Test", "कनेक्ट करें और परीक्षण करें"],
+    ["કાનૂની અધિકાર:", "Legal Right:", "कानूनी अधिकार:"],
+    ["કુલ બિલિંગ રકમ", "Total billing amount", "कुल बिलिंग राशि"],
+    ["જમા ખાતું (Cr)", "Credit Account (Cr)", "क्रेडिट खाता (सीआर)"],
+    ["નવું E-Invoice", "New E-Invoice", "नया ई-चालान"],
+    ["ફ્રોડ ગાર્ડિયન", "Fraud Guardian", "धोखाधड़ी संरक्षक"],
+    ["લાઇવ E-ઇન્વોઇસ", "Live E-Invoice", "लाइव ई-चालान"],
+    ["લૉગ ઇન (Login)", "Login", "लॉग इन करें"],
+    ["🌐 સ્ટાન્ડર્ડ્સ", "🌐 Standards", "🌐 मानक"],
+    ["100% સુરક્ષિત", "100% safe", "100% सुरक्षित"],
+    ["3 સક્રિય SKUs", "3 active SKUs", "3 सक्रिय SKU"],
+    ["ICAI UDIN કોડ", "ICAI UDIN Code", "आईसीएआई यूडीआईएन कोड"],
+    ["આવક-નફો (P&L)", "Income-Profit (P&L)", "आय-लाभ (पी एंड एल)"],
+    ["ઇમેઇલ એડ્રેસ:", "Email Address:", "मेल पता:"],
+    ["કસ્ટમ દર (%):", "Custom Rate (%):", "कस्टम दर (%):"],
+    ["કુલ ઘસારો (₹)", "Total Depreciation (₹)", "कुल मूल्यह्रास (₹)"],
+    ["ખર્ચ વિશ્લેષણ", "Cost analysis", "लागत विश्लेषण"],
+    ["ગ્રાહક GSTIN:", "Customer GSTIN:", "ग्राहक जीएसटीआईएन:"],
+    ["જવાબ કોપી કરો", "Copy the answer", "उत्तर कॉपी करें"],
+    ["નવો PIN સાચવો", "Save the new PIN", "नया पिन सेव करें"],
+    ["ફરી ગણતરી કરો", "Count again", "फिर से गिनें"],
+    ["ફાઇલ પસંદ કરો", "Select the file", "फ़ाइल का चयन करें"],
+    ["બેંક એકાઉન્ટ:", "Bank Account:", "बैंक खाता:"],
+    ["મર્યાદાઓમાંથી", "from limitations", "सीमाओं से"],
+    ["મૂળ કિંમત (₹)", "Original Price (₹)", "मूल कीमत (₹)"],
+    ["રિઓર્ડર લેવલ:", "Reorder Level:", "स्तर पुनः क्रमित करें:"],
+    ["સંપર્ક ઇમેઇલ:", "Contact Email:", "ई - मेल से संपर्क करे:"],
+    ["સક્રિય ઓડિટર:", "Active Auditor:", "सक्रिय लेखा परीक्षक:"],
+    ["2 ઇશ્યૂ થયેલ", "2 issued", "2 जारी किया गया"],
+    ["CA જયદીપ શાહ", "CA Jaideep Shah", "सीए जयदीप शाह"],
+    ["આઇટમનું નામ:", "Item Name:", "आइटम नाम:"],
+    ["ઓપન GST હબ →", "Open GST Hub →", "जीएसटी हब खोलें →"],
+    ["ટેક્સ / GST:", "Tax / GST:", "कर/जीएसटी:"],
+    ["સ્ટાફ સંખ્યા", "Number of staff", "कर्मचारियों की संख्या"],
+    ["2 કર્મચારીઓ", "2 employees", "2 कर्मचारी"],
+    ["82.4% માન્ય", "82.4% approved", "82.4% स्वीकृत"],
+    ["GSTIN / પાન", "GSTIN / Pan", "जीएसटीआईएन/पैन"],
+    ["આધાર કાર્ડ:", "Aadhaar Card:", "आधार कार्ड:"],
+    ["એપ ઇન્સ્ટોલ", "Install the app", "ऐप इंस्टॉल करें"],
+    ["ઓટો-ડિટેક્ટ", "Auto-detect", "ऑटो का पता लगाने"],
+    ["કુલ આવક: ₹0", "Gross Income: ₹0", "सकल आय: ₹0"],
+    ["કોન્કરન્સી:", "Concurrency:", "समवर्ती:"],
+    ["ક્લાઉડ સિંક", "Cloud Sync", "क्लाउड सिंक"],
+    ["ડબલ-એન્ટ્રી", "Double-entry", "दोहरी प्रविष्टि"],
+    ["પેરોલ સ્લિપ", "Payroll slip", "वेतन पर्ची"],
+    ["વેચાણ કિંમત", "selling price", "विक्रय मूल्य"],
+    ["વેરિફાય કરો", "Verify", "सत्यापित करें"],
+    ["સક્રિય મોડ:", "Active Mode:", "सक्रिय मोड:"],
+    ["સુપર પાવર્સ", "Super Powers", "महाशक्तियाँ"],
+    ["સ્ટોક જથ્થો", "Stock quantity", "स्टॉक मात्रा"],
+    ["CA / ઓડિટર", "CA / Auditor", "सीए/ऑडिटर"],
+    ["ITC મેળવણી", "Receipt of ITC", "आईटीसी की प्राप्ति"],
+    ["ઇન્વોઇસ નં", "Invoice no", "चालान नंबर"],
+    ["ઓડિટ એક્શન", "Audit Action", "लेखापरीक्षा कार्रवाई"],
+    ["ખરીદ કિંમત", "purchase price", "खरीद मूल्य"],
+    ["ખરીદ તારીખ", "Date of purchase", "खरीद की तारीख"],
+    ["ગ્રોસ પગાર", "Gross salary", "सकल वेतन"],
+    ["ઘસારો દર %", "attrition rate %", "संघर्षण दर %"],
+    ["ઝડપી સ્કેન", "Quick scan", "त्वरित स्कैन"],
+    ["પગાર સ્લિપ", "Pay slip", "वेतन पर्ची"],
+    ["પૂરું નામ:", "Full Name:", "पूरा नाम:"],
+    ["લિક્વિડિટી", "Liquidity", "लिक्विडिटी"],
+    ["લૉગ ઇન કરો", "Log in", "लॉग इन करें"],
+    ["સક્રિય છે.", "is active.", "सक्रिय है।"],
+    ["સ્વાગત છે!", "Welcome!", "स्वागत है!"],
+    ["🇮🇳 ગુજરાતી", "🇮🇳 Gujarati", "🇮🇳गुजराती"],
+    ["ERP સ્યુટ", "ERP Suite", "ईआरपी सुइट"],
+    ["કરવેરા હબ", "Taxation hub", "कराधान केंद्र"],
+    ["કુલ ઉધાર:", "Total Borrowing:", "कुल उधार:"],
+    ["ક્લાયન્ટ:", "Client:", "ग्राहक:"],
+    ["ટેક્સ (₹)", "Tax (₹)", "कर (₹)"],
+    ["દસ્તાવેજ:", "Document:", "दस्तावेज़:"],
+    ["બધા જુઓ →", "See all →", "सभी देखें →"],
+    ["✕ બંધ કરો", "✕ Close", "✕ बंद करें"],
+    ["HSN કોડ:", "HSN Code:", "एचएसएन कोड:"],
+    ["કર્મચારી", "Employee", "कर्मचारी"],
+    ["કુલ જમા:", "Total Deposit:", "कुल जमा:"],
+    ["કેટેગરી:", "Category:", "वर्ग:"],
+    ["ડેશબોર્ડ", "Dashboard", "डैशबोर्ड"],
+    ["પાસવર્ડ:", "Password:", "पासवर्ड:"],
+    ["મૂળ રકમ:", "Principal Amount:", "मूल धन:"],
+    ["મેટ્રિક:", "Metric:", "मीट्रिक:"],
+    ["મોડ બદલો", "Switch Mode", "मोड बदलें"],
+    ["લાગુ કરો", "Apply", "आवेदन करना"],
+    ["વાઉચર નં", "Voucher no", "वाउचर संख्या"],
+    ["૭ પાવર્સ", "7 Powers", "7 पॉवर्स"],
+    ["SKU કોડ", "SKU code", "एसकेयू कोड"],
+    ["એન્જિન:", "Engine:", "इंजन:"],
+    ["કેટેગરી", "category", "वर्ग"],
+    ["રકમ (₹)", "Amount (₹)", "राशि (₹)"],
+    ["ક્રિયા", "Action", "कार्रवाई"],
+    ["ગ્રાહક", "customer", "ग्राहक"],
+    ["તારીખ:", "Date:", "तारीख:"],
+    ["પદ્ધતિ", "method", "तरीका"],
+    ["લૉગ ઇન", "Log in", "लॉग इन करें"],
+    ["સ્કેનર", "Scanner", "स्कैनर"],
+    ["સ્થિતિ", "condition", "स्थिति"],
+    ["હોદ્દો", "designation", "पद का नाम"],
+    ["ટેક્સ", "tax", "कर"],
+    ["તારીખ", "Date", "तारीख"],
+    ["રીસેટ", "reset", "रीसेट करें"],
+    ["વિગત:", "Detail:", "विवरण:"],
+    ["ડોનટ", "Donut", "डोनट"],
+    ["મેનુ", "Menu", "मेनू"],
+    ["રડાર", "Radar", "राडार"],
+    ["લાઇન", "line", "रेखा"],
+    ["વિગત", "detail", "विवरण"],
+    ["પાઇ", "Pi", "अनुकरणीय"],
+    ["બાર", "Bar", "छड़"],
+    ["રકમ", "amount", "मात्रा"]
 ];
 
 function performDeepDOMTranslation(lang) {
@@ -2200,9 +2509,6 @@ function performDeepDOMTranslation(lang) {
             if (tag === "SCRIPT" || tag === "STYLE" || tag === "NOSCRIPT" || tag === "CODE" || tag === "PRE") {
                 return NodeFilter.FILTER_REJECT;
             }
-            if (parent.closest("#google_translate_element") || parent.closest(".skiptranslate")) {
-                return NodeFilter.FILTER_REJECT;
-            }
             return NodeFilter.FILTER_ACCEPT;
         }
     }, false);
@@ -2215,9 +2521,9 @@ function performDeepDOMTranslation(lang) {
         let text = node.__sriOriginal;
         let modified = false;
 
-        for (let i = 0; i < DEEP_PHRASE_MAPPINGS.length; i++) {
-            const guText = DEEP_PHRASE_MAPPINGS[i][0];
-            const transText = DEEP_PHRASE_MAPPINGS[i][langIdx];
+        for (let i = 0; i < FULL_I18N_PHRASES.length; i++) {
+            const guText = FULL_I18N_PHRASES[i][0];
+            const transText = FULL_I18N_PHRASES[i][langIdx];
             if (text.includes(guText)) {
                 text = text.split(guText).join(transText);
                 modified = true;
@@ -2230,92 +2536,11 @@ function performDeepDOMTranslation(lang) {
     }
 }
 
-// Active Banner Killer & Layout Protector
-function killGoogleTranslateBanner() {
-    if (document.body && document.body.style.top && document.body.style.top !== '0px') {
-        document.body.style.top = '0px';
-    }
-    const banners = document.querySelectorAll(
-        '.goog-te-banner-frame, .VIpgJd-ZVi9C-bHAdbe-ORHb-OEVmcd, .VIpgJd-ZVi9C-ORHb, body > .skiptranslate, body > div.skiptranslate, body > iframe.skiptranslate, #goog-gt-tt, .goog-te-balloon-frame'
-    );
-    banners.forEach(b => {
-        b.style.setProperty('display', 'none', 'important');
-        b.style.setProperty('visibility', 'hidden', 'important');
-        b.style.setProperty('height', '0px', 'important');
-        b.style.setProperty('max-height', '0px', 'important');
-        b.style.setProperty('opacity', '0', 'important');
-        b.style.setProperty('pointer-events', 'none', 'important');
-    });
-}
-
-// Global observer to kill Google banner immediately whenever inserted
-if (typeof window !== "undefined" && window.MutationObserver) {
-    const bannerObserver = new MutationObserver(() => {
-        killGoogleTranslateBanner();
-    });
-    document.addEventListener("DOMContentLoaded", () => {
-        bannerObserver.observe(document.documentElement, {
-            childList: true,
-            subtree: true,
-            attributes: true,
-            attributeFilter: ['style', 'class']
-        });
-    });
-}
-
-function triggerGoogleTranslate(lang) {
-    killGoogleTranslateBanner();
-    let bannerTimerCount = 0;
-    const bannerKillTimer = setInterval(() => {
-        killGoogleTranslateBanner();
-        bannerTimerCount++;
-        if (bannerTimerCount > 40) clearInterval(bannerKillTimer);
-    }, 75);
-
-    if (lang === "gu") {
-        document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-        document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; domain=" + window.location.hostname + "; path=/;";
-        const combo = document.querySelector(".goog-te-combo");
-        if (combo) {
-            combo.value = "";
-            combo.dispatchEvent(new Event("change", { bubbles: true }));
-        }
-        if (document.documentElement.classList.contains("translated-ltr") || document.querySelector(".goog-te-banner-frame")) {
-            window.location.reload();
-        }
-        return;
-    }
-
-    const cookieVal = "/gu/" + lang;
-    document.cookie = "googtrans=" + cookieVal + "; path=/;";
-    document.cookie = "googtrans=" + cookieVal + "; domain=" + window.location.hostname + "; path=/;";
-
-    function selectCombo() {
-        const combo = document.querySelector(".goog-te-combo");
-        if (combo) {
-            combo.value = lang;
-            combo.dispatchEvent(new Event("change", { bubbles: true }));
-            killGoogleTranslateBanner();
-            return true;
-        }
-        return false;
-    }
-
-    if (!selectCombo()) {
-        let attempts = 0;
-        const interval = setInterval(() => {
-            attempts++;
-            if (selectCombo() || attempts > 30) {
-                clearInterval(interval);
-            }
-        }, 150);
-    }
-}
-
-// 100% Comprehensive Translation Handler across Entire App
+// 100% Comprehensive Translation Handler across Entire App (Pure Native Client-Side)
 function applyLanguage(lang) {
     currentLang = lang;
     localStorage.setItem("sri_sri_lang", lang);
+    purgeGoogleTranslateCookies();
 
     // 1. Exact dictionary replacement on data-i18n elements
     const dict = I18N[lang] || I18N["en"];
@@ -2334,16 +2559,13 @@ function applyLanguage(lang) {
         else chatInput.placeholder = "Ask any global tax or accounting query (e.g. Presumptive tax, VAT, or Corporate Tax)...";
     }
 
-    // 3. Deep DOM text node replacement for en & hi
+    // 3. Deep DOM text node replacement for 100% of the entire application
     performDeepDOMTranslation(lang);
 
-    // 4. Universal Google Translator trigger for all 20+ world languages
-    triggerGoogleTranslate(lang);
-
-    // 5. Update user interface for role & badges
+    // 4. Update user interface for role & badges
     updateUserInterfaceForRole();
 
-    // 6. Theme label sync
+    // 5. Theme label sync
     const themeLabel = document.getElementById("themeToggleLabel");
     if (themeLabel) {
         if (currentTheme === "purewhite") {
@@ -2353,6 +2575,7 @@ function applyLanguage(lang) {
         }
     }
 }
+
 
 function toggleRoleQuick() {
     if (currentUser.role === "ca") {
