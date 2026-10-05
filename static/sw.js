@@ -6,13 +6,14 @@
 
 const CACHE_NAME = 'sri-sri-ca-v1.2';
 const STATIC_ASSETS = [
-    '/',
-    '/static/styles.css',
-    '/static/app.js',
-    '/static/manifest.json',
-    '/static/logo.png',
-    '/static/icon-192.png',
-    '/static/icon-512.png'
+    './',
+    './index.html',
+    './styles.css',
+    './app.js',
+    './manifest.json',
+    './logo.png',
+    './icon-192.png',
+    './icon-512.png'
 ];
 
 // Install Event - Pre-cache Core Shell

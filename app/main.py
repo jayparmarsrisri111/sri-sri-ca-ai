@@ -541,3 +541,24 @@ if os.path.exists(static_path):
             headers={"Service-Worker-Allowed": "/"}
         )
 
+    @app.get("/styles.css")
+    def serve_styles():
+        return FileResponse(os.path.join(static_path, "styles.css"), media_type="text/css")
+
+    @app.get("/app.js")
+    def serve_app_js():
+        return FileResponse(os.path.join(static_path, "app.js"), media_type="application/javascript")
+
+    @app.get("/logo.png")
+    def serve_logo():
+        return FileResponse(os.path.join(static_path, "logo.png"), media_type="image/png")
+
+    @app.get("/icon-192.png")
+    def serve_icon_192():
+        return FileResponse(os.path.join(static_path, "icon-192.png"), media_type="image/png")
+
+    @app.get("/icon-512.png")
+    def serve_icon_512():
+        return FileResponse(os.path.join(static_path, "icon-512.png"), media_type="image/png")
+
+

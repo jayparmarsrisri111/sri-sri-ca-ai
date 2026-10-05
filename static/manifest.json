@@ -2,9 +2,9 @@
   "name": "Sri Sri ❤️ AI CA & Global Tax Intelligence",
   "short_name": "SriSri ❤️ CA",
   "description": "સ્વાયત્ત મલ્ટિ-કન્ટ્રી એકાઉન્ટિંગ, ઇ-ઇન્વોઇસિંગ, કરવેરા વ્યવસ્થાપન અને AI ચાર્ટર્ડ એકાઉન્ટન્ટ પ્લેટફોર્મ",
-  "start_url": "/",
-  "id": "/",
-  "scope": "/",
+  "start_url": "./",
+  "id": "./",
+  "scope": "./",
   "display": "standalone",
   "orientation": "any",
   "background_color": "#07162c",
@@ -12,19 +12,19 @@
   "categories": ["finance", "business", "productivity"],
   "icons": [
     {
-      "src": "/static/icon-192.png",
+      "src": "icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/static/icon-512.png",
+      "src": "icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/static/logo.png",
+      "src": "logo.png",
       "sizes": "1024x1024",
       "type": "image/png",
       "purpose": "any"
