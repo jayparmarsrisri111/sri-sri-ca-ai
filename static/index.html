@@ -427,28 +427,31 @@
     <div class="flex-1 flex flex-col min-w-0">
 
         <!-- Top Header Navigation -->
-        <header class="sticky top-0 z-30 h-16 bg-slate-950/85 backdrop-blur-xl border-b border-slate-800/80 flex items-center justify-between px-4 sm:px-6">
-            <div class="flex items-center space-x-3">
-                <button id="openSidebarBtn" class="lg:hidden text-slate-400 hover:text-white p-1.5 rounded-lg bg-slate-900 border border-slate-800">
+        <header class="sticky top-0 z-30 h-16 bg-slate-950/85 backdrop-blur-xl border-b border-slate-800/80 flex items-center justify-between gap-4 px-4 sm:px-6">
+            <div class="flex items-center space-x-3 shrink-0">
+                <button id="openSidebarBtn" class="lg:hidden text-slate-400 hover:text-white p-1.5 rounded-lg bg-slate-900 border border-slate-800 shrink-0">
                     <i data-lucide="menu" class="w-5 h-5"></i>
                 </button>
-                <div>
-                    <h2 class="text-sm sm:text-base font-bold text-white tracking-tight flex items-center space-x-2" id="pageTitleDisplay">
+                <div class="flex items-center space-x-2 sm:space-x-3">
+                    <h2 class="text-sm sm:text-base font-bold text-white tracking-tight flex items-center space-x-2 shrink-0 whitespace-nowrap" id="pageTitleDisplay">
                         <i data-lucide="layout-dashboard" class="w-4 h-4 text-emerald-400"></i>
                         <span data-i18n="nav_dashboard">ડેશબોર્ડ (Dashboard)</span>
                     </h2>
+
+                    <!-- Audit Guardian Live Indicator (Sleek, Single-Line, Clean Non-Overlapping Radar Pulse) -->
+                    <div class="hidden sm:inline-flex items-center space-x-2 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-xs font-semibold text-emerald-400 whitespace-nowrap shrink-0 shadow-sm" title="ઓડિટ ગાર્ડિયન સક્રિય (Audit Guardian Active)">
+                        <span class="relative flex h-2 w-2 shrink-0">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                        </span>
+                        <span data-i18n="badge_audit_active" class="whitespace-nowrap text-[11px] font-semibold text-emerald-400">ઓડિટ ગાર્ડિયન સક્રિય</span>
+                    </div>
                 </div>
             </div>
 
             <!-- Right Controls: Selectors, System Status Badges, Utilities & Action -->
             <div class="header-controls-container flex items-center space-x-1.5 sm:space-x-2">
-                <!-- 1. Audit Guardian Indicator -->
-                <div class="header-pill hidden 2xl:flex items-center space-x-1.5 px-2.5 h-9 rounded-xl bg-slate-900/90 border border-emerald-500/30 text-xs glow-badge-hd whitespace-nowrap shrink-0" title="ઓડિટ ગાર્ડિયન સક્રિય (Audit Guardian Active)">
-                    <span class="radar-dot shrink-0"></span>
-                    <span class="text-emerald-400 font-semibold text-[11px] whitespace-nowrap" data-i18n="badge_audit_active">ઓડિટ ગાર્ડિયન સક્રિય</span>
-                </div>
-
-                <!-- 2. Universal Country Selector -->
+                <!-- 1. Universal Country Selector -->
                 <div class="relative shrink-0">
                     <select id="countrySelect" class="h-9 bg-slate-900/90 text-xs text-slate-200 border border-slate-700/80 rounded-xl px-2.5 py-1.5 focus:ring-1 focus:ring-emerald-500 outline-none cursor-pointer font-medium max-w-[120px] sm:max-w-[160px] md:max-w-[190px] truncate whitespace-nowrap" title="દેશ પસંદ કરો (Select Jurisdiction)">
                         <!-- Populated dynamically with ALL 195+ world countries -->
