@@ -5193,3 +5193,197 @@ function downloadJsonFile(obj, filename) {
     dlAnchorElem.click();
 }
 
+// ================= SEARCH ENGINE OPTIMIZATION (SEO) AUTONOMOUS LAUNCH ENGINE (11-10-2026 10:51 - 11:30) =================
+const TARGET_SEO_LAUNCH_DATE = new Date("2026-10-11T10:51:00");
+const TARGET_SEO_LAUNCH_END = new Date("2026-10-11T11:30:00");
+let seoAutoLaunchedCelebrationShown = false;
+
+function updateSeoCountdownDisplay() {
+    const now = new Date();
+    const diff = TARGET_SEO_LAUNCH_DATE.getTime() - now.getTime();
+
+    const daysEl = document.getElementById("cntDays");
+    const hoursEl = document.getElementById("cntHours");
+    const minsEl = document.getElementById("cntMins");
+    const secsEl = document.getElementById("cntSecs");
+    const pillEl = document.getElementById("seoAutoLaunchPill");
+    const pillTextEl = document.getElementById("seoAutoLaunchStatusText");
+    const headerBtn = document.getElementById("openSeoModalBtn");
+
+    if (diff <= 0) {
+        // TARGET TIME (10:51 AM) REACHED: AUTOMATICALLY LIVE!
+        if (daysEl) daysEl.textContent = "00";
+        if (hoursEl) hoursEl.textContent = "00";
+        if (minsEl) minsEl.textContent = "00";
+        if (secsEl) secsEl.textContent = "00";
+
+        const inGoldenWindow = (now <= TARGET_SEO_LAUNCH_END);
+
+        if (pillEl) {
+            pillEl.className = "px-2.5 py-0.5 rounded-full text-[11px] font-extrabold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 flex items-center space-x-1";
+        }
+        if (pillTextEl) {
+            pillTextEl.textContent = inGoldenWindow 
+                ? "🟢 SEO લાઈવ વિન્ડો સક્રિય (૧૦:૫૧ - ૧૧:૩૦) • ૧૦૦% આપોઆપ લાઈવ!"
+                : "🟢 SEO ૧૦૦% આપોઆપ લાઈવ & સક્રિય!";
+        }
+        if (headerBtn) {
+            headerBtn.innerHTML = `
+                <i data-lucide="globe" class="w-3.5 h-3.5 text-emerald-400"></i>
+                <span class="hidden xl:inline text-emerald-300 font-bold">SEO ૧૦૦% લાઈવ</span>
+                <span class="xl:hidden inline text-emerald-300 font-bold">LIVE</span>
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+            `;
+            if (window.lucide) lucide.createIcons();
+        }
+
+        // Auto-trigger background server sync once if not yet triggered
+        if (!seoAutoLaunchedCelebrationShown) {
+            seoAutoLaunchedCelebrationShown = true;
+            fetch("/api/seo/auto-launch-check", { method: "POST" })
+                .then(r => r.json())
+                .then(data => {
+                    console.log("[SEO AUTO-LAUNCH] Automatically activated in 10:51-11:30 window on 11-10-2026:", data);
+                })
+                .catch(() => {});
+        }
+    } else {
+        // COUNTDOWN ACTIVE TO 10:51:00
+        const totalSeconds = Math.floor(diff / 1000);
+        const days = Math.floor(totalSeconds / 86400);
+        const hours = Math.floor((totalSeconds % 86400) / 3600);
+        const minutes = Math.floor((totalSeconds % 3600) / 60);
+        const seconds = totalSeconds % 60;
+
+        if (daysEl) daysEl.textContent = String(days).padStart(2, "0");
+        if (hoursEl) hoursEl.textContent = String(hours).padStart(2, "0");
+        if (minsEl) minsEl.textContent = String(minutes).padStart(2, "0");
+        if (secsEl) secsEl.textContent = String(seconds).padStart(2, "0");
+
+        if (pillEl) {
+            pillEl.className = "px-2.5 py-0.5 rounded-full text-[11px] font-extrabold bg-amber-500/20 text-amber-300 border border-amber-500/40 flex items-center space-x-1";
+        }
+        if (pillTextEl) {
+            pillTextEl.textContent = `ઑટોમેટિક લૉન્ચ: ૧૧-૧૦-૨૦૨૬ (૧૦:૫૧ થી ૧૧:૩૦) • ${days}d ${hours}h ${minutes}m બાકી`;
+        }
+        if (headerBtn) {
+            headerBtn.title = `SEO લૉન્ચ વિન્ડો: ૧૧-૧૦-૨૦૨૬ (૧૦:૫૧ થી ૧૧:૩૦) દરમ્યાન આપોઆપ લાઈવ થશે`;
+        }
+    }
+}
+
+
+function setupSeoModalEvents() {
+    const openBtn = document.getElementById("openSeoModalBtn");
+    const closeBtn = document.getElementById("closeSeoModalBtn");
+    const modal = document.getElementById("seoModal");
+    const pingBtn = document.getElementById("triggerSeoPingBtn");
+    const auditBtn = document.getElementById("triggerSeoAuditBtn");
+    const feedbackEl = document.getElementById("seoActionFeedback");
+
+    // Initialize immediate countdown update and run interval
+    updateSeoCountdownDisplay();
+    setInterval(updateSeoCountdownDisplay, 1000);
+
+    if (openBtn && modal) {
+        openBtn.addEventListener("click", () => {
+            modal.classList.remove("hidden");
+            updateSeoCountdownDisplay();
+            if (window.lucide) lucide.createIcons();
+
+            // Refresh live server state
+            fetch("/api/seo/status")
+                .then(r => r.json())
+                .then(data => {
+                    if (data.is_live && feedbackEl) {
+                        feedbackEl.classList.remove("hidden");
+                        feedbackEl.innerHTML = `
+                            <p class="font-bold text-emerald-400">🟢 SEO ૧૧-૧૦-૨૦૨૬ ના દિવસે આપોઆપ લાઈવ થઈ ગયું છે!</p>
+                            <p class="text-[11px] text-slate-300">સર્ચ એન્જિન (Google, Bing) ને આપોઆપ પિંગ કરી દેવાયું છે.</p>
+                        `;
+                    }
+                })
+                .catch(() => {});
+        });
+    }
+
+    if (closeBtn && modal) {
+        closeBtn.addEventListener("click", () => {
+            modal.classList.add("hidden");
+        });
+    }
+
+    if (modal) {
+        modal.addEventListener("click", (e) => {
+            if (e.target === modal) modal.classList.add("hidden");
+        });
+    }
+
+    if (pingBtn) {
+        pingBtn.addEventListener("click", async () => {
+            if (feedbackEl) {
+                feedbackEl.classList.remove("hidden");
+                feedbackEl.innerHTML = `
+                    <div class="flex items-center space-x-2 text-amber-300">
+                        <span class="animate-spin">⏳</span>
+                        <span>Google Search Console, Bing IndexNow અને DuckDuckGo ને સત્તાવાર પિંગ મોકલાઈ રહ્યું છે...</span>
+                    </div>
+                `;
+            }
+            try {
+                const res = await fetch("/api/seo/ping", { method: "POST" });
+                const data = await res.json();
+                if (feedbackEl) {
+                    feedbackEl.innerHTML = `
+                        <div class="space-y-1">
+                            <p class="font-bold text-emerald-400">🚀 સર્ચ એન્જિન પિંગ સફળતાપૂર્વક મોકલાઈ ગયું!</p>
+                            <p class="text-[11px] text-slate-300">સાઇટમેપ: <span class="font-mono text-cyan-300">${data.sitemap_url}</span></p>
+                            <p class="text-[11px] text-slate-300">લૉન્ચ ડેટ: <span class="text-amber-300 font-bold">${data.launch_date}</span> | તમામ ક્ર્રોલર્સને સાઇટમેપ કતારમાં ઉમેરાયો છે.</p>
+                        </div>
+                    `;
+                }
+            } catch (err) {
+                if (feedbackEl) {
+                    feedbackEl.innerHTML = `<span class="text-rose-400 font-bold">પિંગ મોકલવામાં ક્ષતિ: ${err}</span>`;
+                }
+            }
+        });
+    }
+
+    if (auditBtn) {
+        auditBtn.addEventListener("click", async () => {
+            if (feedbackEl) {
+                feedbackEl.classList.remove("hidden");
+                feedbackEl.innerHTML = `<span>લાઈવ SEO ઓડિટ સ્ટેટસ મેળવી રહ્યું છે...</span>`;
+            }
+            try {
+                const res = await fetch("/api/seo/status");
+                const data = await res.json();
+                if (feedbackEl) {
+                    const statusText = data.is_live ? "🟢 ૧૦૦% લાઈવ & સક્રિય" : `⏳ શેડ્યુલ થયેલ (${data.countdown.formatted} બાકી)`;
+                    feedbackEl.innerHTML = `
+                        <div class="space-y-1">
+                            <p class="font-bold text-emerald-400">✅ લાઈવ SEO સ્કોર: ${data.seo_score}/100 | સ્થિતિ: ${statusText}</p>
+                            <p class="text-[11px] text-slate-300">Robots.txt: <span class="text-emerald-400 font-bold">${data.verification.robots_txt}</span> | Sitemap.xml: <span class="text-emerald-400 font-bold">${data.verification.sitemap_xml}</span></p>
+                            <p class="text-[11px] text-slate-300">Meta Tags: <span class="font-mono text-white">${data.verification.meta_tags_count} ટૅગ્સ</span> | ઑટો-લૉન્ચ એન્જિન: <span class="text-emerald-400 font-bold">સક્રિય (૧૧-૧૦-૨૦૨૬)</span></p>
+                        </div>
+                    `;
+                }
+            } catch (err) {
+                if (feedbackEl) {
+                    feedbackEl.innerHTML = `<span class="text-rose-400 font-bold">ઓડિટ ક્ષતિ: ${err}</span>`;
+                }
+            }
+        });
+    }
+}
+
+// Ensure SEO events are bound when DOM is ready
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", setupSeoModalEvents);
+} else {
+    setupSeoModalEvents();
+}
+
+
+

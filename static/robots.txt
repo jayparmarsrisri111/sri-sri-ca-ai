@@ -1,0 +1,62 @@
+# ==============================================================================
+# Sri Sri ❤️ AI CA & Global Tax Intelligence
+# Autonomous Chartered Accountant & Global Tax Platform
+# Search Engine Robots Configuration (Robots.txt)
+# Official Public Launch Date: 11-10-2026
+# ==============================================================================
+
+User-agent: *
+Allow: /
+Allow: /static/
+Allow: /static/locales/
+Allow: /styles.css
+Allow: /app.js
+Allow: /manifest.json
+Allow: /sw.js
+Allow: /logo.png
+Allow: /icon-192.png
+Allow: /icon-512.png
+Allow: /e4b2a8d39c7145f8b631d8f521a0c492.txt
+
+# Prevent indexing of sensitive backend API & auth endpoints
+Disallow: /api/auth/
+Disallow: /api/security/
+Disallow: /api/advancement/
+
+# Crawl Delay to prevent server throttling
+Crawl-delay: 1
+
+# Major Search Engine Crawlers
+User-agent: Googlebot
+Allow: /
+Allow: /static/
+
+User-agent: Googlebot-Image
+Allow: /logo.png
+Allow: /icon-192.png
+Allow: /icon-512.png
+Allow: /static/
+
+User-agent: Bingbot
+Allow: /
+Allow: /static/
+Crawl-delay: 1
+
+User-agent: Slurp
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+User-agent: YandexBot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+Allow: /sitemap.xml
+
+# Canonical XML Sitemap
+Sitemap: https://srisricaai.netlify.app/sitemap.xml

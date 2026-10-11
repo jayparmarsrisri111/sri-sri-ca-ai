@@ -1,1 +1,6 @@
-/*    /index.html   200
+/robots.txt                         /robots.txt                         200
+/sitemap.xml                        /sitemap.xml                        200
+/manifest.json                      /manifest.json                      200
+/e4b2a8d39c7145f8b631d8f521a0c492.txt /e4b2a8d39c7145f8b631d8f521a0c492.txt 200
+/api/*                              https://sri-sri-ca-ai.onrender.com/api/:splat  200!
+/*                                  /index.html                         200

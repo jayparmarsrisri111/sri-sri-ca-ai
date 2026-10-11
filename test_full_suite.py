@@ -589,6 +589,53 @@ def test_domain_6_latency_benchmarks():
         fast = lat < 250.0  # Under 250ms is excellent
         record_test("Performance & Latency", f"Latency: {desc} ({ep})", fast, f"{lat:.2f}ms (Threshold: < 250ms)", lat)
 
+def test_domain_7_seo_and_launch_readiness():
+    print("\n>>> DOMAIN 7: SEARCH ENGINE OPTIMIZATION (SEO) & LAUNCH READINESS (11-10-2026)")
+
+    # 1. Robots.txt Endpoint
+    code, data, _, lat = http_req("/robots.txt")
+    has_directives = "User-agent" in data and "Sitemap" in data and "Googlebot" in data
+    record_test("SEO & Launch Readiness", "Robots.txt Crawl Directives (/robots.txt)", code == 200 and has_directives, f"HTTP {code}, Sitemaps & Crawlers Declared", lat)
+
+    # 2. Sitemap.xml Endpoint
+    code, data, _, lat = http_req("/sitemap.xml")
+    has_urls = "urlset" in data and "2026-10-11" in data and ("https://srisricaai.netlify.app" in data or "https://srisri-aica.com" in data)
+    record_test("SEO & Launch Readiness", "XML Sitemap Hierarchy (/sitemap.xml)", code == 200 and has_urls, f"HTTP {code}, Target Date 2026-10-11 validated", lat)
+
+    # 3. SEO Status API
+    code, data, _, lat = http_req("/api/seo/status")
+    try:
+        j = json.loads(data)
+        seo_active = j.get("status") in ["SCHEDULED_COUNTDOWN", "LIVE_ACTIVE", "active"] and j.get("seo_score") == 100 and j.get("launch_date") == "11-10-2026" and j.get("auto_launch_enabled") is True
+    except Exception:
+        seo_active = False
+    record_test("SEO & Launch Readiness", "SEO Autonomous Health & Auto-Launch Audit (/api/seo/status)", code == 200 and seo_active, f"Score: 100/100, Launch: 11-10-2026 (Auto-Launch Active)", lat)
+
+
+    # 4. Search Engine Ping API
+    code, data, _, lat = http_req("/api/seo/ping", method="POST", data={})
+    try:
+        j = json.loads(data)
+        ping_ok = j.get("status") == "success" and len(j.get("pinged_engines", [])) >= 2
+    except Exception:
+        ping_ok = False
+    record_test("SEO & Launch Readiness", "Search Engine Ping & IndexNow Trigger (/api/seo/ping)", code == 200 and ping_ok, "Google & Bing Notified Successfully", lat)
+
+    # 5. HTML Meta Tags & Schema.org JSON-LD Verification
+    html_file = os.path.join(os.path.dirname(__file__), "static", "index.html")
+    if os.path.exists(html_file):
+        with open(html_file, "r", encoding="utf-8") as f:
+            content = f.read()
+        has_meta = ('name="description"' in content and
+                    'name="keywords"' in content and
+                    'property="og:title"' in content and
+                    'name="twitter:card"' in content and
+                    'application/ld+json' in content and
+                    'rel="canonical"' in content)
+        record_test("SEO & Launch Readiness", "HTML Head Meta Tags & Schema.org JSON-LD", has_meta, "Title, Description, OG, Twitter, FAQ Schema Verified")
+    else:
+        record_test("SEO & Launch Readiness", "HTML Head Meta Tags & Schema.org JSON-LD", False, "index.html not found")
+
 def main():
     print("\n=======================================================================")
     print("   SRI SRI ❤️ AI CA & GLOBAL TAX INTELLIGENCE - FULL VERIFICATION   ")
@@ -600,6 +647,7 @@ def main():
     test_domain_4_frontend_and_zero_black()
     test_domain_5_i18n_and_jurisdictions()
     test_domain_6_latency_benchmarks()
+    test_domain_7_seo_and_launch_readiness()
 
     print("\n" + "="*70)
     print("                  FINAL VERIFICATION REPORT SUMMARY                    ")

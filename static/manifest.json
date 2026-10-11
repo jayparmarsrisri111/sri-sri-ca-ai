@@ -1,7 +1,7 @@
 {
   "name": "Sri Sri ❤️ AI CA & Global Tax Intelligence",
   "short_name": "SriSri ❤️ CA",
-  "description": "સ્વાયત્ત મલ્ટિ-કન્ટ્રી એકાઉન્ટિંગ, ઇ-ઇન્વોઇસિંગ, કરવેરા વ્યવસ્થાપન અને AI ચાર્ટર્ડ એકાઉન્ટન્ટ પ્લેટફોર્મ",
+  "description": "સ્વાયત્ત મલ્ટિ-કન્ટ્રી એકાઉન્ટિંગ, ઇ-ઇન્વોઇસિંગ, કરવેરા વ્યવસ્થાપન અને AI ચાર્ટર્ડ એકાઉન્ટન્ટ પ્લેટફોર્મ | Autonomous Chartered Accountant & Global Tax Intelligence",
   "start_url": "./",
   "id": "./",
   "scope": "./",
@@ -9,7 +9,8 @@
   "orientation": "any",
   "background_color": "#07162c",
   "theme_color": "#07162c",
-  "categories": ["finance", "business", "productivity"],
+  "lang": "gu",
+  "categories": ["finance", "business", "productivity", "utilities"],
   "icons": [
     {
       "src": "icon-192.png",
@@ -28,6 +29,36 @@
       "sizes": "1024x1024",
       "type": "image/png",
       "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Smart Bill Scanner",
+      "short_name": "Scan Bill",
+      "description": "Scan invoices and bills with AI OCR",
+      "url": "./#ocr",
+      "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Tax & GST Engine",
+      "short_name": "Tax Calculator",
+      "description": "Calculate GSTR-1, 3B and Section 115BAC taxes",
+      "url": "./#tax",
+      "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "AI Notice Copilot",
+      "short_name": "Notice Solver",
+      "description": "Resolve tax notices and generate legal responses",
+      "url": "./#copilot",
+      "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Financial Reports (P&L)",
+      "short_name": "P&L Reports",
+      "description": "View Profit & Loss and Balance Sheet",
+      "url": "./#reports",
+      "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
     }
   ]
 }
