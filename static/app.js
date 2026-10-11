@@ -5229,10 +5229,10 @@ function updateSeoCountdownDisplay() {
         }
         if (headerBtn) {
             headerBtn.innerHTML = `
-                <i data-lucide="globe" class="w-3.5 h-3.5 text-emerald-400"></i>
-                <span class="hidden xl:inline text-emerald-300 font-bold">SEO ૧૦૦% લાઈવ</span>
-                <span class="xl:hidden inline text-emerald-300 font-bold">LIVE</span>
-                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                <i data-lucide="globe" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+                <span class="hidden xl:inline text-emerald-300 font-bold whitespace-nowrap">SEO ૧૦૦% લાઈવ</span>
+                <span class="xl:hidden inline text-emerald-300 font-bold whitespace-nowrap">LIVE</span>
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0"></span>
             `;
             if (window.lucide) lucide.createIcons();
         }

@@ -452,6 +452,41 @@ header {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.45) !important;
 }
 
+/* Unified & Flawless Header Controls */
+header .header-controls-container {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+}
+header .header-controls-container::-webkit-scrollbar {
+    display: none !important;
+}
+
+header button,
+header select,
+header .header-pill {
+    height: 2.25rem !important;
+    min-height: 2.25rem !important;
+    max-height: 2.25rem !important;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-sizing: border-box !important;
+    line-height: 1 !important;
+}
+
+header button *,
+header select *,
+header .header-pill * {
+    white-space: nowrap !important;
+}
+
 /* Form Controls & Dropdowns in ICAI Royal Navy */
 select,
 input,
