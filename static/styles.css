@@ -746,7 +746,8 @@ html.pure-white textarea {
     header {
         padding-left: 0.75rem !important;
         padding-right: 0.75rem !important;
-        height: 3.75rem !important;
+        min-height: 3.75rem !important;
+        height: auto !important;
     }
 
     .surface-card {
@@ -763,13 +764,21 @@ html.pure-white textarea {
         font-size: 16px !important;
     }
 
-    /* Modal full-bleed on small screens */
+    /* Modal full-bleed & responsive scroll on small screens */
     #authModal > div,
     #newEntryModal > div,
-    #securityModal > div {
+    #securityModal > div,
+    #addClientModal > div,
+    #cloudSyncModal > div,
+    #seoModal > div,
+    #invoicePreviewModal > div,
+    #salarySlipModal > div {
+        width: 95vw !important;
         max-width: 95vw !important;
+        max-height: 90dvh !important;
+        overflow-y: auto !important;
         padding: 1.25rem !important;
-        margin: 0.5rem !important;
+        margin: auto !important;
     }
 }
 
@@ -950,7 +959,62 @@ table {
 /* 8. Touch accessibility & active states for mobile and tablet */
 @media (hover: none) and (pointer: coarse) {
     button, select, input, .sidebar-nav-item {
-        min-height: 42px;
+        min-height: 44px;
+    }
+}
+
+/* 9. Ultra-compact smartphones (<= 400px, iPhone SE, Galaxy Z Flip, Fold covers) */
+@media (max-width: 400px) {
+    main {
+        padding-left: 0.5rem !important;
+        padding-right: 0.5rem !important;
+    }
+    .surface-card {
+        padding: 0.85rem !important;
+    }
+    #countrySelect {
+        max-width: 105px !important;
+        font-size: 11px !important;
+    }
+    #langSelect {
+        max-width: 90px !important;
+        font-size: 11px !important;
+    }
+    .kpi-card-modern .text-2xl {
+        font-size: 1.25rem !important;
+        line-height: 1.75rem !important;
+    }
+}
+
+/* 10. Mobile Landscape Orientations (Smartphones rotated horizontally) */
+@media (max-height: 520px) and (orientation: landscape) {
+    .mobile-bottom-nav {
+        height: 46px !important;
+    }
+    .mobile-bottom-nav-item svg {
+        width: 1rem !important;
+        height: 1rem !important;
+    }
+    .mobile-bottom-nav-item span {
+        display: none !important;
+    }
+    header {
+        min-height: 3.25rem !important;
+        padding-top: 0.25rem !important;
+        padding-bottom: 0.25rem !important;
+    }
+}
+
+/* 11. Responsive Scrollable Containers for all Viewports */
+.smooth-scroll-touch {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+}
+
+/* 12. Full-bleed modal safety on all screen sizes */
+@media (max-width: 640px) {
+    .modal-backdrop-blur {
+        padding: 0.5rem !important;
     }
 }
 
