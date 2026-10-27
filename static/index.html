@@ -316,8 +316,27 @@
                 </div>
             </div>
 
+                        <!-- Mobile Quick Access Utilities (< 1024px) -->
+            <div class="lg:hidden mx-3 mb-3 p-2.5 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-2">
+                <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-1">ક્વિક ટૂલ્સ (Mobile Tools):</div>
+                <div class="grid grid-cols-3 gap-1.5 text-center">
+                    <button id="mobileThemeToggleBtn" type="button" class="p-2 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 hover:bg-amber-500/20 transition flex flex-col items-center justify-center cursor-pointer">
+                        <i data-lucide="award" class="w-4 h-4 text-amber-400 mb-1"></i>
+                        <span class="text-[10px] font-bold whitespace-nowrap">થીમ બદલો</span>
+                    </button>
+                    <button id="mobileCloudSyncBtn" type="button" class="p-2 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 hover:bg-cyan-500/20 transition flex flex-col items-center justify-center cursor-pointer">
+                        <i data-lucide="cloud" class="w-4 h-4 text-cyan-400 mb-1"></i>
+                        <span class="text-[10px] font-bold whitespace-nowrap">ક્લાઉડ સિંક</span>
+                    </button>
+                    <button id="mobileSeoBtn" type="button" class="p-2 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 hover:bg-emerald-500/20 transition flex flex-col items-center justify-center cursor-pointer">
+                        <i data-lucide="globe" class="w-4 h-4 text-emerald-400 mb-1"></i>
+                        <span class="text-[10px] font-bold whitespace-nowrap">SEO હબ</span>
+                    </button>
+                </div>
+            </div>
+
             <!-- Navigation Links -->
-            <div class="px-3 py-2 space-y-5 overflow-y-auto max-h-[calc(100vh-270px)] scrollbar-thin">
+            <div class="px-3 py-2 space-y-5 overflow-y-auto max-h-[calc(100vh-320px)] lg:max-h-[calc(100vh-270px)] scrollbar-thin">
                 <div class="space-y-1">
                     <p class="px-3 text-[10px] font-bold uppercase tracking-wider text-slate-500" data-i18n="nav_group_main">મુખ્ય એકાઉન્ટિંગ</p>
                     <button class="sidebar-nav-item active" data-tab="tab-dashboard">
@@ -427,40 +446,40 @@
     <div class="flex-1 flex flex-col min-w-0">
 
         <!-- Top Header Navigation -->
-        <header class="sticky top-0 z-30 h-16 bg-slate-950/85 backdrop-blur-xl border-b border-slate-800/80 flex items-center justify-between gap-4 px-4 sm:px-6">
-            <div class="flex items-center space-x-3 shrink-0">
-                <button id="openSidebarBtn" class="lg:hidden text-slate-400 hover:text-white p-1.5 rounded-lg bg-slate-900 border border-slate-800 shrink-0">
-                    <i data-lucide="menu" class="w-5 h-5"></i>
+        <header class="sticky top-0 z-30 h-14 sm:h-16 bg-slate-950/85 backdrop-blur-xl border-b border-slate-800/80 flex items-center justify-between gap-1.5 sm:gap-4 px-2 sm:px-6 max-w-full overflow-hidden">
+            <div class="flex items-center space-x-1.5 sm:space-x-3 shrink-0 min-w-0">
+                <button id="openSidebarBtn" class="lg:hidden text-slate-400 hover:text-white p-1 sm:p-1.5 rounded-lg bg-slate-900 border border-slate-800 shrink-0" title="મેનુ ખોલો">
+                    <i data-lucide="menu" class="w-4 h-4 sm:w-5 sm:h-5"></i>
                 </button>
-                <div class="flex items-center space-x-2 sm:space-x-3">
-                    <h2 class="text-sm sm:text-base font-bold text-white tracking-tight flex items-center space-x-2 shrink-0 whitespace-nowrap" id="pageTitleDisplay">
-                        <i data-lucide="layout-dashboard" class="w-4 h-4 text-emerald-400"></i>
-                        <span data-i18n="nav_dashboard">ડેશબોર્ડ (Dashboard)</span>
+                <div class="flex items-center space-x-1.5 sm:space-x-3 min-w-0">
+                    <h2 class="text-xs sm:text-sm md:text-base font-bold text-white tracking-tight flex items-center space-x-1.5 shrink-0 min-w-0 max-w-[100px] xs:max-w-[130px] sm:max-w-none" id="pageTitleDisplay">
+                        <i data-lucide="layout-dashboard" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-400 shrink-0"></i>
+                        <span data-i18n="nav_dashboard" class="truncate">ડેશબોર્ડ</span>
                     </h2>
 
                     <!-- Audit Guardian Live Indicator (Sleek, Single-Line, Clean Non-Overlapping Radar Pulse) -->
-                    <div class="hidden sm:inline-flex items-center space-x-2 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-xs font-semibold text-emerald-400 whitespace-nowrap shrink-0 shadow-sm" title="ઓડિટ ગાર્ડિયન સક્રિય (Audit Guardian Active)">
+                    <div class="hidden md:inline-flex items-center space-x-1.5 px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-xs font-semibold text-emerald-400 whitespace-nowrap shrink-0 shadow-sm" title="ઓડિટ ગાર્ડિયન સક્રિય (Audit Guardian Active)">
                         <span class="relative flex h-2 w-2 shrink-0">
                             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                             <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                         </span>
-                        <span data-i18n="badge_audit_active" class="whitespace-nowrap text-[11px] font-semibold text-emerald-400">ઓડિટ ગાર્ડિયન સક્રિય</span>
+                        <span data-i18n="badge_audit_active" class="whitespace-nowrap text-[10px] sm:text-[11px] font-semibold text-emerald-400">ઓડિટ ગાર્ડિયન સક્રિય</span>
                     </div>
                 </div>
             </div>
 
             <!-- Right Controls: Selectors, System Status Badges, Utilities & Action -->
-            <div class="header-controls-container flex items-center space-x-1.5 sm:space-x-2">
+            <div class="header-controls-container flex items-center space-x-1 sm:space-x-2 shrink-0 flex-nowrap">
                 <!-- 1. Universal Country Selector -->
                 <div class="relative shrink-0">
-                    <select id="countrySelect" class="h-9 bg-slate-900/90 text-xs text-slate-200 border border-slate-700/80 rounded-xl px-2.5 py-1.5 focus:ring-1 focus:ring-emerald-500 outline-none cursor-pointer font-medium max-w-[120px] sm:max-w-[160px] md:max-w-[190px] truncate whitespace-nowrap" title="દેશ પસંદ કરો (Select Jurisdiction)">
+                    <select id="countrySelect" class="h-8 sm:h-9 bg-slate-900/90 text-[11px] sm:text-xs text-slate-200 border border-slate-700/80 rounded-xl px-1.5 sm:px-2.5 py-1 focus:ring-1 focus:ring-emerald-500 outline-none cursor-pointer font-medium max-w-[78px] xs:max-w-[95px] sm:max-w-[160px] md:max-w-[190px] truncate whitespace-nowrap" title="દેશ પસંદ કરો (Select Jurisdiction)">
                         <!-- Populated dynamically with ALL 195+ world countries -->
                     </select>
                 </div>
 
                 <!-- 3. Universal Language Selector -->
                 <div class="relative shrink-0">
-                    <select id="langSelect" class="h-9 bg-slate-900/90 text-xs text-slate-200 border border-slate-700/80 rounded-xl px-2 sm:px-2.5 py-1.5 focus:ring-1 focus:ring-emerald-500 outline-none cursor-pointer font-bold max-w-[100px] sm:max-w-[125px] whitespace-nowrap" title="ભાષા પસંદ કરો (Select Language)">
+                    <select id="langSelect" class="h-8 sm:h-9 bg-slate-900/90 text-[11px] sm:text-xs text-slate-200 border border-slate-700/80 rounded-xl px-1 sm:px-2.5 py-1 focus:ring-1 focus:ring-emerald-500 outline-none cursor-pointer font-bold max-w-[68px] xs:max-w-[80px] sm:max-w-[125px] whitespace-nowrap" title="ભાષા પસંદ કરો (Select Language)">
                         <option value="gu" selected>🇮🇳 ગુજરાતી</option>
                         <option value="en">🇬🇧 English</option>
                         <option value="hi">🇮🇳 हिन्दी</option>
@@ -488,13 +507,13 @@
                 <div class="hidden sm:block h-5 w-px bg-slate-800/80 shrink-0"></div>
 
                 <!-- 4. Security Shield (256-Bit SSL) -->
-                <button id="openSecurityModalBtn" class="hidden md:flex h-9 items-center space-x-1.5 px-2.5 rounded-xl bg-slate-900/90 border border-emerald-500/30 text-xs font-semibold text-emerald-400 hover:border-emerald-500 hover:bg-emerald-500/10 transition cursor-pointer whitespace-nowrap shrink-0" title="Bank-Grade Security: ૨૫૬-Bit SSL સુરક્ષિત">
+                <button id="openSecurityModalBtn" class="hidden lg:flex h-9 items-center space-x-1.5 px-2.5 rounded-xl bg-slate-900/90 border border-emerald-500/30 text-xs font-semibold text-emerald-400 hover:border-emerald-500 hover:bg-emerald-500/10 transition cursor-pointer whitespace-nowrap shrink-0" title="Bank-Grade Security: ૨૫૬-Bit SSL સુરક્ષિત">
                     <i data-lucide="shield-check" class="w-4 h-4 text-emerald-400 shrink-0"></i>
                     <span data-i18n="badge_security" class="hidden 2xl:inline whitespace-nowrap">૨૫૬-Bit SSL સુરક્ષિત</span>
                 </button>
 
                 <!-- 5. Cloud Gateway & Multi-Device Sync Hub -->
-                <button id="openCloudSyncModalBtn" class="flex h-9 items-center space-x-1.5 px-2.5 rounded-xl bg-slate-900/90 border border-cyan-500/40 hover:border-cyan-400 hover:bg-cyan-500/10 text-xs font-bold text-cyan-300 transition shadow-sm cursor-pointer whitespace-nowrap shrink-0" title="ક્લાઉડ સિંક & મલ્ટિ-ડિવાઇસ હબ (Cloud Sync Hub)">
+                <button id="openCloudSyncModalBtn" class="hidden md:flex h-9 items-center space-x-1.5 px-2.5 rounded-xl bg-slate-900/90 border border-cyan-500/40 hover:border-cyan-400 hover:bg-cyan-500/10 text-xs font-bold text-cyan-300 transition shadow-sm cursor-pointer whitespace-nowrap shrink-0" title="ક્લાઉડ સિંક & મલ્ટિ-ડિવાઇસ હબ (Cloud Sync Hub)">
                     <span class="relative flex h-2 w-2 shrink-0">
                         <span id="cloudStatusPing" class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                         <span id="cloudStatusDot" class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
@@ -510,27 +529,27 @@
                 </button>
 
                 <!-- 7. Theme Toggle Button -->
-                <button id="themeToggleBtn" class="flex h-9 items-center space-x-1.5 px-2.5 rounded-xl bg-amber-500/15 border border-amber-500/40 hover:border-amber-400 text-xs font-bold text-amber-300 transition shadow-sm cursor-pointer whitespace-nowrap shrink-0" title="થીમ: રોયલ CA નેવી & ગોલ્ડ / પ્યોર વ્હાઇટ">
+                <button id="themeToggleBtn" class="hidden sm:flex h-8 sm:h-9 items-center space-x-1.5 px-2 sm:px-2.5 rounded-xl bg-amber-500/15 border border-amber-500/40 hover:border-amber-400 text-xs font-bold text-amber-300 transition shadow-sm cursor-pointer whitespace-nowrap shrink-0" title="થીમ: રોયલ CA નેવી & ગોલ્ડ / પ્યોર વ્હાઇટ">
                     <span id="themeToggleIcon" class="flex items-center shrink-0">
-                        <i data-lucide="award" class="w-4 h-4 text-amber-400"></i>
+                        <i data-lucide="award" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400"></i>
                     </span>
                     <span id="themeToggleLabel" class="hidden 2xl:inline whitespace-nowrap" data-i18n="theme_btn_light">રોયલ CA નેવી & ગોલ્ડ</span>
                 </button>
 
                 <!-- 8. SEO Status Button -->
-                <button id="openSeoModalBtn" class="flex h-9 items-center space-x-1.5 px-2.5 rounded-xl bg-slate-900/90 border border-emerald-500/40 hover:border-emerald-400 hover:bg-emerald-500/10 text-xs font-bold text-emerald-300 transition shadow-sm cursor-pointer whitespace-nowrap shrink-0" title="SEO & Search Engine Launch Hub">
-                    <i data-lucide="globe" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+                <button id="openSeoModalBtn" class="hidden sm:flex h-8 sm:h-9 items-center space-x-1.5 px-2 sm:px-2.5 rounded-xl bg-slate-900/90 border border-emerald-500/40 hover:border-emerald-400 hover:bg-emerald-500/10 text-xs font-bold text-emerald-300 transition shadow-sm cursor-pointer whitespace-nowrap shrink-0" title="SEO & Search Engine Launch Hub">
+                    <i data-lucide="globe" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-400 shrink-0"></i>
                     <span class="hidden xl:inline whitespace-nowrap">SEO ૧૦૦% લાઈવ</span>
-                    <span class="xl:hidden inline whitespace-nowrap">SEO</span>
-                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0"></span>
+                    <span class="xl:hidden inline whitespace-nowrap text-[11px]">SEO</span>
+                    <span class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-emerald-400 animate-pulse shrink-0"></span>
                 </button>
 
                 <!-- Subtle Divider -->
                 <div class="hidden sm:block h-5 w-px bg-slate-800/80 shrink-0"></div>
 
                 <!-- 9. User Sign In / Account Action Button -->
-                <button id="openAuthModalBtn" class="h-9 px-3.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white rounded-xl text-xs font-bold transition shadow-md shadow-emerald-950/40 flex items-center space-x-1.5 whitespace-nowrap shrink-0">
-                    <i data-lucide="user" class="w-4 h-4 shrink-0"></i>
+                <button id="openAuthModalBtn" class="h-8 sm:h-9 px-2 sm:px-3.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white rounded-xl text-[11px] sm:text-xs font-bold transition shadow-md shadow-emerald-950/40 flex items-center space-x-1 sm:space-x-1.5 whitespace-nowrap shrink-0">
+                    <i data-lucide="user" class="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0"></i>
                     <span id="authBtnLabel" data-i18n="btn_login_signup" class="whitespace-nowrap">લૉગ ઇન</span>
                 </button>
             </div>
@@ -1286,7 +1305,7 @@
                         </div>
 
                         <!-- Live Notification Banner -->
-                        <div id="gstCouncilNotificationBar" class="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800 flex items-center justify-between text-[11px]">
+                        <div id="gstCouncilNotificationBar" class="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 text-[11px]">
                             <div class="flex items-center space-x-2 text-slate-300">
                                 <i data-lucide="bell" class="w-3.5 h-3.5 text-amber-400 shrink-0"></i>
                                 <span id="activeGstNotificationText">સત્તાવાર ગેઝેટ નોટિફિકેશન: સ્ટાન્ડર્ડ GST દર <strong>18.0% (CGST 9% + SGST 9% / IGST 18%)</strong> સક્રિય છે.</span>
@@ -1604,7 +1623,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="flex items-center justify-between pt-2">
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2">
                                 <label class="flex items-center space-x-2 cursor-pointer text-slate-300">
                                     <input type="checkbox" id="invAutoPost" checked class="rounded border-slate-700 text-cyan-500 focus:ring-cyan-500">
                                     <span data-i18n="lbl_auto_post_ledger">ખાતાવહીમાં આપોઆપ ડબલ-એન્ટ્રી પોસ્ટ કરો (Sundry Debtors Dr / Sales Cr)</span>
@@ -2059,7 +2078,7 @@
                                 </div>
                             </div>
 
-                            <div class="mt-5 pt-3 border-t border-amber-500/20 flex items-center justify-between text-[11px]">
+                            <div class="mt-5 pt-3 border-t border-amber-500/20 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-[11px]">
                                 <span class="text-slate-400">આ UDIN બેંક અને આવકવેરા પોર્ટલ પર માન્ય છે.</span>
                                 <button onclick="window.print()" class="px-3 py-1 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-500/40 hover:bg-amber-500/30 font-bold transition">
                                     🖨️ પ્રમાણપત્ર પ્રિન્ટ કરો

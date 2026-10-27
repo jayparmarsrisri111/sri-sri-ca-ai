@@ -1370,6 +1370,37 @@ function setupEventListeners() {
         });
     });
 
+    // Mobile Drawer Quick Utility Buttons (< 1024px)
+    const mobThemeBtn = document.getElementById("mobileThemeToggleBtn");
+    if (mobThemeBtn) {
+        mobThemeBtn.addEventListener("click", () => {
+            toggleTheme();
+            closeSidebar();
+        });
+    }
+
+    const mobCloudBtn = document.getElementById("mobileCloudSyncBtn");
+    if (mobCloudBtn) {
+        mobCloudBtn.addEventListener("click", () => {
+            closeSidebar();
+            const cloudModal = document.getElementById("cloudSyncModal");
+            if (cloudModal) cloudModal.classList.remove("hidden");
+        });
+    }
+
+    const mobSeoBtn = document.getElementById("mobileSeoBtn");
+    if (mobSeoBtn) {
+        mobSeoBtn.addEventListener("click", () => {
+            closeSidebar();
+            const seoModal = document.getElementById("seoModal");
+            if (seoModal) {
+                seoModal.classList.remove("hidden");
+                if (typeof updateSeoCountdownDisplay === "function") updateSeoCountdownDisplay();
+                if (window.lucide) lucide.createIcons();
+            }
+        });
+    }
+
     const mobileMenuBtn = document.getElementById("mobileNavMenuBtn");
     if (mobileMenuBtn) {
         mobileMenuBtn.addEventListener("click", () => {
@@ -2002,7 +2033,9 @@ function switchTab(tabId) {
         activeItem.classList.add("active");
         const titleSpan = activeItem.querySelector("span");
         if (titleSpan) {
-            document.getElementById("pageTitleDisplay").innerHTML = `${activeItem.querySelector("svg").outerHTML} <span>${titleSpan.textContent}</span>`;
+            const svgEl = activeItem.querySelector("svg");
+            const svgHtml = svgEl ? svgEl.outerHTML : '';
+            document.getElementById("pageTitleDisplay").innerHTML = `${svgHtml} <span class="truncate block max-w-[100px] xs:max-w-[130px] sm:max-w-none">${titleSpan.textContent}</span>`;
         }
     }
 
