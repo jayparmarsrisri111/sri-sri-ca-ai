@@ -1,7 +1,88 @@
 [
   {
+    "id": "INV-2026-014",
+    "customer_name": "Shreeji Global Trading Corporation",
+    "customer_gstin": "24AAACG1122H1Z4",
+    "customer_email": "info@shreejicorp.com",
+    "date": "2026-10-27",
+    "due_date": "2026-10-27",
+    "currency": "INR",
+    "items": [
+      {
+        "description": "AI Cloud Accounting Software License",
+        "hsn": "998313",
+        "qty": 1,
+        "rate": 50000.0,
+        "tax_rate": 18.0,
+        "amount": 50000.0
+      }
+    ],
+    "subtotal": 50000.0,
+    "tax_amount": 9000.0,
+    "total_amount": 59000.0,
+    "status": "Unpaid",
+    "irn": "01d9f73a5dcd2dd1e736d270ede494c68a713e8bbed83bc6e812e5ff8b8bd8e3",
+    "ack_no": "112693122393",
+    "qr_data": "SRISRI-IRN-01d9f73a5dcd2dd1-AMT-59000.0",
+    "posted_to_ledger": false
+  },
+  {
+    "id": "INV-2026-013",
+    "customer_name": "Shreeji Global Trading Corporation",
+    "customer_gstin": "24AAACG1122H1Z4",
+    "customer_email": "info@shreejicorp.com",
+    "date": "2026-10-27",
+    "due_date": "2026-10-27",
+    "currency": "INR",
+    "items": [
+      {
+        "description": "AI Cloud Accounting Software License",
+        "hsn": "998313",
+        "qty": 1,
+        "rate": 50000.0,
+        "tax_rate": 18.0,
+        "amount": 50000.0
+      }
+    ],
+    "subtotal": 50000.0,
+    "tax_amount": 9000.0,
+    "total_amount": 59000.0,
+    "status": "Unpaid",
+    "irn": "26a2fc17b654765fa48e2dffc11a028947c8a9b7dd90f2709eb6c862c36fa768",
+    "ack_no": "112693121523",
+    "qr_data": "SRISRI-IRN-26a2fc17b654765f-AMT-59000.0",
+    "posted_to_ledger": false
+  },
+  {
+    "id": "INV-2026-012",
+    "customer_name": "Shreeji Global Trading Corporation",
+    "customer_gstin": "24AAACG1122H1Z4",
+    "customer_email": "info@shreejicorp.com",
+    "date": "2026-10-27",
+    "due_date": "2026-10-27",
+    "currency": "INR",
+    "items": [
+      {
+        "description": "AI Cloud Accounting Software License",
+        "hsn": "998313",
+        "qty": 1,
+        "rate": 50000.0,
+        "tax_rate": 18.0,
+        "amount": 50000.0
+      }
+    ],
+    "subtotal": 50000.0,
+    "tax_amount": 9000.0,
+    "total_amount": 59000.0,
+    "status": "Unpaid",
+    "irn": "69846722e8aeac7389b0daa5a5b40310d7d4379cedc1c5e5c6f8fd83e24e1294",
+    "ack_no": "112693121428",
+    "qr_data": "SRISRI-IRN-69846722e8aeac73-AMT-59000.0",
+    "posted_to_ledger": false
+  },
+  {
     "id": "INV-2026-011",
-    "customer_name": "શ્રીજી ગ્લોબલ ટ્રેડિંગ કોર્પોરેશન",
+    "customer_name": "Shreeji Global Trading Corporation",
     "customer_gstin": "24AAACG1122H1Z4",
     "customer_email": "info@shreejicorp.com",
     "date": "2026-10-05",
@@ -9,7 +90,7 @@
     "currency": "INR",
     "items": [
       {
-        "description": "AI ક્લાઉડ એકાઉન્ટિંગ સૉફ્ટવેર લાયસન્સ",
+        "description": "AI Cloud Accounting Software License",
         "hsn": "998313",
         "qty": 1,
         "rate": 50000.0,
@@ -28,7 +109,7 @@
   },
   {
     "id": "INV-2026-010",
-    "customer_name": "શ્રીજી ગ્લોબલ ટ્રેડિંગ કોર્પોરેશન",
+    "customer_name": "Shreeji Global Trading Corporation",
     "customer_gstin": "24AAACG1122H1Z4",
     "customer_email": "info@shreejicorp.com",
     "date": "2026-10-04",
@@ -36,7 +117,7 @@
     "currency": "INR",
     "items": [
       {
-        "description": "AI ક્લાઉડ એકાઉન્ટિંગ સૉફ્ટવેર લાયસન્સ",
+        "description": "AI Cloud Accounting Software License",
         "hsn": "998313",
         "qty": 1,
         "rate": 50000.0,
@@ -55,7 +136,7 @@
   },
   {
     "id": "INV-2026-009",
-    "customer_name": "શ્રીજી ગ્લોબલ ટ્રેડિંગ કોર્પોરેશન",
+    "customer_name": "Shreeji Global Trading Corporation",
     "customer_gstin": "24AAACG1122H1Z4",
     "customer_email": "info@shreejicorp.com",
     "date": "2026-10-04",
@@ -63,7 +144,7 @@
     "currency": "INR",
     "items": [
       {
-        "description": "AI ક્લાઉડ એકાઉન્ટિંગ સૉફ્ટવેર લાયસન્સ",
+        "description": "AI Cloud Accounting Software License",
         "hsn": "998313",
         "qty": 1,
         "rate": 50000.0,
@@ -82,7 +163,7 @@
   },
   {
     "id": "INV-2026-008",
-    "customer_name": "શ્રીજી ગ્લોબલ ટ્રેડિંગ કોર્પોરેશન",
+    "customer_name": "Shreeji Global Trading Corporation",
     "customer_gstin": "24AAACG1122H1Z4",
     "customer_email": "info@shreejicorp.com",
     "date": "2026-10-04",
@@ -90,7 +171,7 @@
     "currency": "INR",
     "items": [
       {
-        "description": "AI ક્લાઉડ એકાઉન્ટિંગ સૉફ્ટવેર લાયસન્સ",
+        "description": "AI Cloud Accounting Software License",
         "hsn": "998313",
         "qty": 1,
         "rate": 50000.0,
@@ -109,7 +190,7 @@
   },
   {
     "id": "INV-2026-007",
-    "customer_name": "શ્રીજી ગ્લોબલ ટ્રેડિંગ કોર્પોરેશન",
+    "customer_name": "Shreeji Global Trading Corporation",
     "customer_gstin": "24AAACG1122H1Z4",
     "customer_email": "info@shreejicorp.com",
     "date": "2026-10-04",
@@ -117,7 +198,7 @@
     "currency": "INR",
     "items": [
       {
-        "description": "AI ક્લાઉડ એકાઉન્ટિંગ સૉફ્ટવેર લાયસન્સ",
+        "description": "AI Cloud Accounting Software License",
         "hsn": "998313",
         "qty": 1,
         "rate": 50000.0,
@@ -136,7 +217,7 @@
   },
   {
     "id": "INV-2026-006",
-    "customer_name": "શ્રીજી ગ્લોબલ ટ્રેડિંગ કોર્પોરેશન",
+    "customer_name": "Shreeji Global Trading Corporation",
     "customer_gstin": "24AAACG1122H1Z4",
     "customer_email": "info@shreejicorp.com",
     "date": "2026-10-03",
@@ -144,7 +225,7 @@
     "currency": "INR",
     "items": [
       {
-        "description": "AI ક્લાઉડ એકાઉન્ટિંગ સૉફ્ટવેર લાયસન્સ",
+        "description": "AI Cloud Accounting Software License",
         "hsn": "998313",
         "qty": 1,
         "rate": 50000.0,
@@ -163,7 +244,7 @@
   },
   {
     "id": "INV-2026-005",
-    "customer_name": "શ્રીજી ગ્લોબલ ટ્રેડિંગ કોર્પોરેશન",
+    "customer_name": "Shreeji Global Trading Corporation",
     "customer_gstin": "24AAACG1122H1Z4",
     "customer_email": "info@shreejicorp.com",
     "date": "2026-10-03",
@@ -171,7 +252,7 @@
     "currency": "INR",
     "items": [
       {
-        "description": "AI ક્લાઉડ એકાઉન્ટિંગ સૉફ્ટવેર લાયસન્સ",
+        "description": "AI Cloud Accounting Software License",
         "hsn": "998313",
         "qty": 1,
         "rate": 50000.0,
@@ -190,7 +271,7 @@
   },
   {
     "id": "INV-2026-004",
-    "customer_name": "શ્રીજી ગ્લોબલ ટ્રેડિંગ કોર્પોરેશન",
+    "customer_name": "Shreeji Global Trading Corporation",
     "customer_gstin": "24AAACG1122H1Z4",
     "customer_email": "info@shreejicorp.com",
     "date": "2026-10-03",
@@ -198,7 +279,7 @@
     "currency": "INR",
     "items": [
       {
-        "description": "AI ક્લાઉડ એકાઉન્ટિંગ સૉફ્ટવેર લાયસન્સ",
+        "description": "AI Cloud Accounting Software License",
         "hsn": "998313",
         "qty": 1,
         "rate": 50000.0,
@@ -217,7 +298,7 @@
   },
   {
     "id": "INV-2026-003",
-    "customer_name": "નવકાર એન્ટરપ્રાઇઝ",
+    "customer_name": "Navkar Enterprise",
     "customer_gstin": "24AABCN1234E1Z1",
     "customer_email": "",
     "date": "2026-10-03",
@@ -225,7 +306,7 @@
     "currency": "INR",
     "items": [
       {
-        "description": "AI ઓટોમેશન લાયસન્સ",
+        "description": "AI Automation License",
         "hsn": "997331",
         "qty": 1,
         "rate": 50000.0,
@@ -243,7 +324,7 @@
   },
   {
     "id": "INV-2026-001",
-    "customer_name": "આર્યન ટેકનોલોજીસ પ્રા. લી.",
+    "customer_name": "Aryan Technologies Pvt. Ltd.",
     "customer_gstin": "24AAACA1234F1Z5",
     "customer_email": "finance@aryantech.in",
     "date": "2026-09-15",
@@ -251,7 +332,7 @@
     "currency": "INR",
     "items": [
       {
-        "description": "AI સોફ્ટવેર કન્સલ્ટિંગ & ઓડિટ સર્વિસ",
+        "description": "AI Software Consulting & Audit Service",
         "hsn": "998313",
         "qty": 1,
         "rate": 100000.0,
@@ -259,7 +340,7 @@
         "amount": 100000.0
       },
       {
-        "description": "ક્લાઉડ એકાઉન્ટિંગ સેટઅપ લાયસન્સ",
+        "description": "Cloud Accounting Setup License",
         "hsn": "997331",
         "qty": 2,
         "rate": 25000.0,
@@ -278,7 +359,7 @@
   },
   {
     "id": "INV-2026-002",
-    "customer_name": "શ્રીજી ગ્લોબલ ટ્રેડર્સ",
+    "customer_name": "Shreeji Global Traders",
     "customer_gstin": "24BBBCB5678G1Z2",
     "customer_email": "accounts@shreejiglobal.com",
     "date": "2026-09-28",
@@ -286,7 +367,7 @@
     "currency": "INR",
     "items": [
       {
-        "description": "ટેક્સ ઓડિટ અને કમ્પ્લાયન્સ પેકેજ",
+        "description": "Tax Audit & Compliance Package",
         "hsn": "998231",
         "qty": 1,
         "rate": 65000.0,

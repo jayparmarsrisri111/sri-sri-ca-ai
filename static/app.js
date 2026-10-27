@@ -856,12 +856,12 @@ const DynamicLocalStore = {
             try { return JSON.parse(stored); } catch (e) {}
         }
         const initial = [
-            { id: "TXN-101", date: "2026-10-01", description: "સોફ્ટવેર કન્સલ્ટિંગ અને લાયસન્સ વેચાણ - રિલાયન્સ ઇન્ડસ્ટ્રીઝ", amount: 480000, debit_account: "Bank Account (HDFC)", credit_account: "Revenue - IT Consulting", reference_no: "INV-2026-001", type: "Sales", verified: true },
-            { id: "TXN-102", date: "2026-10-02", description: "વાર્ષિક સોફ્ટવેર સબ્સ્ક્રિપ્શન ચાર્જ - ટાટા પાવર લિ.", amount: 240000, debit_account: "Bank Account (HDFC)", credit_account: "Revenue - Software Licensing", reference_no: "INV-2026-002", type: "Sales", verified: true },
-            { id: "TXN-103", date: "2026-10-03", description: "ઓફિસ પરિસર માસિક ભાડું ચૂકવ્યું", amount: 280000, debit_account: "Operating Expense - Office Rent", credit_account: "Bank Account (HDFC)", reference_no: "VOUCH-801", type: "Expense", verified: true },
-            { id: "TXN-104", date: "2026-10-04", description: "ઓડિટ અને એકાઉન્ટિંગ સ્ટાફ પગાર (EPF & TDS કપાત બાદ)", amount: 250000, debit_account: "Operating Expense - Salaries", credit_account: "Bank Account (HDFC)", reference_no: "VOUCH-802", type: "Expense", verified: true },
-            { id: "TXN-105", date: "2026-10-04", description: "AWS ક્લાઉડ સર્વર અને સાયબર સિક્યુરિટી હોસ્ટિંગ બિલ", amount: 98200, debit_account: "Operating Expense - Cloud Infra", credit_account: "Bank Account (HDFC)", reference_no: "VOUCH-803", type: "Expense", verified: true },
-            { id: "TXN-106", date: "2026-10-05", description: "કમ્પ્યુટર અને ઓફિસ એસેટ્સ પર વૈધાનિક WDV ઘસારો", amount: 50000, debit_account: "Non-Cash Expense - Depreciation", credit_account: "Accumulated Depreciation", reference_no: "JV-901", type: "Journal", verified: true }
+            { id: "TXN-101", date: "2026-10-01", description: "Software Consulting & Licensing - Reliance Industries", amount: 480000, debit_account: "Bank Account (HDFC)", credit_account: "Revenue - IT Consulting", reference_no: "INV-2026-001", type: "Sales", verified: true },
+            { id: "TXN-102", date: "2026-10-02", description: "Annual Software Subscription - Tata Power Ltd", amount: 240000, debit_account: "Bank Account (HDFC)", credit_account: "Revenue - Software Licensing", reference_no: "INV-2026-002", type: "Sales", verified: true },
+            { id: "TXN-103", date: "2026-10-03", description: "Monthly Office Premises Rent", amount: 280000, debit_account: "Operating Expense - Office Rent", credit_account: "Bank Account (HDFC)", reference_no: "VOUCH-801", type: "Expense", verified: true },
+            { id: "TXN-104", date: "2026-10-04", description: "Staff Salaries (Net of EPF & TDS)", amount: 250000, debit_account: "Operating Expense - Salaries", credit_account: "Bank Account (HDFC)", reference_no: "VOUCH-802", type: "Expense", verified: true },
+            { id: "TXN-105", date: "2026-10-04", description: "AWS Cloud Server & Cybersecurity Hosting", amount: 98200, debit_account: "Operating Expense - Cloud Infra", credit_account: "Bank Account (HDFC)", reference_no: "VOUCH-803", type: "Expense", verified: true },
+            { id: "TXN-106", date: "2026-10-05", description: "Statutory WDV Depreciation on Office Assets", amount: 50000, debit_account: "Non-Cash Expense - Depreciation", credit_account: "Accumulated Depreciation", reference_no: "JV-901", type: "Journal", verified: true }
         ];
         localStorage.setItem(key, JSON.stringify(initial));
         return initial;
@@ -934,14 +934,14 @@ const DynamicLocalStore = {
                 ]
         };
 
-        const totalAssets = 90000 + Math.max(0, netProfit);
+        const totalAssets = 131800 + Math.max(0, netProfit);
         const totalLiab = 50000;
         const totalEquity = totalAssets - totalLiab;
 
         const bs = {
             assets: {
                 current_assets: [
-                    { name: "HDFC Bank Account", amount: 45000 + Math.round(netProfit * 0.4) },
+                    { name: "HDFC Bank Account", amount: 45000 + Math.max(0, netProfit) },
                     { name: "Cash in Hand", amount: 12500 },
                     { name: "Sundry Debtors (Receivables)", amount: 18500 }
                 ],
@@ -1028,14 +1028,14 @@ const DynamicLocalStore = {
                     input_tax_credit_available: inputGst,
                     net_gst_payable_cash: netGst,
                     itc_carried_forward: Math.max(0, inputGst - outputGst),
-                    status: `સત્તાવાર GST દર ${activeRate}% લાગુ (GSTR-3B)`
+                    status: `Statutory GST Rate ${activeRate}% Active (GSTR-3B)`
                 },
                 income_tax: {
                     gross_total_income: totalSales,
                     taxable_income: Math.max(0, totalSales - totalExpenses),
                     tax_new_regime: 18500,
                     tax_old_regime: 46800,
-                    recommended_regime: "નવી કર વ્યવસ્થા (કલમ 115BAC)",
+                    recommended_regime: "New Tax Regime (Sec 115BAC)",
                     savings: 28300,
                     advance_tax_schedule: [
                         { installment: "15th June (15%)", amount: 2775 },
@@ -1071,7 +1071,7 @@ const DynamicLocalStore = {
         const initial = [
             {
                 id: "INV-2026-981",
-                customer_name: "રિલાયન્સ જીઓ ઇન્ફોકોમ લિમિટેડ",
+                customer_name: "Reliance Jio Infocomm Limited",
                 customer_gstin: "24AAACR1234F1Z1",
                 date: "2026-10-04",
                 total_amount: 118000,
@@ -1079,11 +1079,11 @@ const DynamicLocalStore = {
                 irn: "08d5c0794c7ece979e27607a68846be0613a0058b871c56b7979685600c92df7",
                 ack_no: "112610998244",
                 status: "Paid",
-                items: [{ description: "એન્ટરપ્રાઇઝ AI કન્સલ્ટિંગ & ક્લાઉડ ઓડિટ", hsn: "998313", qty: 1, rate: 100000, amount: 100000 }]
+                items: [{ description: "Enterprise AI Consulting & Cloud Audit", hsn: "998313", qty: 1, rate: 100000, amount: 100000 }]
             },
             {
                 id: "INV-2026-980",
-                customer_name: "ટાટા કન્સલ્ટન્સી સર્વિસીસ (TCS)",
+                customer_name: "Tata Consultancy Services (TCS)",
                 customer_gstin: "27AAACT1984F1Z9",
                 date: "2026-10-02",
                 total_amount: 59000,
@@ -1091,7 +1091,7 @@ const DynamicLocalStore = {
                 irn: "9f8e7d6c5b4a3210fedcba9876543210abcdef0123456789abcdef0123456789",
                 ack_no: "112610998243",
                 status: "Pending",
-                items: [{ description: "વાર્ષિક IFRS & Ind AS ટેક્સ સૉફ્ટવેર લાયસન્સ", hsn: "997331", qty: 1, rate: 50000, amount: 50000 }]
+                items: [{ description: "Annual IFRS & Ind AS Tax Software License", hsn: "997331", qty: 1, rate: 50000, amount: 50000 }]
             }
         ];
         localStorage.setItem("sri_sri_invoices", JSON.stringify(initial));
@@ -1116,10 +1116,10 @@ const DynamicLocalStore = {
             low_stock_alerts: 1,
             valuation_method: "FIFO (First-In, First-Out AS-2)",
             items: [
-                { sku: "SKU-01", name: "AI ટેક્સ કમ્પ્યુટિંગ વર્કસ્ટેશન (Core i9)", category: "Hardware", qty: 5, unit_cost: 45000, total_val: 225000, reorder_level: 2 },
+                { sku: "SKU-01", name: "AI Tax Computing Workstation (Core i9)", category: "Hardware", qty: 5, unit_cost: 45000, total_val: 225000, reorder_level: 2 },
                 { sku: "SKU-02", name: "Class-3 USB Cryptographic Tokens", category: "Security", qty: 12, unit_cost: 2500, total_val: 30000, reorder_level: 5 },
-                { sku: "SKU-03", name: "ઓડિટ ફાઇલ પ્રિન્ટિંગ પેપર્સ (500 GSM Boxes)", category: "Supplies", qty: 40, unit_cost: 500, total_val: 20000, reorder_level: 50 },
-                { sku: "SKU-04", name: "એન્ટરપ્રાઇઝ ડ્યુઅલ ડિસ્પ્લે મોનિટર (4K)", category: "Hardware", qty: 7, unit_cost: 10000, total_val: 70000, reorder_level: 3 }
+                { sku: "SKU-03", name: "Audit File Printing Paper (500 GSM Boxes)", category: "Supplies", qty: 40, unit_cost: 500, total_val: 20000, reorder_level: 50 },
+                { sku: "SKU-04", name: "Enterprise Dual Display Monitor (4K)", category: "Hardware", qty: 7, unit_cost: 10000, total_val: 70000, reorder_level: 3 }
             ]
         };
         localStorage.setItem("sri_sri_inventory", JSON.stringify(initial));
@@ -1137,9 +1137,9 @@ const DynamicLocalStore = {
             total_epf: 28800,
             total_tds: 15800,
             employees: [
-                { id: "EMP-01", name: "CA રાહુલ ત્રિવેદી (ACA)", designation: "સીનિયર ટેક્સ ઓડિટર", gross_salary: 100000, epf_deduction: 12000, tds_deduction: 6400, pt_deduction: 200, net_salary: 81400 },
-                { id: "EMP-02", name: "પ્રિયા દેસાઈ", designation: "જીએસટી એન્ડ એકાઉન્ટ્સ મેનેજર", gross_salary: 80000, epf_deduction: 9600, tds_deduction: 4200, pt_deduction: 200, net_salary: 66000 },
-                { id: "EMP-03", name: "હર્ષ શાહ", designation: "આર્ટિકલ્ડ આસિસ્ટન્ટ (ICAI Trainee)", gross_salary: 20000, epf_deduction: 2400, tds_deduction: 0, pt_deduction: 0, net_salary: 17600 }
+                { id: "EMP-01", name: "CA Rahul Trivedi (ACA)", designation: "Senior Tax Auditor", gross_salary: 100000, epf_deduction: 12000, tds_deduction: 6400, pt_deduction: 200, net_salary: 81400 },
+                { id: "EMP-02", name: "Priya Desai", designation: "GST & Accounts Manager", gross_salary: 80000, epf_deduction: 9600, tds_deduction: 4200, pt_deduction: 200, net_salary: 66000 },
+                { id: "EMP-03", name: "Harsh Shah", designation: "Articled Assistant (ICAI Trainee)", gross_salary: 20000, epf_deduction: 2400, tds_deduction: 0, pt_deduction: 0, net_salary: 17600 }
             ]
         };
         localStorage.setItem("sri_sri_payroll", JSON.stringify(initial));
@@ -1153,9 +1153,9 @@ const DynamicLocalStore = {
             net_block_value: 435000,
             method: "WDV (Written Down Value) Sec 32",
             assets: [
-                { id: "AST-01", name: "ઓફિસ ફર્નિચર & ફિક્સચર્સ", purchase_date: "2024-04-01", cost: 180000, wdv_rate: 10.0, current_wdv: 145800 },
-                { id: "AST-02", name: "હાઈ-એન્ડ સર્વર્સ & કમ્પ્યુટર્સ", purchase_date: "2025-04-01", cost: 300000, wdv_rate: 40.0, current_wdv: 180000 },
-                { id: "AST-03", name: "ઓફિસ એર કન્ડિશનર્સ (Daikin)", purchase_date: "2024-10-01", cost: 100000, wdv_rate: 15.0, current_wdv: 72250 }
+                { id: "AST-01", name: "Office Furniture & Fixtures", purchase_date: "2024-04-01", cost: 180000, wdv_rate: 10.0, current_wdv: 145800 },
+                { id: "AST-02", name: "High-End Servers & Computers", purchase_date: "2025-04-01", cost: 300000, wdv_rate: 40.0, current_wdv: 180000 },
+                { id: "AST-03", name: "Office Air Conditioners (Daikin)", purchase_date: "2024-10-01", cost: 100000, wdv_rate: 15.0, current_wdv: 72250 }
             ]
         };
     },
@@ -1163,20 +1163,20 @@ const DynamicLocalStore = {
     getAnomalies() {
         return {
             audit_score_percent: 94,
-            status: "ઓડિટ સુરક્ષિત - ગંભીર ભંગાણ નથી",
+            status: "Audit Safe - No Critical Anomalies",
             anomalies: [
-                { id: "ANOM-01", severity: "Low", type: "Section 269ST Check", description: "કોઈપણ ગ્રાહક પાસેથી ₹૨ લાખથી વધુ રોકડ સ્વીકારેલ નથી (૧૦૦% કમ્પ્લાયન્ટ)" },
-                { id: "ANOM-02", severity: "Low", type: "Duplicate Invoice Scan", description: "કોઈપણ ડુપ્લિકેટ ઇન્વોઇસ નંબર મળ્યો નથી" },
-                { id: "ANOM-03", severity: "Medium", type: "Section 194J TDS Vigilance", description: "પ્રોફેશનલ ફી ચુકવણીમાં TDS કપાત 10% ની ચકાસણી પૂર્ણ" }
+                { id: "ANOM-01", severity: "Low", type: "Section 269ST Check", description: "No customer cash receipts exceeding INR 2,00,000 (100% Compliant)" },
+                { id: "ANOM-02", severity: "Low", type: "Duplicate Invoice Scan", description: "No duplicate invoice numbers detected" },
+                { id: "ANOM-03", severity: "Medium", type: "Section 194J TDS Vigilance", description: "TDS deduction 10% on professional fees verified" }
             ]
         };
     },
 
     getClients() {
         return [
-            { id: "CLI-01", name: "શાહ એગ્રો એન્ટરપ્રાઇઝ લિ.", pan_or_reg: "AAACS1234D", industry: "Manufacturing", status: "Active Audit", returns_filed: "GSTR-1, 3B, ITR-6" },
-            { id: "CLI-02", name: "શ્રી હરિ ફાઇનાન્સ & ઇન્વેસ્ટમેન્ટ્સ", pan_or_reg: "BBBPJ5678K", industry: "Financial Services", status: "Compliant", returns_filed: "GSTR-3B, Form 3CD" },
-            { id: "CLI-03", name: "નવકાર સોફ્ટવેર ટેક્નોલોજીસ LLP", pan_or_reg: "AACCN9876L", industry: "Information Technology", status: "Review Pending", returns_filed: "GSTR-1, Advance Tax" }
+            { id: "CLI-01", name: "Shah Agro Enterprises Ltd.", pan_or_reg: "AAACS1234D", industry: "Manufacturing", status: "Active Audit", returns_filed: "GSTR-1, 3B, ITR-6" },
+            { id: "CLI-02", name: "Shree Hari Finance & Investments", pan_or_reg: "BBBPJ5678K", industry: "Financial Services", status: "Compliant", returns_filed: "GSTR-3B, Form 3CD" },
+            { id: "CLI-03", name: "Navkar Software Technologies LLP", pan_or_reg: "AACCN9876L", industry: "Information Technology", status: "Review Pending", returns_filed: "GSTR-1, Advance Tax" }
         ];
     }
 };
@@ -1203,11 +1203,11 @@ let chatHistory = [];
 
 let currentUser = {
     id: "CA-001",
-    name: "CA જયદીપ શાહ (FCA)",
+    name: "CA Jaydeep Shah (FCA)",
     email: "ca@srisri.com",
     role: "ca",
     role_title: "Chartered Accountant / Auditor (ICAI / ACCA)",
-    company_or_firm_name: "શાહ & એસોસિયેટ્સ CA ફર્મ"
+    company_or_firm_name: "Shah & Associates CA Firm"
 };
 
 let authModalMode = "login";
@@ -2605,6 +2605,9 @@ async function applyLanguage(lang) {
     currentLang = lang;
     localStorage.setItem("sri_sri_lang", lang);
     purgeGoogleTranslateCookies();
+    document.documentElement.setAttribute("data-lang", lang);
+    document.documentElement.setAttribute("dir", lang === "ar" ? "rtl" : "ltr");
+    document.documentElement.lang = lang;
 
     // 1. Exact dictionary replacement on data-i18n elements
     const dict = I18N[lang] || I18N["en"];
@@ -2653,11 +2656,11 @@ function toggleRoleQuick() {
     } else {
         currentUser = {
             id: "CA-001",
-            name: "CA જયદીપ શાહ (FCA)",
+            name: "CA Jaydeep Shah (FCA)",
             email: "ca@srisri.com",
             role: "ca",
             role_title: "Chartered Accountant / Auditor (ICAI / ACCA)",
-            company_or_firm_name: "શાહ & એસોસિયેટ્સ CA ફર્મ"
+            company_or_firm_name: "Shah & Associates CA Firm"
         };
     }
     updateUserInterfaceForRole();
@@ -2675,11 +2678,11 @@ function updateUserInterfaceForRole() {
     document.getElementById("avatarInitial").textContent = currentUser.name.charAt(0) || "U";
 
     if (isCA) {
-        roleBadgeText.textContent = currentLang === "en" ? "CA / ACCA Mode" : (currentLang === "hi" ? "CA / ACCA फर्म मोड" : "CA / ACCA ફર્મ મોડ");
+        roleBadgeText.textContent = currentLang === "gu" ? "CA / ACCA ફર્મ મોડ" : (currentLang === "hi" ? "CA / ACCA फर्म मोड" : "CA / ACCA Mode");
         roleBadge.className = "px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-amber-500/15 text-amber-300 border border-amber-500/30 flex items-center space-x-1";
         caSuite.classList.remove("hidden");
     } else {
-        roleBadgeText.textContent = currentLang === "en" ? "Business Client" : (currentLang === "hi" ? "व्यापारी मोड" : "વેપારી મોડ (Client)");
+        roleBadgeText.textContent = currentLang === "gu" ? "વેપારી મોડ (Client)" : (currentLang === "hi" ? "व्यापारी मोड" : "Business Client");
         roleBadge.className = "px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 flex items-center space-x-1";
         caSuite.classList.add("hidden");
     }
@@ -2689,11 +2692,11 @@ function loginAsDemo(role) {
     if (role === "ca") {
         currentUser = {
             id: "CA-001",
-            name: "CA જયદીપ શાહ (FCA)",
+            name: "CA Jaydeep Shah (FCA)",
             email: "ca@srisri.com",
             role: "ca",
             role_title: "Chartered Accountant / Auditor (ICAI / ACCA)",
-            company_or_firm_name: "શાહ & એસોસિયેટ્સ CA ફર્મ"
+            company_or_firm_name: "Shah & Associates CA Firm"
         };
     } else {
         currentUser = {
@@ -3819,6 +3822,9 @@ async function loadReconciliation() {
                 </table>
             </div>
         `;
+        if (currentLang !== "gu") {
+            performDeepDOMTranslation(currentLang);
+        }
     } catch (err) {
         console.error(err);
     }
@@ -3937,6 +3943,9 @@ async function loadCAClients() {
                 signClientAudit(id, name);
             });
         });
+    if (currentLang !== "gu") {
+        performDeepDOMTranslation(currentLang);
+    }
 }
 
 function setupDynamicClientsEvents() {
@@ -4067,6 +4076,9 @@ async function loadFinancialReports(stmts) {
     `;
 
     renderBalanceSheetChart(bs);
+    if (currentLang !== "gu") {
+        performDeepDOMTranslation(currentLang);
+    }
 }
 
 // ================= AI CHAT & NOTICE SOLVER =================
@@ -4407,6 +4419,9 @@ async function loadERPInvoices() {
         `;
         tbody.appendChild(tr);
     });
+    if (currentLang !== "gu") {
+        performDeepDOMTranslation(currentLang);
+    }
 }
 
 async function handleCreateInvoice(e) {
@@ -4621,6 +4636,9 @@ async function loadERPInventory() {
         `;
         tbody.appendChild(tr);
     });
+    if (currentLang !== "gu") {
+        performDeepDOMTranslation(currentLang);
+    }
 }
 
 async function handleCreateSku(e) {
@@ -4912,6 +4930,9 @@ async function loadERPAssets() {
         `;
         tbody.appendChild(tr);
     });
+    if (currentLang !== "gu") {
+        performDeepDOMTranslation(currentLang);
+    }
 }
 
 // ================= MODULE 5: AI FRAUD & COMPLIANCE ANOMALY DETECTOR =================
@@ -4972,6 +4993,9 @@ async function loadERPAnomalies() {
         container.appendChild(card);
     });
     if (window.lucide) lucide.createIcons();
+    if (currentLang !== "gu") {
+        performDeepDOMTranslation(currentLang);
+    }
 }
 
 // ================= MODULE 6: ICAI UDIN & DIGITAL SIGNATURE =================

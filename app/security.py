@@ -197,7 +197,7 @@ class SecurityHeadersMiddleware(BaseHTTPMiddleware):
                     status_code=status.HTTP_429_TOO_MANY_REQUESTS,
                     content={
                         "success": False,
-                        "message": "સુરક્ષા ચેતવણી: વધુ પડતા પ્રયાસોને લીધે સિસ્ટમ સુરક્ષા લોક સક્રિય છે. કૃપા કરીને થોડી વાર રાહ જુઓ. (Too Many Requests - Rate Limit Exceeded)"
+                        "message": "Security Alert: Rate limit exceeded. Too Many Requests - Rate Limit Exceeded. Please try again shortly."
                     }
                 )
 
@@ -210,6 +210,7 @@ class SecurityHeadersMiddleware(BaseHTTPMiddleware):
         response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
         response.headers["Permissions-Policy"] = "camera=(), microphone=(), geolocation=()"
         response.headers["X-Permitted-Cross-Domain-Policies"] = "none"
+        response.headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains; preload"
         
         # Financial cache protection on APIs
         if path.startswith("/api/"):
@@ -234,7 +235,7 @@ def validate_uploaded_file(filename: str, content_type: str, file_size: int) -> 
     if file_size > MAX_FILE_SIZE:
         raise HTTPException(
             status_code=400,
-            detail="ફાઇલનું કદ ૧૦ MB કરતાં મોટું ન હોવું જોઈએ (File size exceeds 10MB limit)"
+            detail="File size exceeds maximum 10MB limit."
         )
 
     # Sanitize filename to prevent directory traversal
@@ -243,13 +244,13 @@ def validate_uploaded_file(filename: str, content_type: str, file_size: int) -> 
     if ext not in [".jpg", ".jpeg", ".png", ".webp", ".pdf"]:
         raise HTTPException(
             status_code=400,
-            detail="માત્ર JPG, PNG, WEBP અથવા PDF ફાઇલો માન્ય છે (Only image or PDF files allowed)"
+            detail="Only image or PDF files (JPG, PNG, WEBP, PDF) are allowed."
         )
 
     if content_type and content_type.lower() not in ALLOWED_MIME_TYPES:
         raise HTTPException(
             status_code=400,
-            detail="અમાન્ય ફાઇલ પ્રકાર (Invalid MIME type)"
+            detail="Invalid file MIME type."
         )
 
     return True
@@ -330,7 +331,7 @@ class MCACompliantAuditTrail:
     def verify_integrity(self) -> Dict[str, Any]:
         chain = self._load_chain()
         if not chain:
-            return {"valid": False, "total_blocks": 0, "message": "ઓડિટ ચેઇન ખાલી છે."}
+            return {"valid": False, "total_blocks": 0, "message": "Audit chain is empty."}
 
         for i in range(1, len(chain)):
             prev = chain[i - 1]
@@ -341,7 +342,7 @@ class MCACompliantAuditTrail:
                     "valid": False,
                     "tamper_detected": True,
                     "corrupted_block_index": curr["block_index"],
-                    "message": f"ચેતવણી! બ્લોક #{curr['block_index']} પર ટેમ્પરિંગ ડિટેક્ટ થયું છે! prev_hash મેળ ખાતો નથી."
+                    "message": f"Security Alert! Block #{curr['block_index']} tampering detected! prev_hash mismatch."
                 }
 
             expected_hash = self._compute_block_hash(curr)
@@ -350,7 +351,7 @@ class MCACompliantAuditTrail:
                     "valid": False,
                     "tamper_detected": True,
                     "corrupted_block_index": curr["block_index"],
-                    "message": f"ચેતવણી! બ્લોક #{curr['block_index']} નો ડેટા બદલાયો છે! SHA-256 હેશ મેળ ખાતો નથી."
+                    "message": f"Security Alert! Block #{curr['block_index']} data altered! SHA-256 hash mismatch."
                 }
 
         return {
@@ -359,7 +360,7 @@ class MCACompliantAuditTrail:
             "total_blocks": len(chain),
             "last_block_hash": chain[-1]["hash"],
             "last_timestamp": chain[-1]["timestamp"],
-            "message": "MCA Rule 11(g) & CARO 2020: ઓડિટ ચેઇન ૧૦૦% અખંડિત અને અપરિવર્તનીય (Untampered) છે.",
+            "message": "MCA Rule 11(g) & CARO 2020: Audit chain is 100% verified, untampered and immutable.",
             "compliance_status": "MCA Rule 11(g) & CARO 2020 Statutory Audit Trail: 100% Verified & Untampered"
         }
 
@@ -392,7 +393,7 @@ class CAPartnerGuard:
             return {
                 "success": False,
                 "locked": True,
-                "message": f"સુરક્ષા લોકઆઉટ: ૩ ખોટા પ્રયાસોને લીધે પાર્ટનર PIN {rem} સેકન્ડ માટે લોક છે."
+                "message": f"Security Lockout: Partner PIN is locked for {rem} seconds due to repeated failed attempts."
             }
 
         if verify_password(pin.strip(), self.partner_pin_hash):
@@ -411,7 +412,7 @@ class CAPartnerGuard:
                 "partner_name": partner_name,
                 "grant_token": session_grant,
                 "expires_in_minutes": 15,
-                "message": "સફળતા! CA પાર્ટનર વેરીફિકેશન પૂર્ણ થયું. વૈધાનિક ઓડિટ સહી અને UDIN મંજૂર."
+                "message": "Success! CA Partner statutory verification complete. Audit sign-off and UDIN approved."
             }
         else:
             self.failed_pin_attempts += 1
@@ -420,23 +421,23 @@ class CAPartnerGuard:
                 return {
                     "success": False,
                     "locked": True,
-                    "message": "સુરક્ષા લોકઆઉટ: ૩ વાર ખોટો PIN નાખવાથી સિસ્ટમ ૩ મિનિટ માટે લોક થઈ ગઈ છે."
+                    "message": "Security Lockout: System locked for 3 minutes due to 3 consecutive failed PIN attempts."
                 }
             rem_attempts = 3 - self.failed_pin_attempts
             return {
                 "success": False,
                 "locked": False,
                 "remaining_attempts": rem_attempts,
-                "message": f"ખોટો પાર્ટનર PIN! માત્ર {rem_attempts} પ્રયાસો બાકી છે."
+                "message": f"Invalid Partner PIN! Only {rem_attempts} attempts remaining."
             }
 
     def set_partner_pin(self, old_pin: str, new_pin: str) -> Dict[str, Any]:
         if not verify_password(old_pin.strip(), self.partner_pin_hash):
-            return {"success": False, "message": "જૂનો PIN અમાન્ય છે."}
+            return {"success": False, "message": "Old PIN is invalid."}
         if len(new_pin.strip()) < 4:
-            return {"success": False, "message": "નવો PIN ઓછામાં ઓછો ૪ આંકડાનો હોવો જોઈએ."}
+            return {"success": False, "message": "New PIN must be at least 4 digits."}
         self.partner_pin_hash = hash_password(new_pin.strip())
-        return {"success": True, "message": "CA પાર્ટનર સિક્યોરિટી PIN સફળતાપૂર્વક બદલાઈ ગયો છે."}
+        return {"success": True, "message": "CA Partner security PIN updated successfully."}
 
 ca_partner_guard = CAPartnerGuard()
 

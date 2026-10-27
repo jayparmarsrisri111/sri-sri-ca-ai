@@ -109,11 +109,11 @@ class TaxEngine:
         else:
             tax_old_regime *= 1.04
 
-        better_regime = "New Tax Regime (નવી કર વ્યવસ્થા)" if tax_new_regime <= tax_old_regime else "Old Tax Regime (જૂની કર વ્યવસ્થા)"
+        better_regime = "New Tax Regime" if tax_new_regime <= tax_old_regime else "Old Tax Regime"
         tax_saving = abs(tax_old_regime - tax_new_regime)
 
         return {
-            "country": "India (ભારત)",
+            "country": "India",
             "currency": "INR (₹)",
             "symbol": "₹",
             "statutory_accounting_standard": "Ind AS / IFRS (ICAI)",
@@ -135,7 +135,7 @@ class TaxEngine:
                     "section_44ad_profit_6pct": round(presumptive_profit_44ad, 2),
                     "section_44ada_profit_50pct": round(presumptive_profit_44ada, 2),
                     "eligible": turnover <= 30000000,
-                    "note": "ખાતાવહી કે ઓડિટ વિના સીધું 6% નફા પર રીટર્ન ભરી શકાય (No Books of Accounts Required)"
+                    "note": "No Books of Accounts Required (Direct return on 6% presumptive profit)"
                 }
             },
             "tds_rates": {

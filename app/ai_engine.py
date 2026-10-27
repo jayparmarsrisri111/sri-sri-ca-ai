@@ -212,7 +212,7 @@ class AIEngine:
             return {
                 "invoice_number": "INV-2026-981",
                 "invoice_date": "2026-09-14",
-                "party_name": "Shree Ram Infotech Pvt Ltd (અમદાવાદ)",
+                "party_name": "Shree Ram Infotech Pvt Ltd (Ahmedabad)",
                 "party_tax_id": "24AAACS9981M1Z5",
                 "invoice_type": "Purchase",
                 "currency": "INR",

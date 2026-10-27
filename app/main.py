@@ -169,7 +169,7 @@ def add_new_client(client_data: Dict[str, Any], request: Request):
     email = sanitize_input(str(client_data.get("contact_email", "")))
 
     if not name:
-        raise HTTPException(status_code=400, detail="ક્લાયન્ટનું નામ આવશ્યક છે.")
+        raise HTTPException(status_code=400, detail="Client name is required.")
 
     new_c = {
         "name": name,
@@ -198,7 +198,7 @@ def get_client_overview(client_id: str):
     clients = auth_manager.get_ca_clients()
     target = next((c for c in clients if c.get("client_id") == client_id), None)
     if not target:
-        raise HTTPException(status_code=404, detail="ક્લાયન્ટ મળ્યો નથી.")
+        raise HTTPException(status_code=404, detail="Client not found.")
     return {
         "client": target,
         "active_vouchers": len(accounting.get_entries()),

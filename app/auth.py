@@ -46,18 +46,18 @@ class AuthManager:
             default_users = [
                 {
                     "id": "CA-001",
-                    "name": "CA જયદીપ શાહ (FCA)",
+                    "name": "CA Jaydeep Shah (FCA)",
                     "email": "ca@srisri.com",
                     "password": hash_password("ca123"),
                     "role": "ca",
                     "role_title": "Chartered Accountant / Auditor (ICAI / ACCA)",
-                    "company_or_firm_name": "શાહ & એસોસિયેટ્સ CA ફર્મ",
+                    "company_or_firm_name": "Shah & Associates CA Firm",
                     "membership_or_gstin": "ICAI M.No: 542190",
                     "clients_count": 18
                 },
                 {
                     "id": "USR-001",
-                    "name": "શ્રી શ્રી એન્ટરપ્રાઇઝ (માલિક)",
+                    "name": "Sri Sri Enterprise (Owner)",
                     "email": "user@srisri.com",
                     "password": hash_password("user123"),
                     "role": "user",
@@ -98,12 +98,12 @@ class AuthManager:
         clean_role = "ca" if req.role == "ca" else "user"
 
         if not clean_email or not req.password:
-            return {"success": False, "message": "ઇમેઇલ અને પાસવર્ડ આવશ્યક છે."}
+            return {"success": False, "message": "Email and password are required."}
 
         users = self._load_users()
         for u in users:
             if u["email"].lower() == clean_email:
-                return {"success": False, "message": "આ ઇમેઇલ પહેલેથી રજીસ્ટર થયેલો છે (Email already exists)"}
+                return {"success": False, "message": "Email already exists."}
 
         prefix = "CA" if clean_role == "ca" else "USR"
         token = generate_session_token()
@@ -140,17 +140,17 @@ class AuthManager:
                     return {"success": True, "user": safe_user}
                 else:
                     security_guard.record_login_failure(client_ip, clean_email)
-                    return {"success": False, "message": "ખોટો પાસવર્ડ છે (Invalid password)"}
+                    return {"success": False, "message": "Invalid password."}
 
         security_guard.record_login_failure(client_ip, clean_email)
-        return {"success": False, "message": "આ ઇમેઇલ સાથે કોઈ ખાતું મળ્યું નથી (User not found)"}
+        return {"success": False, "message": "User not found with this email."}
 
     def _ensure_clients(self):
         if not os.path.exists(CLIENTS_FILE):
             default_clients = [
                 {
                     "client_id": "CL-101",
-                    "name": "શ્રી રામ ઇન્ફોટેક પ્રા. લી.",
+                    "name": "Shree Ram Infotech Pvt. Ltd.",
                     "gstin": "24AAACS9981M1Z5",
                     "pan": "AAACS9981M",
                     "turnover": "₹48,50,000",
@@ -162,7 +162,7 @@ class AuthManager:
                 },
                 {
                     "client_id": "CL-102",
-                    "name": "શ્રીજી ટેક્સટાઇલ્સ સુરત",
+                    "name": "Shreeji Textiles Surat",
                     "gstin": "24BBCST4412K1Z9",
                     "pan": "BBCST4412K",
                     "turnover": "₹1,24,00,000",
@@ -174,7 +174,7 @@ class AuthManager:
                 },
                 {
                     "client_id": "CL-103",
-                    "name": "રાધે કેમિકલ્સ વડોદરા",
+                    "name": "Radhe Chemicals Vadodara",
                     "gstin": "24CCDTR8891N1Z2",
                     "pan": "CCDTR8891N",
                     "turnover": "₹82,00,000",

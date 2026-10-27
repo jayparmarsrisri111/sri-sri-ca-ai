@@ -59,7 +59,7 @@ self.addEventListener('fetch', (event) => {
                 if (cached) return cached;
                 return new Response(JSON.stringify({ 
                     offline: true, 
-                    message: "ઓફલાઇન મોડ સક્રિય છે. સ્થાનિક ડેટા ઉપલબ્ધ છે." 
+                    message: "Offline mode active. Cached data is available." 
                 }), {
                     headers: { 'Content-Type': 'application/json' }
                 });

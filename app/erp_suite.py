@@ -35,15 +35,15 @@ class HighTechERPSuite:
             sample_invoices = [
                 {
                     "id": "INV-2026-001",
-                    "customer_name": "આર્યન ટેકનોલોજીસ પ્રા. લી.",
+                    "customer_name": "Aryan Technologies Pvt. Ltd.",
                     "customer_gstin": "24AAACA1234F1Z5",
                     "customer_email": "finance@aryantech.in",
                     "date": "2026-09-15",
                     "due_date": "2026-10-15",
                     "currency": "INR",
                     "items": [
-                        {"description": "AI સોફ્ટવેર કન્સલ્ટિંગ & ઓડિટ સર્વિસ", "hsn": "998313", "qty": 1, "rate": 100000.0, "tax_rate": 18.0, "amount": 100000.0},
-                        {"description": "ક્લાઉડ એકાઉન્ટિંગ સેટઅપ લાયસન્સ", "hsn": "997331", "qty": 2, "rate": 25000.0, "tax_rate": 18.0, "amount": 50000.0}
+                        {"description": "AI Software Consulting & Audit Service", "hsn": "998313", "qty": 1, "rate": 100000.0, "tax_rate": 18.0, "amount": 100000.0},
+                        {"description": "Cloud Accounting Setup License", "hsn": "997331", "qty": 2, "rate": 25000.0, "tax_rate": 18.0, "amount": 50000.0}
                     ],
                     "subtotal": 150000.0,
                     "tax_amount": 27000.0,
@@ -56,14 +56,14 @@ class HighTechERPSuite:
                 },
                 {
                     "id": "INV-2026-002",
-                    "customer_name": "શ્રીજી ગ્લોબલ ટ્રેડર્સ",
+                    "customer_name": "Shreeji Global Traders",
                     "customer_gstin": "24BBBCB5678G1Z2",
                     "customer_email": "accounts@shreejiglobal.com",
                     "date": "2026-09-28",
                     "due_date": "2026-10-28",
                     "currency": "INR",
                     "items": [
-                        {"description": "ટેક્સ ઓડિટ અને કમ્પ્લાયન્સ પેકેજ", "hsn": "998231", "qty": 1, "rate": 65000.0, "tax_rate": 18.0, "amount": 65000.0}
+                        {"description": "Tax Audit & Statutory Compliance Package", "hsn": "998231", "qty": 1, "rate": 65000.0, "tax_rate": 18.0, "amount": 65000.0}
                     ],
                     "subtotal": 65000.0,
                     "tax_amount": 11700.0,
@@ -82,8 +82,8 @@ class HighTechERPSuite:
             sample_inventory = [
                 {
                     "id": "SKU-AI-01",
-                    "name": "હાઈ-સ્પીડ AI ડેટા ટર્મિનલ સર્વર",
-                    "category": "હાર્ડવેર સાધન",
+                    "name": "High-Speed AI Data Terminal Server",
+                    "category": "Hardware Device",
                     "hsn": "847150",
                     "stock_qty": 14,
                     "reorder_level": 5,
@@ -94,8 +94,8 @@ class HighTechERPSuite:
                 },
                 {
                     "id": "SKU-DEV-02",
-                    "name": "એન્ટરપ્રાઇઝ બિલિંગ સ્કેનર ડિવાઇસ",
-                    "category": "પેરિફેરલ",
+                    "name": "Enterprise Billing Scanner Device",
+                    "category": "Peripherals",
                     "hsn": "847160",
                     "stock_qty": 3,
                     "reorder_level": 6,
@@ -106,8 +106,8 @@ class HighTechERPSuite:
                 },
                 {
                     "id": "SKU-LIC-03",
-                    "name": "ઓટો-જીએસટી ટેક્સ ઇન્ટેલિજન્સ ડોંગલ",
-                    "category": "સોફ્ટવેર કી",
+                    "name": "Auto-GST Tax Intelligence Dongle",
+                    "category": "Software Key",
                     "hsn": "852351",
                     "stock_qty": 28,
                     "reorder_level": 8,
@@ -124,8 +124,8 @@ class HighTechERPSuite:
             sample_payroll = [
                 {
                     "emp_id": "EMP-101",
-                    "name": "રાહુલ વી. પટેલ",
-                    "designation": "સિનિયર એકાઉન્ટન્ટ & ઓડિટર",
+                    "name": "Rahul V. Patel",
+                    "designation": "Senior Accountant & Auditor",
                     "pan": "ABCDE1234F",
                     "uan": "100998877665",
                     "basic_salary": 45000.0,
@@ -141,8 +141,8 @@ class HighTechERPSuite:
                 },
                 {
                     "emp_id": "EMP-102",
-                    "name": "પ્રિયા એસ. શાહ",
-                    "designation": "જીએસટી & ટેક્સ વિશ્લેષક",
+                    "name": "Priya S. Shah",
+                    "designation": "GST & Tax Analyst",
                     "pan": "FGHIJ5678K",
                     "uan": "100998877666",
                     "basic_salary": 32000.0,
@@ -164,8 +164,8 @@ class HighTechERPSuite:
             sample_assets = [
                 {
                     "asset_id": "AST-01",
-                    "name": "Mac Studio & Dell AI વર્કસ્ટેશન્સ",
-                    "category": "કોમ્પ્યુટર & સર્વર્સ",
+                    "name": "Mac Studio & Dell AI Workstations",
+                    "category": "Computers & Servers",
                     "purchase_date": "2025-04-10",
                     "cost": 180000.0,
                     "depreciation_rate": 40.0, # WDV IT Act
@@ -175,8 +175,8 @@ class HighTechERPSuite:
                 },
                 {
                     "asset_id": "AST-02",
-                    "name": "ઓફિસ ફર્નિચર & એકાઉન્ટિંગ કેબિન",
-                    "category": "ફર્નિચર & ફિક્સચર્સ",
+                    "name": "Office Furniture & Accounting Cabins",
+                    "category": "Furniture & Fixtures",
                     "purchase_date": "2024-06-15",
                     "cost": 95000.0,
                     "depreciation_rate": 10.0,
@@ -357,10 +357,10 @@ class HighTechERPSuite:
                 anomalies.append({
                     "severity": "CRITICAL",
                     "code": "SEC-269ST-BREACH",
-                    "title": "આવકવેરા કલમ 269ST રોકડ મર્યાદા ભંગ",
-                    "description": f"રૂ. {amt:,.2f} નો વ્યવહાર રોકડમાં દર્શાવેલ છે. કાયદા મુજબ ₹૨ લાખથી વધુ રોકડ વ્યવહાર પર ૧૦૦% પેનલ્ટી થઈ શકે છે.",
+                    "title": "Section 269ST Cash Limit Breach",
+                    "description": f"Transaction of ₹{amt:,.2f} recorded in cash. Cash transactions exceeding ₹2,00,000 carry a 100% penalty under Section 269ST.",
                     "reference": ref,
-                    "remedy": "બેંક એકાઉન્ટ (RTGS/NEFT/Cheque) દ્વારા સુધારો કરો."
+                    "remedy": "Settle through banking channels (RTGS/NEFT/Cheque/Account Payee)."
                 })
 
             # 2. Duplicate reference check
@@ -368,10 +368,10 @@ class HighTechERPSuite:
                 anomalies.append({
                     "severity": "HIGH",
                     "code": "DUP-REF-ERROR",
-                    "title": "ડુપ્લિકેટ બિલ / રેફરન્સ ડિટેક્ટેડ",
-                    "description": f"રેફરન્સ {ref} બે વખત નોંધાયેલ છે. આનાથી બેવડો ખર્ચ કે ઇનપુટ ટેક્સ ક્રેડિટ ક્લેમ થઈ શકે છે.",
+                    "title": "Duplicate Voucher / Invoice Reference Detected",
+                    "description": f"Reference {ref} recorded multiple times. May cause duplicate expense or dual ITC claim.",
                     "reference": ref,
-                    "remedy": "એક એન્ટ્રી ડિલીટ અથવા રિવર્સ કરો."
+                    "remedy": "Review and reverse or delete the duplicate entry."
                 })
             else:
                 seen_refs[ref] = True
@@ -381,10 +381,10 @@ class HighTechERPSuite:
                 anomalies.append({
                     "severity": "MEDIUM",
                     "code": "TDS-194J-CHECK",
-                    "title": "TDS કલમ 194J કમ્પ્લાયન્સ એલર્ટ",
-                    "description": f"રૂ. {amt:,.2f} ની પ્રોફેશનલ સેવા પર TDS કાપવામાં આવ્યો નથી.",
+                    "title": "TDS Section 194J Compliance Alert",
+                    "description": f"Professional service of ₹{amt:,.2f} recorded without TDS deduction.",
                     "reference": ref,
-                    "remedy": "10% TDS (કલમ 194J) ચકાસીને કપાત કરો."
+                    "remedy": "Deduct applicable TDS under Section 194J (2% technical or 10% professional)."
                 })
 
         # Add sample positive security checks if clean
@@ -392,7 +392,7 @@ class HighTechERPSuite:
 
         return {
             "audit_score_percent": audit_score,
-            "status": "Clean" if len(anomalies) == 0 else f"{len(anomalies)} સંભવિત ખામીઓ મળી",
+            "status": "Clean" if len(anomalies) == 0 else f"{len(anomalies)} Potential Issues Detected",
             "total_transactions_scanned": total_checked,
             "anomalies": anomalies,
             "compliance_guarantee": "AI Anomaly Guardian Active"

@@ -42,8 +42,8 @@ class CALegalGateway:
             initial_cas = [
                 {
                     "membership_no": "542190",
-                    "ca_name": "CA જયદીપ શાહ (FCA)",
-                    "firm_name": "શાહ & એસોસિયેટ્સ ચાર્ટર્ડ એકાઉન્ટન્ટ્સ",
+                    "ca_name": "CA Jaydeep Shah (FCA)",
+                    "firm_name": "Shah & Associates Chartered Accountants",
                     "cop_status": "Active & Valid (ICAI Reg. 2026-27)",
                     "udin_prefix": "26542190",
                     "contact_email": "ca.jaydeep@srisri-ca.in",
@@ -354,7 +354,7 @@ class AdaptiveOCRWithHITL:
         overall_confidence = min(99.4, 94.0 + (size_kb % 5))
         
         fields = [
-            {"field": "Vendor Name", "value": "શ્રીજી ગ્લોબલ ટ્રેડિંગ", "confidence": 98.2, "status": "VERIFIED"},
+            {"field": "Vendor Name", "value": "Shreeji Global Trading", "confidence": 98.2, "status": "VERIFIED"},
             {"field": "GSTIN", "value": "24BBBCB5678G1Z2", "confidence": 99.5, "status": "VERIFIED"},
             {"field": "Invoice Date", "value": "2026-09-28", "confidence": 96.0, "status": "VERIFIED"},
             {"field": "Total Amount", "value": "76700.00", "confidence": 99.1, "status": "VERIFIED"},
