@@ -969,6 +969,9 @@ const DynamicLocalStore = {
         };
 
         const tb = {
+            total_debit: 1769800,
+            total_credit: 1769800,
+            is_balanced: true,
             Dr: 1769800,
             Cr: 1769800,
             balanced: true,
@@ -2806,7 +2809,7 @@ async function loadAllData() {
     renderExpensePieChart(stmts.profit_and_loss ? stmts.profit_and_loss.expenses : []);
     renderCashFlowLineChart(txns, stmts.profit_and_loss);
     renderBalanceSheetChart(stmts.balance_sheet);
-    renderFinancialReports(stmts);
+    loadFinancialReports(stmts);
     refreshTaxData();
     loadCAClients();
     loadERPCockpitStats();
@@ -2878,11 +2881,19 @@ function renderTransactionsTable(txns) {
 
 function renderTrialBalance(tb) {
     if (!tb) return;
-    document.getElementById("tbTotalDebit").textContent = `${currencySymbol}${Number(tb.total_debit).toLocaleString()}`;
-    document.getElementById("tbTotalCredit").textContent = `${currencySymbol}${Number(tb.total_credit).toLocaleString()}`;
+    const totalDr = Number(tb.total_debit ?? tb.Dr ?? 0);
+    const totalCr = Number(tb.total_credit ?? tb.Cr ?? 0);
+    const isBalanced = tb.is_balanced !== undefined ? Boolean(tb.is_balanced) : (tb.balanced !== undefined ? Boolean(tb.balanced) : (totalDr === totalCr));
+
+    const debitEl = document.getElementById("tbTotalDebit");
+    const creditEl = document.getElementById("tbTotalCredit");
+    if (debitEl) debitEl.textContent = `${currencySymbol}${totalDr.toLocaleString()}`;
+    if (creditEl) creditEl.textContent = `${currencySymbol}${totalCr.toLocaleString()}`;
     const statusEl = document.getElementById("trialBalanceStatus");
-    const dict = I18N[currentLang] || I18N["en"];
-    statusEl.textContent = tb.is_balanced ? dict.tb_balanced : "Variance Detected";
+    if (statusEl) {
+        const dict = I18N[currentLang] || I18N["en"];
+        statusEl.textContent = isBalanced ? (dict.tb_balanced || "100% Balanced") : "Variance Detected";
+    }
 }
 
 // ================= CA VISUAL ANALYTICS & MULTI-CHART SUITE =================
@@ -3763,7 +3774,10 @@ function renderTaxHub(tax) {
             </div>
         `;
     }
-    lucide.createIcons();
+    if (window.lucide) lucide.createIcons();
+    if (currentLang !== "gu") {
+        performDeepDOMTranslation(currentLang);
+    }
 }
 
 // ================= BANK RECONCILIATION =================
@@ -5411,3 +5425,13 @@ if (document.readyState === "loading") {
 
 
 
+
+// Compatibility & Fallback Aliases for Dynamic Architecture
+function renderFinancialReports(stmts) { return loadFinancialReports(stmts); }
+function loadTransactions() { return loadAllData(); }
+function loadFinancialStatements() { return loadAllData(); }
+function loadERPUDIN() {
+    if (currentLang !== "gu") {
+        performDeepDOMTranslation(currentLang);
+    }
+}

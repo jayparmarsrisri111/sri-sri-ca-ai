@@ -253,5 +253,22 @@
     "tds_deduction": 5000.0,
     "net_payable": 81600.0,
     "payment_status": "Ready for Bank Transfer"
+  },
+  {
+    "emp_id": "EMP-116",
+    "name": "Dilip Joshi",
+    "designation": "Senior Accountant",
+    "pan": "XXXXX0000X",
+    "uan": "100990000000",
+    "basic_salary": 60000.0,
+    "hra": 24000.0,
+    "allowances": 10000.0,
+    "gross_salary": 94000.0,
+    "epf_deduction": 7200.0,
+    "esic_deduction": 0.0,
+    "pt_deduction": 200.0,
+    "tds_deduction": 5000.0,
+    "net_payable": 81600.0,
+    "payment_status": "Ready for Bank Transfer"
   }
 ]

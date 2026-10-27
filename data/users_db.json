@@ -174,5 +174,16 @@
     "company_or_firm_name": "Test Enterprise",
     "membership_or_gstin": "",
     "clients_count": 0
+  },
+  {
+    "id": "USR-017",
+    "name": "Test User",
+    "email": "test_1793126098@srisri.com",
+    "password": "pbkdf2:sha256:100000$762074e0a119c41eb91dc3a6ec713097$7b2ea3227ad229154edd6408959931cd08f37ed869fb1ac8ecaa294911a60e45",
+    "role": "user",
+    "role_title": "Business Owner / Client",
+    "company_or_firm_name": "Test Enterprise",
+    "membership_or_gstin": "",
+    "clients_count": 0
   }
 ]
