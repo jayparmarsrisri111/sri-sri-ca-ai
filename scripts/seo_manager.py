@@ -45,7 +45,7 @@ def audit_robots_txt():
         ("User-agent: *", "Wildcard User-agent directive"),
         ("Googlebot", "Googlebot crawler directive"),
         ("Bingbot", "Bingbot crawler directive"),
-        ("Sitemap: https://srisricaai.netlify.app/sitemap.xml", "Canonical Sitemap declaration"),
+        ("Sitemap: https://srisriaica.netlify.app/sitemap.xml", "Canonical Sitemap declaration"),
         ("Disallow: /api/auth/", "Sensitive Auth API protection")
     ]
     
@@ -152,25 +152,25 @@ def ping_search_engines(base_url="http://127.0.0.1:8000"):
     print("[*] Submitting to IndexNow Protocol (Bing, Yandex, Seznam)...")
     try:
         indexnow_payload = json.dumps({
-            "host": "srisricaai.netlify.app",
+            "host": "srisriaica.netlify.app",
             "key": "e4b2a8d39c7145f8b631d8f521a0c492",
-            "keyLocation": "https://srisricaai.netlify.app/e4b2a8d39c7145f8b631d8f521a0c492.txt",
+            "keyLocation": "https://srisriaica.netlify.app/e4b2a8d39c7145f8b631d8f521a0c492.txt",
             "urlList": [
-                "https://srisricaai.netlify.app/",
-                "https://srisricaai.netlify.app/#ocr",
-                "https://srisricaai.netlify.app/#ledger",
-                "https://srisricaai.netlify.app/#reconcile",
-                "https://srisricaai.netlify.app/#tax",
-                "https://srisricaai.netlify.app/#reports",
-                "https://srisricaai.netlify.app/#copilot",
-                "https://srisricaai.netlify.app/#invoicing",
-                "https://srisricaai.netlify.app/#inventory",
-                "https://srisricaai.netlify.app/#payroll",
-                "https://srisricaai.netlify.app/#assets",
-                "https://srisricaai.netlify.app/#anomalies",
-                "https://srisricaai.netlify.app/#udin",
-                "https://srisricaai.netlify.app/#superpowers",
-                "https://srisricaai.netlify.app/#clients"
+                "https://srisriaica.netlify.app/",
+                "https://srisriaica.netlify.app/#ocr",
+                "https://srisriaica.netlify.app/#ledger",
+                "https://srisriaica.netlify.app/#reconcile",
+                "https://srisriaica.netlify.app/#tax",
+                "https://srisriaica.netlify.app/#reports",
+                "https://srisriaica.netlify.app/#copilot",
+                "https://srisriaica.netlify.app/#invoicing",
+                "https://srisriaica.netlify.app/#inventory",
+                "https://srisriaica.netlify.app/#payroll",
+                "https://srisriaica.netlify.app/#assets",
+                "https://srisriaica.netlify.app/#anomalies",
+                "https://srisriaica.netlify.app/#udin",
+                "https://srisriaica.netlify.app/#superpowers",
+                "https://srisriaica.netlify.app/#clients"
             ]
         }).encode("utf-8")
 

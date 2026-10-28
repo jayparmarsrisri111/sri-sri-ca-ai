@@ -59,4 +59,4 @@ Allow: /
 Allow: /sitemap.xml
 
 # Canonical XML Sitemap
-Sitemap: https://srisricaai.netlify.app/sitemap.xml
+Sitemap: https://srisriaica.netlify.app/sitemap.xml

@@ -648,7 +648,7 @@ def get_seo_status():
             "open_graph_enabled": True,
             "twitter_cards_enabled": True,
             "jsonld_schemas": jsonld_schemas,
-            "canonical_url": "https://srisricaai.netlify.app/",
+            "canonical_url": "https://srisriaica.netlify.app/",
             "multilingual_hreflang_count": 20,
             "indexed_routes_count": 15
         },
@@ -671,7 +671,7 @@ def trigger_seo_ping():
         "status": "success",
         "launch_date": "11-10-2026",
         "is_live": res["is_live"],
-        "sitemap_url": "https://srisricaai.netlify.app/sitemap.xml",
+        "sitemap_url": "https://srisriaica.netlify.app/sitemap.xml",
         "pinged_engines": [
             {"engine": "Google Search Console", "status": "Notified (Sitemap queued)"},
             {"engine": "Bing & Yahoo / IndexNow", "status": "Notified (Auto-Index active)"},

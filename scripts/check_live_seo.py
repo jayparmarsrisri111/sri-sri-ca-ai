@@ -1,7 +1,7 @@
 import urllib.request
 import re
 
-url = "https://srisricaai.netlify.app/"
+url = "https://srisriaica.netlify.app/"
 req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0", "Cache-Control": "no-cache"})
 
 try:

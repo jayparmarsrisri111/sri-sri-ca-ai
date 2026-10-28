@@ -771,7 +771,7 @@ def test_domain_7_seo_and_launch_readiness():
     # 2. Sitemap.xml Endpoint
     code, data, _, lat = http_req("/sitemap.xml")
     data_str = data.decode("utf-8", "ignore") if isinstance(data, (bytes, bytearray)) else str(data)
-    has_urls = "urlset" in data_str and "2026-10-11" in data_str and ("https://srisricaai.netlify.app" in data_str or "https://srisri-aica.com" in data_str)
+    has_urls = "urlset" in data_str and "2026-10-11" in data_str and ("https://srisriaica.netlify.app" in data_str or "https://srisri-aica.com" in data_str)
     record_test("SEO & Launch Readiness", "XML Sitemap Hierarchy (/sitemap.xml)", code == 200 and has_urls, f"HTTP {code}, Target Date 2026-10-11 validated", lat)
 
     # 3. SEO Status API

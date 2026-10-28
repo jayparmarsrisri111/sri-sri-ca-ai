@@ -137,8 +137,8 @@ class SeoAutoLauncher:
             "launch_date": TARGET_LAUNCH_DATE_STR,
             "launch_window": TARGET_LAUNCH_WINDOW_STR,
             "automated": True,
-            "sitemap_url": "https://srisricaai.netlify.app/sitemap.xml",
-            "robots_url": "https://srisricaai.netlify.app/robots.txt",
+            "sitemap_url": "https://srisriaica.netlify.app/sitemap.xml",
+            "robots_url": "https://srisriaica.netlify.app/robots.txt",
             "engines_notified": [
                 {
                     "name": "Google Search Console",
@@ -217,8 +217,8 @@ class SeoAutoLauncher:
             "auto_activated_at": self.state.get("auto_activated_at"),
             "activation_trigger": self.state.get("activation_trigger"),
             "auto_launch_enabled": True,
-            "sitemap_url": "https://srisricaai.netlify.app/sitemap.xml",
-            "robots_url": "https://srisricaai.netlify.app/robots.txt",
+            "sitemap_url": "https://srisriaica.netlify.app/sitemap.xml",
+            "robots_url": "https://srisriaica.netlify.app/robots.txt",
             "last_pings": self.state.get("pings", [])[-3:],
             "message": (
                 "SEO is 100% LIVE and indexing active!" if is_live else
