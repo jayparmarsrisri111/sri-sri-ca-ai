@@ -96,7 +96,7 @@ const I18N = {
         theme_btn_dark: "પ્યોર વ્હાઇટ",
         modal_sec_title: "Sri Sri ❤️ બેંક-ગ્રેડ સુરક્ષા કેન્દ્ર",
         modal_sec_sub: "નાણાકીય અને કરવેરા ડેટાની ૨૫૬-Bit એન્ક્રિપ્ટેડ સુરક્ષા",
-        btn_login_signup: "લૉગ ઇન / સાઇન અપ",
+        btn_login_signup: "લૉગ ઇન",
         hero_pill: "૧૦૦% સ્વાયત્ત એકાઉન્ટિંગ અને કરવેરા વ્યવસ્થાપન",
         hero_welcome: "સ્વાગત છે!",
         hero_title_ai_ca: "AI ચાર્ટર્ડ એકાઉન્ટન્ટ",
@@ -302,7 +302,7 @@ const I18N = {
         theme_btn_dark: "Pure White",
         modal_sec_title: "Sri Sri ❤️ Bank-Grade Security Center",
         modal_sec_sub: "256-Bit encrypted protection for financial & tax data",
-        btn_login_signup: "Sign In / Register",
+        btn_login_signup: "Sign In",
         hero_pill: "100% Autonomous Accounting & Tax Automation",
         hero_welcome: "Welcome to",
         hero_title_ai_ca: "AI Chartered Accountant",
@@ -459,7 +459,7 @@ const I18N = {
         theme_btn_dark: "प्योर व्हाइट",
         modal_sec_title: "Sri Sri ❤️ बैंक-ग्रेड सुरक्षा केंद्र",
         modal_sec_sub: "वित्तीय डेटा की 256-Bit एन्क्रिप्टेड सुरक्षा",
-        btn_login_signup: "लॉग इन / साइन अप",
+        btn_login_signup: "लॉग इन",
         hero_pill: "१००% स्वायत्त लेखांकन और कर स्वचालन",
         hero_welcome: "स्वागत है!",
         hero_title_ai_ca: "AI चार्टर्ड एकाउंटेंट",
@@ -1338,7 +1338,7 @@ function setupPwaEngine() {
             navigator.serviceWorker.addEventListener('controllerchange', () => {
                 window.location.reload();
             });
-            navigator.serviceWorker.register('/sw.js?v=2.1', { scope: '/' })
+            navigator.serviceWorker.register('/sw.js?v=2.2', { scope: '/' })
                 .then(reg => {
                     if (reg.update) reg.update();
                     console.log('✅ Sri Sri ❤️ PWA Service Worker Registered:', reg.scope);

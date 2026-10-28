@@ -244,7 +244,7 @@
     <!-- Lucide Icons CDN -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <!-- Custom Stylesheet -->
-    <link rel="stylesheet" href="styles.css?v=2026.10.29.4">
+    <link rel="stylesheet" href="styles.css?v=2026.10.29.5">
     <!-- Instant Anti-Google-Translate-Banner Shield -->
     <style>
         body > .skiptranslate,
@@ -320,12 +320,16 @@
             }
             #openAuthModalBtn {
                 height: 32px !important;
-                padding: 0 8px !important;
+                padding-left: 10px !important;
+                padding-right: 10px !important;
                 font-size: 11px !important;
                 display: inline-flex !important;
                 align-items: center !important;
                 justify-content: center !important;
                 white-space: nowrap !important;
+                flex-shrink: 0 !important;
+                border-radius: 0.75rem !important;
+                margin-right: 2px !important;
             }
             header #openCloudSyncModalBtn,
             header #openSecurityModalBtn,
@@ -346,13 +350,13 @@
     <script>
         (function() {
             try {
-                var v = '2026.10.29.4';
+                var v = '2026.10.29.5';
                 if (localStorage.getItem('sri_sri_ca_app_version') !== v) {
                     localStorage.setItem('sri_sri_ca_app_version', v);
                     if ('caches' in window) {
                         caches.keys().then(function(keys) {
                             keys.forEach(function(k) {
-                                if (k !== 'sri-sri-ca-v2.1') caches.delete(k);
+                                if (k !== 'sri-sri-ca-v2.2') caches.delete(k);
                             });
                         });
                     }
@@ -572,11 +576,7 @@
             <!-- Right Controls: Selectors, System Status Badges, Utilities & Action -->
             <div class="header-controls-container flex items-center space-x-1.5 sm:space-x-2 shrink-0 flex-nowrap">
                 <!-- 0. AI Voice CA Button (World-First Speech-Driven Autonomous CA Assistant) -->
-                <button id="openVoiceCABtn" type="button" class="flex h-8 sm:h-9 items-center space-x-1.5 px-2 sm:px-2.5 rounded-xl bg-gradient-to-r from-emerald-600/30 to-amber-600/25 border border-emerald-500/50 hover:border-emerald-400 text-xs font-bold text-emerald-300 transition shadow-sm cursor-pointer whitespace-nowrap shrink-0 active:scale-95" title="AI Voice Chartered Accountant (બોલીને પ્રશ્નો પૂછો)">
-                    <span class="relative flex h-2 w-2 shrink-0">
-                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                        <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-                    </span>
+                <button id="openVoiceCABtn" type="button" class="flex h-8 sm:h-9 items-center justify-center space-x-1.5 px-2 sm:px-2.5 rounded-xl bg-gradient-to-r from-emerald-600/25 to-teal-600/20 border border-emerald-500/40 hover:border-emerald-400 text-xs font-bold text-emerald-300 transition shadow-sm cursor-pointer whitespace-nowrap shrink-0 active:scale-95" title="AI Voice Chartered Accountant (બોલીને પ્રશ્નો પૂછો)">
                     <i data-lucide="mic" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-400 shrink-0"></i>
                     <span class="hidden sm:inline whitespace-nowrap text-[11px] font-bold">Voice CA</span>
                 </button>
@@ -658,9 +658,9 @@
                 <div class="hidden xl:block h-5 w-px bg-slate-800/80 shrink-0"></div>
 
                 <!-- 8. User Sign In / Account Action Button -->
-                <button id="openAuthModalBtn" class="h-8 sm:h-9 px-2.5 sm:px-3.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white rounded-xl text-[11px] sm:text-xs font-bold transition shadow-md shadow-emerald-950/40 flex items-center space-x-1.5 whitespace-nowrap shrink-0 active:scale-95">
-                    <i data-lucide="user" class="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0"></i>
-                    <span id="authBtnLabel" data-i18n="btn_login_signup" class="whitespace-nowrap">લૉગ ઇન</span>
+                <button id="openAuthModalBtn" class="h-8 sm:h-9 px-2.5 sm:px-3.5 bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 hover:from-emerald-500 hover:to-teal-500 text-white rounded-xl text-[11px] sm:text-xs font-bold border border-emerald-400/30 hover:border-amber-400/60 transition shadow-md shadow-emerald-950/40 flex items-center space-x-1.5 whitespace-nowrap shrink-0 active:scale-95 cursor-pointer">
+                    <i data-lucide="user" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-200 shrink-0"></i>
+                    <span id="authBtnLabel" data-i18n="btn_login_signup" class="whitespace-nowrap font-bold">લૉગ ઇન</span>
                 </button>
             </div>
 
@@ -3447,7 +3447,7 @@
 
 
     <!-- Frontend Script -->
-    <script src="app.js?v=2026.10.29.4"></script>
+    <script src="app.js?v=2026.10.29.5"></script>
     <script>
         lucide.createIcons();
     </script>

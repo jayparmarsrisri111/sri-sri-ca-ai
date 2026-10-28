@@ -1110,8 +1110,8 @@ header {
     }
     #openAuthModalBtn {
         height: 32px !important;
-        padding-left: 8px !important;
-        padding-right: 8px !important;
+        padding-left: 10px !important;
+        padding-right: 10px !important;
         font-size: 11px !important;
         border-radius: 0.75rem !important;
         white-space: nowrap !important;
@@ -1119,6 +1119,7 @@ header {
         align-items: center !important;
         justify-content: center !important;
         flex-shrink: 0 !important;
+        margin-right: 2px !important;
     }
     header #openCloudSyncModalBtn,
     header #openSecurityModalBtn,
