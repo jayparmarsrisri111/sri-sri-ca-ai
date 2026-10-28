@@ -450,50 +450,50 @@
     <div class="flex-1 flex flex-col min-w-0 w-full max-w-full overflow-x-hidden">
 
         <!-- Top Header Navigation -->
-        <header class="sticky top-0 z-30 h-14 sm:h-16 bg-slate-950/85 backdrop-blur-xl border-b border-slate-800/80 flex items-center justify-between gap-1.5 sm:gap-4 px-2 sm:px-6 max-w-full overflow-hidden">
-            <div class="flex items-center space-x-1.5 sm:space-x-3 shrink-0 min-w-0">
-                <button id="openSidebarBtn" class="lg:hidden text-slate-400 hover:text-white p-1 sm:p-1.5 rounded-lg bg-slate-900 border border-slate-800 shrink-0" title="મેનુ ખોલો">
+        <header class="sticky top-0 z-30 h-14 sm:h-16 bg-slate-950/90 backdrop-blur-xl border-b border-amber-500/25 flex items-center justify-between gap-1.5 sm:gap-4 px-2.5 sm:px-6 max-w-full overflow-hidden shadow-lg">
+            <div class="flex items-center space-x-2 sm:space-x-3 shrink-0 min-w-0">
+                <button id="openSidebarBtn" class="lg:hidden text-slate-300 hover:text-white p-1.5 sm:p-2 rounded-xl bg-slate-900/90 border border-slate-700/80 hover:border-amber-400/50 transition shrink-0 active:scale-95 shadow-sm" title="મેનુ ખોલો">
                     <i data-lucide="menu" class="w-4 h-4 sm:w-5 sm:h-5"></i>
                 </button>
-                <div class="flex items-center space-x-1.5 sm:space-x-3 min-w-0">
-                    <h2 class="text-xs sm:text-sm md:text-base font-bold text-white tracking-tight flex items-center space-x-1.5 shrink-0 min-w-0 max-w-[100px] xs:max-w-[130px] sm:max-w-none" id="pageTitleDisplay">
+                <div class="flex items-center space-x-2 min-w-0">
+                    <h2 class="text-xs sm:text-sm md:text-base font-bold text-white tracking-tight flex items-center space-x-1.5 min-w-0" id="pageTitleDisplay">
                         <i data-lucide="layout-dashboard" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-400 shrink-0"></i>
                         <span data-i18n="nav_dashboard" class="truncate">ડેશબોર્ડ</span>
                     </h2>
 
-                    <!-- Audit Guardian Live Indicator (Sleek, Single-Line, Clean Non-Overlapping Radar Pulse) -->
-                    <div class="hidden md:inline-flex items-center space-x-1.5 px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-xs font-semibold text-emerald-400 whitespace-nowrap shrink-0 shadow-sm" title="ઓડિટ ગાર્ડિયન સક્રિય (Audit Guardian Active)">
+                    <!-- Audit Guardian Live Indicator (Shown on large desktop screens) -->
+                    <div class="hidden xl:inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-xs font-semibold text-emerald-400 whitespace-nowrap shrink-0 shadow-sm" title="ઓડિટ ગાર્ડિયન સક્રિય (Audit Guardian Active)">
                         <span class="relative flex h-2 w-2 shrink-0">
                             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                             <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                         </span>
-                        <span data-i18n="badge_audit_active" class="whitespace-nowrap text-[10px] sm:text-[11px] font-semibold text-emerald-400">ઓડિટ ગાર્ડિયન સક્રિય</span>
+                        <span data-i18n="badge_audit_active" class="whitespace-nowrap text-[11px] font-semibold text-emerald-400">ઓડિટ ગાર્ડિયન સક્રિય</span>
                     </div>
                 </div>
             </div>
 
             <!-- Right Controls: Selectors, System Status Badges, Utilities & Action -->
-            <div class="header-controls-container flex items-center space-x-1 sm:space-x-2 shrink-0 flex-nowrap">
+            <div class="header-controls-container flex items-center space-x-1.5 sm:space-x-2 shrink-0 flex-nowrap">
                 <!-- 0. AI Voice CA Button (World-First Speech-Driven Autonomous CA Assistant) -->
-                <button id="openVoiceCABtn" type="button" class="flex h-8 sm:h-9 items-center space-x-1.5 px-2 sm:px-2.5 rounded-xl bg-gradient-to-r from-emerald-600/30 to-amber-600/30 border border-emerald-500/50 hover:border-emerald-400 text-xs font-bold text-emerald-300 transition shadow-sm cursor-pointer whitespace-nowrap shrink-0" title="AI Voice Chartered Accountant (બોલીને પ્રશ્નો પૂછો)">
+                <button id="openVoiceCABtn" type="button" class="flex h-8 sm:h-9 items-center space-x-1.5 px-2 sm:px-2.5 rounded-xl bg-gradient-to-r from-emerald-600/30 to-amber-600/25 border border-emerald-500/50 hover:border-emerald-400 text-xs font-bold text-emerald-300 transition shadow-sm cursor-pointer whitespace-nowrap shrink-0 active:scale-95" title="AI Voice Chartered Accountant (બોલીને પ્રશ્નો પૂછો)">
                     <span class="relative flex h-2 w-2 shrink-0">
                         <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                         <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                     </span>
                     <i data-lucide="mic" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-400 shrink-0"></i>
-                    <span class="hidden xs:inline whitespace-nowrap text-[11px] font-bold">Voice CA</span>
+                    <span class="hidden sm:inline whitespace-nowrap text-[11px] font-bold">Voice CA</span>
                 </button>
 
                 <!-- 1. Universal Country Selector -->
                 <div class="relative shrink-0">
-                    <select id="countrySelect" class="h-8 sm:h-9 bg-slate-900/90 text-[11px] sm:text-xs text-slate-200 border border-slate-700/80 rounded-xl px-1.5 sm:px-2.5 py-1 focus:ring-1 focus:ring-emerald-500 outline-none cursor-pointer font-medium max-w-[78px] xs:max-w-[95px] sm:max-w-[160px] md:max-w-[190px] truncate whitespace-nowrap" title="દેશ પસંદ કરો (Select Jurisdiction)">
+                    <select id="countrySelect" class="h-8 sm:h-9 bg-slate-900/95 text-[11px] sm:text-xs text-slate-100 border border-slate-700/80 rounded-xl px-1.5 sm:px-2.5 py-1 focus:ring-1 focus:ring-emerald-500 outline-none cursor-pointer font-medium max-w-[95px] sm:max-w-[145px] md:max-w-[180px] truncate whitespace-nowrap transition" title="દેશ પસંદ કરો (Select Jurisdiction)">
                         <!-- Populated dynamically with ALL 195+ world countries -->
                     </select>
                 </div>
 
-                <!-- 3. Universal Language Selector -->
+                <!-- 2. Universal Language Selector -->
                 <div class="relative shrink-0">
-                    <select id="langSelect" class="h-8 sm:h-9 bg-slate-900/90 text-[11px] sm:text-xs text-slate-200 border border-slate-700/80 rounded-xl px-1 sm:px-2.5 py-1 focus:ring-1 focus:ring-emerald-500 outline-none cursor-pointer font-bold max-w-[68px] xs:max-w-[80px] sm:max-w-[125px] whitespace-nowrap" title="ભાષા પસંદ કરો (Select Language)">
+                    <select id="langSelect" class="h-8 sm:h-9 bg-slate-900/95 text-[11px] sm:text-xs text-slate-100 border border-slate-700/80 rounded-xl px-1 sm:px-2.5 py-1 focus:ring-1 focus:ring-emerald-500 outline-none cursor-pointer font-bold max-w-[82px] sm:max-w-[115px] md:max-w-[130px] whitespace-nowrap transition" title="ભાષા પસંદ કરો (Select Language)">
                         <option value="gu" selected>🇮🇳 ગુજરાતી</option>
                         <option value="en">🇬🇧 English</option>
                         <option value="hi">🇮🇳 हिन्दी</option>
@@ -517,32 +517,32 @@
                     </select>
                 </div>
 
-                <!-- Subtle Divider -->
+                <!-- Subtle Divider (Desktop) -->
                 <div class="hidden sm:block h-5 w-px bg-slate-800/80 shrink-0"></div>
 
-                <!-- 4. Security Shield (256-Bit SSL) -->
-                <button id="openSecurityModalBtn" class="hidden lg:flex h-9 items-center space-x-1.5 px-2.5 rounded-xl bg-slate-900/90 border border-emerald-500/30 text-xs font-semibold text-emerald-400 hover:border-emerald-500 hover:bg-emerald-500/10 transition cursor-pointer whitespace-nowrap shrink-0" title="Bank-Grade Security: ૨૫૬-Bit SSL સુરક્ષિત">
+                <!-- 3. Security Shield (256-Bit SSL) (Desktop) -->
+                <button id="openSecurityModalBtn" class="hidden 2xl:flex h-9 items-center space-x-1.5 px-2.5 rounded-xl bg-slate-900/90 border border-emerald-500/30 text-xs font-semibold text-emerald-400 hover:border-emerald-500 hover:bg-emerald-500/10 transition cursor-pointer whitespace-nowrap shrink-0" title="Bank-Grade Security: ૨૫૬-Bit SSL સુરક્ષિત">
                     <i data-lucide="shield-check" class="w-4 h-4 text-emerald-400 shrink-0"></i>
-                    <span data-i18n="badge_security" class="hidden 2xl:inline whitespace-nowrap">૨૫૬-Bit SSL સુરક્ષિત</span>
+                    <span data-i18n="badge_security" class="whitespace-nowrap">૨૫૬-Bit SSL સુરક્ષિત</span>
                 </button>
 
-                <!-- 5. Cloud Gateway & Multi-Device Sync Hub -->
-                <button id="openCloudSyncModalBtn" class="hidden md:flex h-9 items-center space-x-1.5 px-2.5 rounded-xl bg-slate-900/90 border border-cyan-500/40 hover:border-cyan-400 hover:bg-cyan-500/10 text-xs font-bold text-cyan-300 transition shadow-sm cursor-pointer whitespace-nowrap shrink-0" title="ક્લાઉડ સિંક & મલ્ટિ-ડિવાઇસ હબ (Cloud Sync Hub)">
+                <!-- 4. Cloud Gateway & Multi-Device Sync Hub (Desktop) -->
+                <button id="openCloudSyncModalBtn" class="hidden xl:flex h-9 items-center space-x-1.5 px-2.5 rounded-xl bg-slate-900/90 border border-cyan-500/40 hover:border-cyan-400 hover:bg-cyan-500/10 text-xs font-bold text-cyan-300 transition shadow-sm cursor-pointer whitespace-nowrap shrink-0" title="ક્લાઉડ સિંક & મલ્ટિ-ડિવાઇસ હબ (Cloud Sync Hub)">
                     <span class="relative flex h-2 w-2 shrink-0">
                         <span id="cloudStatusPing" class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                         <span id="cloudStatusDot" class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                     </span>
                     <i data-lucide="cloud" class="w-4 h-4 text-cyan-400 shrink-0"></i>
-                    <span id="cloudSyncBtnLabel" class="hidden xl:inline whitespace-nowrap">ક્લાઉડ સિંક</span>
+                    <span id="cloudSyncBtnLabel" class="whitespace-nowrap">ક્લાઉડ સિંક</span>
                 </button>
 
-                <!-- 6. PWA 1-Click Install Button -->
+                <!-- 5. PWA 1-Click Install Button -->
                 <button id="pwaInstallBtn" class="hidden h-9 items-center space-x-1.5 px-2.5 sm:px-3 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 text-white text-xs font-bold shadow-md hover:from-emerald-500 hover:to-teal-500 transition cursor-pointer pwa-install-badge whitespace-nowrap shrink-0" title="એપ ઇન્સ્ટોલ કરો (Install Native App)">
                     <i data-lucide="download" class="w-4 h-4 shrink-0"></i>
                     <span class="hidden md:inline whitespace-nowrap">એપ ઇન્સ્ટોલ</span>
                 </button>
 
-                <!-- 7. Theme Toggle Button -->
+                <!-- 6. Theme Toggle Button (Tablet & Desktop) -->
                 <button id="themeToggleBtn" class="hidden sm:flex h-8 sm:h-9 items-center space-x-1.5 px-2 sm:px-2.5 rounded-xl bg-amber-500/15 border border-amber-500/40 hover:border-amber-400 text-xs font-bold text-amber-300 transition shadow-sm cursor-pointer whitespace-nowrap shrink-0" title="થીમ: રોયલ CA નેવી & ગોલ્ડ / પ્યોર વ્હાઇટ">
                     <span id="themeToggleIcon" class="flex items-center shrink-0">
                         <i data-lucide="award" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400"></i>
@@ -550,19 +550,18 @@
                     <span id="themeToggleLabel" class="hidden 2xl:inline whitespace-nowrap" data-i18n="theme_btn_light">રોયલ CA નેવી & ગોલ્ડ</span>
                 </button>
 
-                <!-- 8. SEO Status Button -->
-                <button id="openSeoModalBtn" class="hidden sm:flex h-8 sm:h-9 items-center space-x-1.5 px-2 sm:px-2.5 rounded-xl bg-slate-900/90 border border-emerald-500/40 hover:border-emerald-400 hover:bg-emerald-500/10 text-xs font-bold text-emerald-300 transition shadow-sm cursor-pointer whitespace-nowrap shrink-0" title="SEO & Search Engine Launch Hub">
+                <!-- 7. SEO Status Button (Desktop) -->
+                <button id="openSeoModalBtn" class="hidden xl:flex h-8 sm:h-9 items-center space-x-1.5 px-2 sm:px-2.5 rounded-xl bg-slate-900/90 border border-emerald-500/40 hover:border-emerald-400 hover:bg-emerald-500/10 text-xs font-bold text-emerald-300 transition shadow-sm cursor-pointer whitespace-nowrap shrink-0" title="SEO & Search Engine Launch Hub">
                     <i data-lucide="globe" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-400 shrink-0"></i>
-                    <span class="hidden xl:inline whitespace-nowrap">SEO ૧૦૦% લાઈવ</span>
-                    <span class="xl:hidden inline whitespace-nowrap text-[11px]">SEO</span>
-                    <span class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-emerald-400 animate-pulse shrink-0"></span>
+                    <span class="whitespace-nowrap">SEO ૧૦૦% લાઈવ</span>
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0"></span>
                 </button>
 
                 <!-- Subtle Divider -->
                 <div class="hidden sm:block h-5 w-px bg-slate-800/80 shrink-0"></div>
 
-                <!-- 9. User Sign In / Account Action Button -->
-                <button id="openAuthModalBtn" class="h-8 sm:h-9 px-2 sm:px-3.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white rounded-xl text-[11px] sm:text-xs font-bold transition shadow-md shadow-emerald-950/40 flex items-center space-x-1 sm:space-x-1.5 whitespace-nowrap shrink-0">
+                <!-- 8. User Sign In / Account Action Button -->
+                <button id="openAuthModalBtn" class="h-8 sm:h-9 px-2.5 sm:px-3.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white rounded-xl text-[11px] sm:text-xs font-bold transition shadow-md shadow-emerald-950/40 flex items-center space-x-1.5 whitespace-nowrap shrink-0 active:scale-95">
                     <i data-lucide="user" class="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0"></i>
                     <span id="authBtnLabel" data-i18n="btn_login_signup" class="whitespace-nowrap">લૉગ ઇન</span>
                 </button>
@@ -2501,77 +2500,9 @@
                 </div>
             </section>
 
-            <!-- ================= SEMANTIC SEARCH ENGINE OPTIMIZATION (SEO) FOOTER ================= -->
-            <footer class="mt-14 pt-8 pb-10 border-t border-slate-800/80 text-xs text-slate-400 space-y-6">
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-                    <!-- Column 1: Platform & Identity -->
-                    <div class="space-y-3">
-                        <div class="flex items-center space-x-2.5">
-                            <img src="logo.png" alt="Sri Sri AI CA Logo" class="w-8 h-8 rounded-lg object-cover bg-white p-0.5 border border-sky-300/60">
-                            <div>
-                                <span class="font-bold text-white text-sm">Sri Sri ❤️ AI CA</span>
-                                <span class="block text-[10px] text-emerald-400">Global Tax Intelligence</span>
-                            </div>
-                        </div>
-                        <p class="text-[11px] text-slate-400 leading-relaxed">
-                            Autonomous Chartered Accountant &amp; Multi-Country Tax Intelligence platform. Eliminates manual bookkeeping with Multimodal AI Vision, double-entry vouchers, and statutory tax compliance.
-                        </p>
-                        <div class="flex items-center space-x-2 pt-1">
-                            <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">SEO Launch: 11-10-2026</span>
-                            <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/15 text-amber-300 border border-amber-500/30">ICAI &amp; MCA 2023</span>
-                        </div>
-                    </div>
-
-                    <!-- Column 2: Core Accounting & Tax Modules -->
-                    <div class="space-y-2">
-                        <p class="font-bold text-slate-200 text-xs uppercase tracking-wider">મુખ્ય મોડ્યુલ્સ (Core Modules)</p>
-                        <ul class="space-y-1.5 text-[11px]">
-                            <li><a href="#tab-dashboard" onclick="switchTab('tab-dashboard')" class="hover:text-emerald-400 transition">ડેશબોર્ડ (Executive Dashboard)</a></li>
-                            <li><a href="#tab-ocr" onclick="switchTab('tab-ocr')" class="hover:text-emerald-400 transition">સ્માર્ટ બિલ સ્કેનર (Multimodal AI OCR)</a></li>
-                            <li><a href="#tab-ledger" onclick="switchTab('tab-ledger')" class="hover:text-emerald-400 transition">ખાતાવહી &amp; વાઉચર્સ (Double-Entry Ledger)</a></li>
-                            <li><a href="#tab-reconcile" onclick="switchTab('tab-reconcile')" class="hover:text-emerald-400 transition">બેંક મેળવણી (Reconciliation Engine)</a></li>
-                            <li><a href="#tab-tax" onclick="switchTab('tab-tax')" class="hover:text-emerald-400 transition">ટેક્સ &amp; GST હબ (Section 115BAC &amp; GSTR)</a></li>
-                            <li><a href="#tab-reports" onclick="switchTab('tab-reports')" class="hover:text-emerald-400 transition">નફો-નુકસાન &amp; પાકું સરવૈયું (P&amp;L Statements)</a></li>
-                        </ul>
-                    </div>
-
-                    <!-- Column 3: Advanced ERP & Statutory Copilot -->
-                    <div class="space-y-2">
-                        <p class="font-bold text-slate-200 text-xs uppercase tracking-wider">હાઇ-ટેક ERP &amp; કાનૂની સાધનો</p>
-                        <ul class="space-y-1.5 text-[11px]">
-                            <li><a href="#tab-copilot" onclick="switchTab('tab-copilot')" class="hover:text-emerald-400 transition">AI નોટિસ સોલ્વર &amp; લીગલ ડ્રાફ્ટિંગ</a></li>
-                            <li><a href="#tab-invoicing" onclick="switchTab('tab-invoicing')" class="hover:text-emerald-400 transition">E-ઇન્વોઇસિંગ (IRN &amp; QR Code)</a></li>
-                            <li><a href="#tab-inventory" onclick="switchTab('tab-inventory')" class="hover:text-emerald-400 transition">FIFO ઇન્વેન્ટરી &amp; સ્ટોક વેલ્યુએશન</a></li>
-                            <li><a href="#tab-payroll" onclick="switchTab('tab-payroll')" class="hover:text-emerald-400 transition">સ્માર્ટ પેરોલ &amp; પગાર સ્લિપ (EPF/TDS)</a></li>
-                            <li><a href="#tab-assets" onclick="switchTab('tab-assets')" class="hover:text-emerald-400 transition">ફિક્સ્ડ એસેટ્સ &amp; ઘસારો (WDV)</a></li>
-                            <li><a href="#tab-udin" onclick="switchTab('tab-udin')" class="hover:text-emerald-400 transition">ICAI UDIN &amp; વર્ચ્યુઅલ DSC સહી</a></li>
-                        </ul>
-                    </div>
-
-                    <!-- Column 4: Search Engine & Statutory Indices -->
-                    <div class="space-y-2">
-                        <p class="font-bold text-slate-200 text-xs uppercase tracking-wider">Search Engine &amp; Crawlers</p>
-                        <ul class="space-y-1.5 text-[11px]">
-                            <li><a href="robots.txt" target="_blank" rel="noopener" class="text-emerald-400 hover:underline flex items-center space-x-1"><span>📄 Robots.txt Configuration</span></a></li>
-                            <li><a href="sitemap.xml" target="_blank" rel="noopener" class="text-emerald-400 hover:underline flex items-center space-x-1"><span>🗺️ XML Sitemap (15+ Routes)</span></a></li>
-                            <li><a href="manifest.json" target="_blank" rel="noopener" class="hover:text-slate-300">📱 Web App Manifest (PWA)</a></li>
-                            <li><span class="text-slate-400">🏷️ Schema.org: Software &amp; FAQ Validated</span></li>
-                            <li><span class="text-slate-400">🌍 195+ Countries &amp; 20+ Languages</span></li>
-                            <li><span class="text-slate-400">🛡️ OWASP &amp; MCA 2023 Compliant</span></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="pt-6 border-t border-slate-900 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-slate-500">
-                    <p>&copy; 2026 Sri Sri ❤️ AI CA Technologies. All rights reserved. Search Engine Optimized for Global Launch on 11-10-2026.</p>
-                    <div class="flex items-center space-x-4">
-                        <span class="hover:text-slate-400">Googlebot Ready</span>
-                        <span>•</span>
-                        <span class="hover:text-slate-400">Bing IndexNow</span>
-                        <span>•</span>
-                        <span class="hover:text-slate-400">Bank-Grade 256-Bit SSL</span>
-                    </div>
-                </div>
+            <!-- ================= CLEAN MINIMALIST FOOTER ================= -->
+            <footer class="mt-12 py-6 border-t border-slate-800/60 text-center text-xs text-slate-500">
+                <p>&copy; 2026 Sri Sri ❤️ AI CA Technologies. Global Tax Intelligence &bull; ICAI Royal Standard.</p>
             </footer>
 
         </main>

@@ -476,22 +476,34 @@ button.bg-indigo-600 *,
     color: #64748b !important;
 }
 
-/* Header in ICAI Royal Navy */
+/* Header in ICAI Royal Navy & Imperial Gold Master Standard */
 header {
     background-color: rgba(7, 22, 44, 0.95) !important;
-    border-bottom-color: rgba(212, 175, 55, 0.24) !important;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.28) !important;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.45) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+    box-sizing: border-box !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 30 !important;
 }
 
-/* Unified & Flawless Header Controls */
+/* Unified & Flawless Header Controls with Smooth Momentum Scroll */
 header .header-controls-container {
     display: flex !important;
     align-items: center !important;
-    gap: 0.5rem !important;
+    gap: 0.45rem !important;
     flex-wrap: nowrap !important;
     overflow-x: auto !important;
     scrollbar-width: none !important;
     -ms-overflow-style: none !important;
+    -webkit-overflow-scrolling: touch !important;
 }
 header .header-controls-container::-webkit-scrollbar {
     display: none !important;
@@ -500,9 +512,9 @@ header .header-controls-container::-webkit-scrollbar {
 header button,
 header select,
 header .header-pill {
-    height: 2.25rem !important;
-    min-height: 2.25rem !important;
-    max-height: 2.25rem !important;
+    height: 2.125rem !important;
+    min-height: 2.125rem !important;
+    max-height: 2.125rem !important;
     white-space: nowrap !important;
     flex-shrink: 0 !important;
     display: inline-flex !important;
@@ -510,6 +522,18 @@ header .header-pill {
     justify-content: center !important;
     box-sizing: border-box !important;
     line-height: 1 !important;
+    border-radius: 0.75rem !important;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+@media (min-width: 640px) {
+    header button,
+    header select,
+    header .header-pill {
+        height: 2.25rem !important;
+        min-height: 2.25rem !important;
+        max-height: 2.25rem !important;
+    }
 }
 
 header button *,
@@ -927,14 +951,13 @@ button,
     hyphens: auto;
 }
 
-/* 3. Header responsive flow protection (Sleek single-line on mobile, full-featured on desktop) */
+/* 3. Header responsive flow protection (Supreme mobile & tablet fluidity) */
 header {
     min-height: 3.5rem;
     height: 3.5rem;
     padding-top: 0.25rem;
     padding-bottom: 0.25rem;
     max-width: 100vw;
-    overflow: hidden;
     box-sizing: border-box;
 }
 
@@ -957,42 +980,83 @@ header {
         height: 3.5rem !important;
         min-height: 3.5rem !important;
         max-height: 3.5rem !important;
-        padding-left: 0.5rem !important;
-        padding-right: 0.5rem !important;
+        padding-left: 0.65rem !important;
+        padding-right: 0.65rem !important;
         padding-top: 0 !important;
         padding-bottom: 0 !important;
-        gap: 0.25rem !important;
+        gap: 0.35rem !important;
         flex-wrap: nowrap !important;
-        overflow: hidden !important;
     }
     .header-controls-container {
         flex-wrap: nowrap !important;
-        gap: 0.25rem !important;
+        gap: 0.3rem !important;
     }
     #countrySelect {
-        max-width: 78px !important;
-        font-size: 10px !important;
-        height: 32px !important;
-        padding: 2px 4px !important;
+        max-width: 95px !important;
+        font-size: 11px !important;
+        height: 34px !important;
+        padding: 2px 6px !important;
+        border-radius: 0.75rem !important;
     }
     #langSelect {
-        max-width: 68px !important;
-        font-size: 10px !important;
-        height: 32px !important;
-        padding: 2px 4px !important;
+        max-width: 82px !important;
+        font-size: 11px !important;
+        height: 34px !important;
+        padding: 2px 6px !important;
+        border-radius: 0.75rem !important;
     }
     #openAuthModalBtn {
-        height: 32px !important;
+        height: 34px !important;
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+        font-size: 11px !important;
+        border-radius: 0.75rem !important;
+    }
+    #openVoiceCABtn {
+        height: 34px !important;
         padding-left: 8px !important;
         padding-right: 8px !important;
-        font-size: 11px !important;
+        border-radius: 0.75rem !important;
     }
     #pageTitleDisplay {
-        max-width: 105px !important;
+        font-size: 13px !important;
     }
     #pageTitleDisplay span {
-        max-width: 85px !important;
-        font-size: 11px !important;
+        font-size: 12px !important;
+        max-width: 120px !important;
+    }
+}
+
+@media (min-width: 641px) and (max-width: 1023px) {
+    /* Tablet specific luxury polish (iPad / Android Tablet) */
+    header {
+        height: 3.75rem !important;
+        min-height: 3.75rem !important;
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+        gap: 0.5rem !important;
+    }
+    .header-controls-container {
+        flex-wrap: nowrap !important;
+        gap: 0.45rem !important;
+    }
+    #countrySelect {
+        max-width: 140px !important;
+        font-size: 12px !important;
+        height: 36px !important;
+    }
+    #langSelect {
+        max-width: 115px !important;
+        font-size: 12px !important;
+        height: 36px !important;
+    }
+    #pageTitleDisplay {
+        font-size: 14px !important;
+    }
+    #openAuthModalBtn,
+    #openVoiceCABtn,
+    #themeToggleBtn {
+        height: 36px !important;
     }
 }
 
@@ -1039,7 +1103,10 @@ table {
 
 /* 8. Touch accessibility & active states for mobile and tablet */
 @media (hover: none) and (pointer: coarse) {
-    button, select, input, .sidebar-nav-item {
+    button:not(header button):not(.mobile-bottom-nav-item),
+    select:not(header select),
+    input,
+    .sidebar-nav-item {
         min-height: 44px;
     }
 }
@@ -1054,11 +1121,11 @@ table {
         padding: 0.85rem !important;
     }
     #countrySelect {
-        max-width: 105px !important;
+        max-width: 90px !important;
         font-size: 11px !important;
     }
     #langSelect {
-        max-width: 90px !important;
+        max-width: 78px !important;
         font-size: 11px !important;
     }
     .kpi-card-modern .text-2xl {
