@@ -4,7 +4,7 @@
  * Offline Resilience & High-Performance Asset Caching
  */
 
-const CACHE_NAME = 'sri-sri-ca-v1.2';
+const CACHE_NAME = 'sri-sri-ca-v2.0';
 const STATIC_ASSETS = [
     './',
     './index.html',
@@ -16,24 +16,26 @@ const STATIC_ASSETS = [
     './icon-512.png'
 ];
 
-// Install Event - Pre-cache Core Shell
+// Install Event - Pre-cache Core Shell with skipWaiting
 self.addEventListener('install', (event) => {
+    self.skipWaiting();
     event.waitUntil(
         caches.open(CACHE_NAME).then((cache) => {
             return cache.addAll(STATIC_ASSETS).catch(err => {
                 console.warn('[SW] Cache addAll partial warning:', err);
             });
-        }).then(() => self.skipWaiting())
+        })
     );
 });
 
-// Activate Event - Clean old caches
+// Activate Event - Clean old caches and claim clients immediately
 self.addEventListener('activate', (event) => {
     event.waitUntil(
         caches.keys().then((cacheNames) => {
             return Promise.all(
                 cacheNames.map((name) => {
                     if (name !== CACHE_NAME) {
+                        console.log('[SW] Deleting old cache:', name);
                         return caches.delete(name);
                     }
                 })
@@ -42,7 +44,7 @@ self.addEventListener('activate', (event) => {
     );
 });
 
-// Fetch Event - Stale-While-Revalidate for Static, Network-First for API
+// Fetch Event - Network-First for Navigation, Network-First for API, Stale-While-Revalidate for Static
 self.addEventListener('fetch', (event) => {
     const url = new URL(event.request.url);
 
@@ -51,7 +53,25 @@ self.addEventListener('fetch', (event) => {
         return;
     }
 
-    // API calls: Network first, then fallback to empty/mock if offline
+    // 1. Navigation (HTML documents): NETWORK-FIRST so live updates always show immediately
+    if (event.request.mode === 'navigate') {
+        event.respondWith(
+            fetch(event.request).then((networkResponse) => {
+                if (networkResponse && networkResponse.status === 200) {
+                    const responseToCache = networkResponse.clone();
+                    caches.open(CACHE_NAME).then((cache) => {
+                        cache.put(event.request, responseToCache);
+                    });
+                }
+                return networkResponse;
+            }).catch(() => {
+                return caches.match(event.request).then(cached => cached || caches.match('/'));
+            })
+        );
+        return;
+    }
+
+    // 2. API calls: Network first, then fallback to offline mock
     if (url.pathname.startsWith('/api/')) {
         event.respondWith(
             fetch(event.request).catch(async () => {
@@ -68,26 +88,34 @@ self.addEventListener('fetch', (event) => {
         return;
     }
 
-    // Static assets & navigation: Cache First / Stale-While-Revalidate
-    event.respondWith(
-        caches.match(event.request).then((cachedResponse) => {
-            const fetchPromise = fetch(event.request).then((networkResponse) => {
-                if (networkResponse && networkResponse.status === 200 && networkResponse.type === 'basic') {
+    // 3. Static assets: Network First with Cache Fallback for CSS & JS
+    if (url.pathname.endsWith('.css') || url.pathname.endsWith('.js')) {
+        event.respondWith(
+            fetch(event.request).then((networkResponse) => {
+                if (networkResponse && networkResponse.status === 200) {
                     const responseToCache = networkResponse.clone();
                     caches.open(CACHE_NAME).then((cache) => {
                         cache.put(event.request, responseToCache);
                     });
                 }
                 return networkResponse;
-            }).catch(() => {
-                // If network fails and no cache, fallback to index
-                if (event.request.mode === 'navigate') {
-                    return caches.match('/');
-                }
-                return cachedResponse;
-            });
+            }).catch(() => caches.match(event.request))
+        );
+        return;
+    }
 
-            return cachedResponse || fetchPromise;
+    // 4. Other assets (images, icons): Cache First
+    event.respondWith(
+        caches.match(event.request).then((cachedResponse) => {
+            return cachedResponse || fetch(event.request).then((networkResponse) => {
+                if (networkResponse && networkResponse.status === 200) {
+                    const responseToCache = networkResponse.clone();
+                    caches.open(CACHE_NAME).then((cache) => {
+                        cache.put(event.request, responseToCache);
+                    });
+                }
+                return networkResponse;
+            });
         })
     );
 });

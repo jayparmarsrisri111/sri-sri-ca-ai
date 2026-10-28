@@ -1335,8 +1335,9 @@ function setupPwaEngine() {
     // 1. Service Worker Registration
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-            navigator.serviceWorker.register('/sw.js', { scope: '/' })
+            navigator.serviceWorker.register('/sw.js?v=2.0', { scope: '/' })
                 .then(reg => {
+                    if (reg.update) reg.update();
                     console.log('✅ Sri Sri ❤️ PWA Service Worker Registered:', reg.scope);
                 })
                 .catch(err => {
