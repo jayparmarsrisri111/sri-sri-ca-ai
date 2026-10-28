@@ -1310,11 +1310,11 @@ table {
         padding: 0.85rem !important;
     }
     #countrySelect {
-        max-width: 90px !important;
+        max-width: 76px !important;
         font-size: 11px !important;
     }
     #langSelect {
-        max-width: 78px !important;
+        max-width: 66px !important;
         font-size: 11px !important;
     }
     .kpi-card-modern .text-2xl {

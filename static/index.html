@@ -244,7 +244,7 @@
     <!-- Lucide Icons CDN -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <!-- Custom Stylesheet -->
-    <link rel="stylesheet" href="styles.css?v=2026.10.29.2">
+    <link rel="stylesheet" href="styles.css?v=2026.10.29.3">
     <!-- Instant Anti-Google-Translate-Banner Shield -->
     <style>
         body > .skiptranslate,
@@ -266,6 +266,77 @@
             position: static !important;
             margin-top: 0px !important;
             padding-top: 0px !important;
+        }
+    </style>
+    <!-- Instant Mobile & Tablet Header Perfection Shield -->
+    <style id="mobile-header-shield">
+        @media (max-width: 480px) {
+            #pageTitleDisplay span {
+                display: none !important;
+            }
+        }
+        @media (max-width: 640px) {
+            header {
+                height: 3.5rem !important;
+                min-height: 3.5rem !important;
+                max-height: 3.5rem !important;
+                padding-left: 0.5rem !important;
+                padding-right: 0.5rem !important;
+                gap: 0.25rem !important;
+            }
+            .header-controls-container {
+                gap: 0.3rem !important;
+                overflow-x: visible !important;
+            }
+            #openSidebarBtn {
+                height: 32px !important;
+                width: 32px !important;
+                padding: 0 !important;
+                display: inline-flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+            }
+            #openVoiceCABtn {
+                height: 32px !important;
+                width: 32px !important;
+                padding: 0 !important;
+                display: inline-flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+            }
+            #countrySelect {
+                max-width: 78px !important;
+                font-size: 11px !important;
+                height: 32px !important;
+                padding: 2px 18px 2px 6px !important;
+            }
+            #langSelect {
+                max-width: 68px !important;
+                font-size: 11px !important;
+                height: 32px !important;
+                padding: 2px 18px 2px 6px !important;
+            }
+            #openAuthModalBtn {
+                height: 32px !important;
+                padding: 0 8px !important;
+                font-size: 11px !important;
+                display: inline-flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+            }
+            header #openCloudSyncModalBtn,
+            header #openSecurityModalBtn,
+            header #openSeoModalBtn,
+            header #themeToggleBtn,
+            header #pwaInstallBtn,
+            header .hidden {
+                display: none !important;
+            }
+        }
+        @media (min-width: 1024px) {
+            header #openSidebarBtn {
+                display: none !important;
+            }
         }
     </style>
 </head>
@@ -3350,7 +3421,7 @@
 
 
     <!-- Frontend Script -->
-    <script src="app.js?v=2026.10.29.2"></script>
+    <script src="app.js?v=2026.10.29.3"></script>
     <script>
         lucide.createIcons();
     </script>
