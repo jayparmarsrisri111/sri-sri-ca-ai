@@ -1126,3 +1126,10 @@ main, .main-container, .tab-pane {
         max-width: none;
     }
 }
+
+/* Ensure mobile sidebar toggle button is strictly hidden on large screens */
+@media (min-width: 1024px) {
+    #openSidebarBtn {
+        display: none !important;
+    }
+}

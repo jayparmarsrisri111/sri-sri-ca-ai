@@ -916,56 +916,81 @@ const DynamicLocalStore = {
         const netProfit = rev - exp;
         const margin = rev > 0 ? Number(((netProfit / rev) * 100).toFixed(1)) : 0;
 
+        const revItems = Object.entries(revMap).length > 0 
+            ? Object.entries(revMap).map(([k, v]) => ({ name: k, category: k, amount: v }))
+            : [
+                { name: "IT Consulting Services", category: "IT Consulting Services", amount: 480000 },
+                { name: "Software Licensing", category: "Software Licensing", amount: 240000 }
+            ];
+
+        const expItems = Object.entries(expMap).length > 0 
+            ? Object.entries(expMap).map(([k, v]) => ({ name: k, category: k, amount: v }))
+            : [
+                { name: "Office Rent & Utilities", category: "Office Rent & Utilities", amount: 280000 },
+                { name: "Employee Salaries & Stipends", category: "Employee Salaries & Stipends", amount: 250000 },
+                { name: "IT Infrastructure & Cloud", category: "IT Infrastructure & Cloud", amount: 98200 },
+                { name: "Depreciation (WDV)", category: "Depreciation (WDV)", amount: 50000 }
+            ];
+
         const pnl = {
             total_revenue: rev,
             total_expenses: exp,
             net_profit: netProfit,
             net_profit_margin_percent: margin,
-            revenue_streams: Object.entries(revMap).length > 0 
-                ? Object.entries(revMap).map(([k, v]) => ({ category: k, amount: v }))
-                : [{ category: "IT Consulting Services", amount: 480000 }, { category: "Software Licensing", amount: 240000 }],
-            expenses: Object.entries(expMap).length > 0 
-                ? Object.entries(expMap).map(([k, v]) => ({ category: k, amount: v }))
-                : [
-                    { category: "Office Rent & Utilities", amount: 280000 },
-                    { category: "Employee Salaries & Stipends", amount: 250000 },
-                    { category: "IT Infrastructure & Cloud", amount: 98200 },
-                    { category: "Depreciation (WDV)", amount: 50000 }
-                ]
+            revenue: revItems,
+            revenue_streams: revItems,
+            expenses: expItems
         };
 
         const totalAssets = 131800 + Math.max(0, netProfit);
         const totalLiab = 50000;
         const totalEquity = totalAssets - totalLiab;
 
+        const currentAssets = [
+            { name: "HDFC Bank Account", amount: 45000 + Math.max(0, netProfit) },
+            { name: "Cash in Hand", amount: 12500 },
+            { name: "Sundry Debtors (Receivables)", amount: 18500 }
+        ];
+        const fixedAssets = [
+            { name: "Computers & Servers", amount: 40800 },
+            { name: "Office Furniture", amount: 15000 }
+        ];
+        const assetList = [...currentAssets, ...fixedAssets];
+
+        const currentLiab = [
+            { name: "GST Payable (Output - Input)", amount: 35000 },
+            { name: "TDS Payable", amount: 15000 }
+        ];
+        const liabList = [...currentLiab];
+
+        const equityComponents = [
+            { name: "Owner Capital / Share Equity", amount: 40000 },
+            { name: "Retained Earnings (Net Profit)", amount: totalEquity - 40000 }
+        ];
+        const eqList = [...equityComponents];
+
         const bs = {
-            assets: {
-                current_assets: [
-                    { name: "HDFC Bank Account", amount: 45000 + Math.max(0, netProfit) },
-                    { name: "Cash in Hand", amount: 12500 },
-                    { name: "Sundry Debtors (Receivables)", amount: 18500 }
-                ],
-                fixed_assets: [
-                    { name: "Computers & Servers", amount: 40800 },
-                    { name: "Office Furniture", amount: 15000 }
-                ],
+            assets: assetList,
+            total_assets: totalAssets,
+            liabilities: liabList,
+            total_liabilities: totalLiab,
+            equity: eqList,
+            total_equity: totalEquity,
+            total_liabilities_and_equity: totalAssets,
+            is_balanced: true,
+            assets_breakdown: {
+                current_assets: currentAssets,
+                fixed_assets: fixedAssets,
                 total_assets: totalAssets
             },
-            liabilities: {
-                current_liabilities: [
-                    { name: "GST Payable (Output - Input)", amount: 35000 },
-                    { name: "TDS Payable", amount: 15000 }
-                ],
+            liabilities_breakdown: {
+                current_liabilities: currentLiab,
                 total_liabilities: totalLiab
             },
-            equity: {
-                equity_components: [
-                    { name: "Owner Capital / Share Equity", amount: 40000 },
-                    { name: "Retained Earnings (Net Profit)", amount: totalEquity - 40000 }
-                ],
+            equity_breakdown: {
+                equity_components: equityComponents,
                 total_equity: totalEquity
-            },
-            total_liabilities_and_equity: totalAssets
+            }
         };
 
         const tb = {
@@ -3179,7 +3204,7 @@ function renderExpensePieChart(expenses) {
 
     const expList = (expenses && expenses.length) ? expenses : sampleExpenses;
     const sorted = [...expList].sort((a, b) => b.amount - a.amount);
-    const labels = sorted.map(e => e.name);
+    const labels = sorted.map(e => e.name || e.category || 'ખર્ચ');
     const dataVals = sorted.map(e => Number(e.amount) || 0);
     const total = dataVals.reduce((a, b) => a + b, 0);
 
@@ -3930,8 +3955,8 @@ async function loadCAClients() {
         }
     } catch (err) {}
 
-    if (!clients) {
-        clients = DynamicLocalStore.getClients();
+    if (!Array.isArray(clients)) {
+        clients = DynamicLocalStore.getClients() || [];
     }
     const tbody = document.getElementById("clientsTableBody");
     if (!tbody) return;
@@ -4060,71 +4085,126 @@ function setupDynamicClientsEvents() {
 // ================= FINANCIAL STATEMENTS =================
 
 async function loadFinancialReports(stmts) {
-    if (!stmts) {
-        const res = await fetch(`/api/financial-statements?country=${currentCountry}`);
-        stmts = await res.json();
-    }
-    const pnl = stmts.profit_and_loss || {};
-    const bs = stmts.balance_sheet || {};
+    try {
+        if (!stmts) {
+            try {
+                const res = await fetch(`/api/financial-statements?country=${currentCountry}`);
+                if (res.ok) {
+                    stmts = await res.json();
+                }
+            } catch (e) {}
+            if (!stmts) {
+                stmts = DynamicLocalStore.generateStatements(currentCountry);
+            }
+        }
+        const pnl = stmts?.profit_and_loss || {};
+        const bs = stmts?.balance_sheet || {};
 
-    const pnlContainer = document.getElementById("pAndLContent");
-    let revHtml = "";
-    (pnl.revenue || []).forEach(r => {
-        revHtml += `<div class="flex justify-between py-1 border-b border-slate-800 font-mono"><span>${r.name}</span><span class="text-emerald-400 font-bold">${currencySymbol}${Number(r.amount).toLocaleString()}</span></div>`;
-    });
+        const pnlContainer = document.getElementById("pAndLContent");
+        if (pnlContainer) {
+            let revHtml = "";
+            const revList = Array.isArray(pnl.revenue) 
+                ? pnl.revenue 
+                : (Array.isArray(pnl.revenue_streams) ? pnl.revenue_streams : []);
+            
+            revList.forEach(r => {
+                const rName = r.name || r.category || "આવક (Revenue)";
+                revHtml += `<div class="flex justify-between py-1 border-b border-slate-800 font-mono"><span>${rName}</span><span class="text-emerald-400 font-bold">${currencySymbol}${Number(r.amount || 0).toLocaleString()}</span></div>`;
+            });
 
-    let expHtml = "";
-    (pnl.expenses || []).forEach(e => {
-        expHtml += `<div class="flex justify-between py-1 border-b border-slate-800 font-mono"><span>${e.name}</span><span class="text-rose-400 font-bold">${currencySymbol}${Number(e.amount).toLocaleString()}</span></div>`;
-    });
+            let expHtml = "";
+            const expList = Array.isArray(pnl.expenses)
+                ? pnl.expenses
+                : (pnl.expenses && typeof pnl.expenses === "object" ? Object.values(pnl.expenses) : []);
 
-    pnlContainer.innerHTML = `
-        <div class="space-y-1">
-            <h4 class="font-bold text-slate-200">૧. આવક (Revenue):</h4>
-            <div class="p-2 bg-slate-900 rounded-lg">${revHtml}</div>
-            <div class="flex justify-between font-bold text-white font-mono mt-1"><span>કુલ આવક:</span><span class="text-emerald-400">${currencySymbol}${Number(pnl.total_revenue).toLocaleString()}</span></div>
-        </div>
-        <div class="space-y-1 mt-3">
-            <h4 class="font-bold text-slate-200">૨. ખર્ચાઓ (Expenses):</h4>
-            <div class="p-2 bg-slate-900 rounded-lg">${expHtml}</div>
-            <div class="flex justify-between font-bold text-white font-mono mt-1"><span>કુલ ખર્ચ:</span><span class="text-rose-400">${currencySymbol}${Number(pnl.total_expenses).toLocaleString()}</span></div>
-        </div>
-        <div class="mt-4 p-3 bg-emerald-950/40 border border-emerald-500/30 rounded-xl flex justify-between font-bold text-emerald-300">
-            <span>ચોખ્ખો નફો (Net Profit):</span>
-            <span class="font-mono">${currencySymbol}${Number(pnl.net_profit).toLocaleString()} (${pnl.net_profit_margin_percent}%)</span>
-        </div>
-    `;
+            expList.forEach(e => {
+                const eName = e.name || e.category || "ખર્ચ (Expense)";
+                expHtml += `<div class="flex justify-between py-1 border-b border-slate-800 font-mono"><span>${eName}</span><span class="text-rose-400 font-bold">${currencySymbol}${Number(e.amount || 0).toLocaleString()}</span></div>`;
+            });
 
-    const bsContainer = document.getElementById("balanceSheetContent");
-    let assetHtml = "";
-    (bs.assets || []).forEach(a => {
-        assetHtml += `<div class="flex justify-between py-1 border-b border-slate-800 font-mono"><span>${a.name}</span><span class="text-white font-bold">${currencySymbol}${Number(a.amount).toLocaleString()}</span></div>`;
-    });
+            const totalRev = Number(pnl.total_revenue || 0);
+            const totalExp = Number(pnl.total_expenses || 0);
+            const netProf = Number(pnl.net_profit || (totalRev - totalExp));
+            const netMargin = pnl.net_profit_margin_percent ?? (totalRev > 0 ? ((netProf / totalRev) * 100).toFixed(1) : 0);
 
-    let liabHtml = "";
-    (bs.liabilities || []).forEach(l => {
-        liabHtml += `<div class="flex justify-between py-1 border-b border-slate-800 font-mono"><span>${l.name}</span><span class="text-white font-bold">${currencySymbol}${Number(l.amount).toLocaleString()}</span></div>`;
-    });
-    (bs.equity || []).forEach(q => {
-        liabHtml += `<div class="flex justify-between py-1 border-b border-slate-800 font-mono"><span>${q.name}</span><span class="text-emerald-400 font-bold">${currencySymbol}${Number(q.amount).toLocaleString()}</span></div>`;
-    });
+            pnlContainer.innerHTML = `
+                <div class="space-y-1">
+                    <h4 class="font-bold text-slate-200">૧. આવક (Revenue):</h4>
+                    <div class="p-2 bg-slate-900 rounded-lg">${revHtml || '<div class="text-slate-400 py-1 font-mono text-xs">કોઈ નોંધાયેલ આવક નથી</div>'}</div>
+                    <div class="flex justify-between font-bold text-white font-mono mt-1"><span>કુલ આવક:</span><span class="text-emerald-400">${currencySymbol}${totalRev.toLocaleString()}</span></div>
+                </div>
+                <div class="space-y-1 mt-3">
+                    <h4 class="font-bold text-slate-200">૨. ખર્ચાઓ (Expenses):</h4>
+                    <div class="p-2 bg-slate-900 rounded-lg">${expHtml || '<div class="text-slate-400 py-1 font-mono text-xs">કોઈ નોંધાયેલ ખર્ચ નથી</div>'}</div>
+                    <div class="flex justify-between font-bold text-white font-mono mt-1"><span>કુલ ખર્ચ:</span><span class="text-rose-400">${currencySymbol}${totalExp.toLocaleString()}</span></div>
+                </div>
+                <div class="mt-4 p-3 bg-emerald-950/40 border border-emerald-500/30 rounded-xl flex justify-between font-bold text-emerald-300">
+                    <span>ચોખ્ખો નફો (Net Profit):</span>
+                    <span class="font-mono">${currencySymbol}${netProf.toLocaleString()} (${netMargin}%)</span>
+                </div>
+            `;
+        }
 
-    bsContainer.innerHTML = `
-        <div class="space-y-1">
-            <h4 class="font-bold text-slate-200">૧. મિલકતો (Assets):</h4>
-            <div class="p-2 bg-slate-900 rounded-lg">${assetHtml}</div>
-            <div class="flex justify-between font-bold text-white font-mono mt-1"><span>કુલ મિલકતો:</span><span class="text-emerald-400">${currencySymbol}${Number(bs.total_assets).toLocaleString()}</span></div>
-        </div>
-        <div class="space-y-1 mt-3">
-            <h4 class="font-bold text-slate-200">૨. જવાબદારી & મૂડી:</h4>
-            <div class="p-2 bg-slate-900 rounded-lg">${liabHtml}</div>
-            <div class="flex justify-between font-bold text-white font-mono mt-1"><span>કુલ જવાબદારી:</span><span class="text-emerald-400">${currencySymbol}${Number(bs.total_liabilities_and_equity).toLocaleString()}</span></div>
-        </div>
-    `;
+        const bsContainer = document.getElementById("balanceSheetContent");
+        if (bsContainer) {
+            let assetHtml = "";
+            const assetList = Array.isArray(bs.assets)
+                ? bs.assets
+                : (bs.assets && typeof bs.assets === "object"
+                    ? [...(bs.assets.current_assets || []), ...(bs.assets.fixed_assets || [])]
+                    : []);
 
-    renderBalanceSheetChart(bs);
-    if (currentLang !== "gu") {
-        performDeepDOMTranslation(currentLang);
+            assetList.forEach(a => {
+                const aName = a.name || a.category || "મિલકત (Asset)";
+                assetHtml += `<div class="flex justify-between py-1 border-b border-slate-800 font-mono"><span>${aName}</span><span class="text-white font-bold">${currencySymbol}${Number(a.amount || 0).toLocaleString()}</span></div>`;
+            });
+
+            let liabHtml = "";
+            const liabList = Array.isArray(bs.liabilities)
+                ? bs.liabilities
+                : (bs.liabilities && typeof bs.liabilities === "object"
+                    ? [...(bs.liabilities.current_liabilities || []), ...(bs.liabilities.long_term_liabilities || [])]
+                    : []);
+
+            liabList.forEach(l => {
+                const lName = l.name || l.category || "જવાબદારી (Liability)";
+                liabHtml += `<div class="flex justify-between py-1 border-b border-slate-800 font-mono"><span>${lName}</span><span class="text-white font-bold">${currencySymbol}${Number(l.amount || 0).toLocaleString()}</span></div>`;
+            });
+
+            const eqList = Array.isArray(bs.equity)
+                ? bs.equity
+                : (bs.equity && typeof bs.equity === "object"
+                    ? (bs.equity.equity_components || [])
+                    : []);
+
+            eqList.forEach(q => {
+                const qName = q.name || q.category || "મૂડી (Equity)";
+                liabHtml += `<div class="flex justify-between py-1 border-b border-slate-800 font-mono"><span>${qName}</span><span class="text-emerald-400 font-bold">${currencySymbol}${Number(q.amount || 0).toLocaleString()}</span></div>`;
+            });
+
+            const totAssets = Number(bs.total_assets ?? bs.assets?.total_assets ?? 0);
+            const totLiabEquity = Number(bs.total_liabilities_and_equity ?? (totAssets || (Number(bs.total_liabilities || 0) + Number(bs.total_equity || 0))));
+
+            bsContainer.innerHTML = `
+                <div class="space-y-1">
+                    <h4 class="font-bold text-slate-200">૧. મિલકતો (Assets):</h4>
+                    <div class="p-2 bg-slate-900 rounded-lg">${assetHtml || '<div class="text-slate-400 py-1 font-mono text-xs">કોઈ નોંધાયેલ સંપત્તિ નથી</div>'}</div>
+                    <div class="flex justify-between font-bold text-white font-mono mt-1"><span>કુલ મિલકતો:</span><span class="text-emerald-400">${currencySymbol}${totAssets.toLocaleString()}</span></div>
+                </div>
+                <div class="space-y-1 mt-3">
+                    <h4 class="font-bold text-slate-200">૨. જવાબદારી & મૂડી:</h4>
+                    <div class="p-2 bg-slate-900 rounded-lg">${liabHtml || '<div class="text-slate-400 py-1 font-mono text-xs">કોઈ નોંધાયેલ જવાબદારી નથી</div>'}</div>
+                    <div class="flex justify-between font-bold text-white font-mono mt-1"><span>કુલ જવાબદારી:</span><span class="text-emerald-400">${currencySymbol}${totLiabEquity.toLocaleString()}</span></div>
+                </div>
+            `;
+        }
+
+        renderBalanceSheetChart(bs);
+        if (currentLang !== "gu") {
+            performDeepDOMTranslation(currentLang);
+        }
+    } catch (err) {
+        console.error("loadFinancialReports error:", err);
     }
 }
 
@@ -4362,51 +4442,57 @@ function setupERPEvents() {
 
 // ---- Live Dashboard ERP Cockpit ----
 async function loadERPCockpitStats() {
-    let invoices = null, inventory = null, payroll = null, anomalies = null;
     try {
-        const [invRes, stockRes, payRes, anomRes] = await Promise.all([
-            fetch("/api/erp/invoices"),
-            fetch("/api/erp/inventory"),
-            fetch("/api/erp/payroll"),
-            fetch("/api/erp/anomalies")
-        ]);
-        if (invRes.ok) invoices = await invRes.json();
-        if (stockRes.ok) inventory = await stockRes.json();
-        if (payRes.ok) payroll = await payRes.json();
-        if (anomRes.ok) anomalies = await anomRes.json();
-    } catch (err) {}
+        let invoices = null, inventory = null, payroll = null, anomalies = null;
+        try {
+            const [invRes, stockRes, payRes, anomRes] = await Promise.all([
+                fetch("/api/erp/invoices"),
+                fetch("/api/erp/inventory"),
+                fetch("/api/erp/payroll"),
+                fetch("/api/erp/anomalies")
+            ]);
+            if (invRes && invRes.ok) invoices = await invRes.json();
+            if (stockRes && stockRes.ok) inventory = await stockRes.json();
+            if (payRes && payRes.ok) payroll = await payRes.json();
+            if (anomRes && anomRes.ok) anomalies = await anomRes.json();
+        } catch (err) {}
 
-    if (!invoices) invoices = DynamicLocalStore.getInvoices();
-    if (!inventory) inventory = DynamicLocalStore.getInventory();
-    if (!payroll) payroll = DynamicLocalStore.getPayroll();
-    if (!anomalies) anomalies = DynamicLocalStore.getAnomalies();
+        if (!Array.isArray(invoices)) invoices = DynamicLocalStore.getInvoices() || [];
+        if (!inventory || typeof inventory !== "object") inventory = DynamicLocalStore.getInventory() || {};
+        if (!payroll || typeof payroll !== "object") payroll = DynamicLocalStore.getPayroll() || {};
+        if (!anomalies || typeof anomalies !== "object") anomalies = DynamicLocalStore.getAnomalies() || {};
 
-    // Cockpit Card 1: Invoices
-    const liveInvEl = document.getElementById("erpLiveInvoicesCount");
-    if (liveInvEl) liveInvEl.textContent = `${invoices.length} ઇશ્યૂ થયેલ`;
+        // Cockpit Card 1: Invoices
+        const liveInvEl = document.getElementById("erpLiveInvoicesCount");
+        if (liveInvEl) liveInvEl.textContent = `${Array.isArray(invoices) ? invoices.length : 0} ઇશ્યૂ થયેલ`;
 
-    // Cockpit Card 2: Stock
-    const stockValEl = document.getElementById("erpInventoryValuation");
-    if (stockValEl) stockValEl.textContent = `${currencySymbol}${inventory.total_valuation.toLocaleString()}`;
-    const stockAlertEl = document.getElementById("erpStockAlertBadge");
-    if (stockAlertEl) {
-        stockAlertEl.textContent = inventory.low_stock_alerts > 0 
-            ? `⚠️ ${inventory.low_stock_alerts} રિઓર્ડર ચેતવણી` 
-            : `${inventory.total_skus} સક્રિય SKUs`;
-    }
+        // Cockpit Card 2: Stock
+        const stockValEl = document.getElementById("erpInventoryValuation");
+        if (stockValEl) stockValEl.textContent = `${currencySymbol}${Number(inventory.total_valuation || 0).toLocaleString()}`;
+        const stockAlertEl = document.getElementById("erpStockAlertBadge");
+        if (stockAlertEl) {
+            const lowAlerts = Number(inventory.low_stock_alerts || 0);
+            const totalSkus = Number(inventory.total_skus || 0);
+            stockAlertEl.textContent = lowAlerts > 0 
+                ? `⚠️ ${lowAlerts} રિઓર્ડર ચેતવણી` 
+                : `${totalSkus} સક્રિય SKUs`;
+        }
 
-    // Cockpit Card 3: Payroll
-    const payNetEl = document.getElementById("erpPayrollNet");
-    if (payNetEl) payNetEl.textContent = `${currencySymbol}${payroll.total_net_payable.toLocaleString()}`;
+        // Cockpit Card 3: Payroll
+        const payNetEl = document.getElementById("erpPayrollNet");
+        if (payNetEl) payNetEl.textContent = `${currencySymbol}${Number(payroll.total_net_payable || 0).toLocaleString()}`;
 
-    // Cockpit Card 4: Audit Health
-    const auditScoreEl = document.getElementById("erpAuditHealthScore");
-    if (auditScoreEl) {
-        const score = anomalies.audit_score_percent || 94;
-        auditScoreEl.textContent = `${score}% હેલ્થ સ્કોર`;
-        auditScoreEl.className = score >= 90 
-            ? "text-base font-extrabold text-emerald-400 mt-1 font-mono" 
-            : "text-base font-extrabold text-rose-400 mt-1 font-mono";
+        // Cockpit Card 4: Audit Health
+        const auditScoreEl = document.getElementById("erpAuditHealthScore");
+        if (auditScoreEl) {
+            const score = Number(anomalies.audit_score_percent || 94);
+            auditScoreEl.textContent = `${score}% હેલ્થ સ્કોર`;
+            auditScoreEl.className = score >= 90 
+                ? "text-base font-extrabold text-emerald-400 mt-1 font-mono" 
+                : "text-base font-extrabold text-rose-400 mt-1 font-mono";
+        }
+    } catch (err) {
+        console.error("loadERPCockpitStats error:", err);
     }
 }
 
