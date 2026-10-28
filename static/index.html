@@ -244,7 +244,7 @@
     <!-- Lucide Icons CDN -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <!-- Custom Stylesheet -->
-    <link rel="stylesheet" href="styles.css?v=2026.10.29.3">
+    <link rel="stylesheet" href="styles.css?v=2026.10.29.4">
     <!-- Instant Anti-Google-Translate-Banner Shield -->
     <style>
         body > .skiptranslate,
@@ -270,11 +270,6 @@
     </style>
     <!-- Instant Mobile & Tablet Header Perfection Shield -->
     <style id="mobile-header-shield">
-        @media (max-width: 480px) {
-            #pageTitleDisplay span {
-                display: none !important;
-            }
-        }
         @media (max-width: 640px) {
             header {
                 height: 3.5rem !important;
@@ -283,14 +278,20 @@
                 padding-left: 0.5rem !important;
                 padding-right: 0.5rem !important;
                 gap: 0.25rem !important;
+                overflow-x: hidden !important;
             }
             .header-controls-container {
                 gap: 0.3rem !important;
                 overflow-x: visible !important;
+                flex-shrink: 0 !important;
+            }
+            #pageTitleDisplay span {
+                display: none !important;
             }
             #openSidebarBtn {
                 height: 32px !important;
                 width: 32px !important;
+                min-width: 32px !important;
                 padding: 0 !important;
                 display: inline-flex !important;
                 align-items: center !important;
@@ -299,22 +300,23 @@
             #openVoiceCABtn {
                 height: 32px !important;
                 width: 32px !important;
+                min-width: 32px !important;
                 padding: 0 !important;
                 display: inline-flex !important;
                 align-items: center !important;
                 justify-content: center !important;
             }
             #countrySelect {
-                max-width: 78px !important;
+                max-width: 76px !important;
                 font-size: 11px !important;
                 height: 32px !important;
-                padding: 2px 18px 2px 6px !important;
+                padding: 2px 16px 2px 5px !important;
             }
             #langSelect {
-                max-width: 68px !important;
+                max-width: 66px !important;
                 font-size: 11px !important;
                 height: 32px !important;
-                padding: 2px 18px 2px 6px !important;
+                padding: 2px 16px 2px 5px !important;
             }
             #openAuthModalBtn {
                 height: 32px !important;
@@ -323,6 +325,7 @@
                 display: inline-flex !important;
                 align-items: center !important;
                 justify-content: center !important;
+                white-space: nowrap !important;
             }
             header #openCloudSyncModalBtn,
             header #openSecurityModalBtn,
@@ -339,6 +342,29 @@
             }
         }
     </style>
+    <!-- Automatic PWA & Cache Invalidation for Version 2026.10.29.4 -->
+    <script>
+        (function() {
+            try {
+                var v = '2026.10.29.4';
+                if (localStorage.getItem('sri_sri_ca_app_version') !== v) {
+                    localStorage.setItem('sri_sri_ca_app_version', v);
+                    if ('caches' in window) {
+                        caches.keys().then(function(keys) {
+                            keys.forEach(function(k) {
+                                if (k !== 'sri-sri-ca-v2.1') caches.delete(k);
+                            });
+                        });
+                    }
+                    if ('serviceWorker' in navigator) {
+                        navigator.serviceWorker.getRegistrations().then(function(regs) {
+                            regs.forEach(function(r) { r.update(); });
+                        });
+                    }
+                }
+            } catch(e) {}
+        })();
+    </script>
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col lg:flex-row antialiased overflow-x-hidden">
 
@@ -521,7 +547,7 @@
     <div class="flex-1 flex flex-col min-w-0 w-full max-w-full overflow-x-hidden">
 
         <!-- Top Header Navigation -->
-        <header class="sticky top-0 z-30 h-14 sm:h-16 bg-slate-950/95 backdrop-blur-xl border-b border-amber-500/30 flex items-center justify-between gap-2 sm:gap-4 px-3 sm:px-6 max-w-full shadow-lg">
+        <header class="sticky top-0 z-30 h-14 sm:h-16 bg-slate-950/95 backdrop-blur-xl border-b border-amber-500/30 flex items-center justify-between gap-1.5 sm:gap-4 px-2 sm:px-6 max-w-full shadow-lg">
             <div class="flex items-center space-x-2 sm:space-x-3 shrink-0 min-w-0">
                 <button id="openSidebarBtn" class="lg:hidden text-slate-300 hover:text-white p-1.5 sm:p-2 rounded-xl bg-slate-900/90 border border-slate-700/80 hover:border-amber-400/50 transition shrink-0 active:scale-95 shadow-sm" title="મેનુ ખોલો">
                     <i data-lucide="menu" class="w-4 h-4 sm:w-5 sm:h-5"></i>
@@ -3421,7 +3447,7 @@
 
 
     <!-- Frontend Script -->
-    <script src="app.js?v=2026.10.29.3"></script>
+    <script src="app.js?v=2026.10.29.4"></script>
     <script>
         lucide.createIcons();
     </script>

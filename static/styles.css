@@ -1047,56 +1047,86 @@ header {
         height: 3.5rem !important;
         min-height: 3.5rem !important;
         max-height: 3.5rem !important;
-        padding-left: 0.65rem !important;
-        padding-right: 0.65rem !important;
+        padding-left: 0.5rem !important;
+        padding-right: 0.5rem !important;
         padding-top: 0 !important;
         padding-bottom: 0 !important;
-        gap: 0.35rem !important;
+        gap: 0.25rem !important;
         flex-wrap: nowrap !important;
+        overflow-x: hidden !important;
     }
     .header-controls-container {
         flex-wrap: nowrap !important;
-        gap: 0.3rem !important;
-    }
-    #countrySelect {
-        max-width: 88px !important;
-        font-size: 11px !important;
-        height: 34px !important;
-        padding-left: 0.4rem !important;
-        padding-right: 1.25rem !important;
-        background-size: 0.7rem !important;
-        background-position: right 0.3rem center !important;
-        border-radius: 0.75rem !important;
-    }
-    #langSelect {
-        max-width: 76px !important;
-        font-size: 11px !important;
-        height: 34px !important;
-        padding-left: 0.4rem !important;
-        padding-right: 1.25rem !important;
-        background-size: 0.7rem !important;
-        background-position: right 0.3rem center !important;
-        border-radius: 0.75rem !important;
-    }
-    #openAuthModalBtn {
-        height: 34px !important;
-        padding-left: 10px !important;
-        padding-right: 10px !important;
-        font-size: 11px !important;
-        border-radius: 0.75rem !important;
-    }
-    #openVoiceCABtn {
-        height: 34px !important;
-        padding-left: 8px !important;
-        padding-right: 8px !important;
-        border-radius: 0.75rem !important;
+        gap: 0.25rem !important;
+        overflow-x: visible !important;
+        flex-shrink: 0 !important;
     }
     #pageTitleDisplay {
         font-size: 13px !important;
+        min-width: 0 !important;
     }
     #pageTitleDisplay span {
-        font-size: 12px !important;
-        max-width: 120px !important;
+        display: none !important;
+    }
+    #openSidebarBtn {
+        height: 32px !important;
+        width: 32px !important;
+        min-width: 32px !important;
+        padding: 0 !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        border-radius: 0.75rem !important;
+    }
+    #openVoiceCABtn {
+        height: 32px !important;
+        width: 32px !important;
+        min-width: 32px !important;
+        padding: 0 !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        border-radius: 0.75rem !important;
+    }
+    #countrySelect {
+        max-width: 76px !important;
+        font-size: 11px !important;
+        height: 32px !important;
+        padding-left: 0.35rem !important;
+        padding-right: 1rem !important;
+        background-size: 0.65rem !important;
+        background-position: right 0.25rem center !important;
+        border-radius: 0.75rem !important;
+    }
+    #langSelect {
+        max-width: 66px !important;
+        font-size: 11px !important;
+        height: 32px !important;
+        padding-left: 0.35rem !important;
+        padding-right: 1rem !important;
+        background-size: 0.65rem !important;
+        background-position: right 0.25rem center !important;
+        border-radius: 0.75rem !important;
+    }
+    #openAuthModalBtn {
+        height: 32px !important;
+        padding-left: 8px !important;
+        padding-right: 8px !important;
+        font-size: 11px !important;
+        border-radius: 0.75rem !important;
+        white-space: nowrap !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        flex-shrink: 0 !important;
+    }
+    header #openCloudSyncModalBtn,
+    header #openSecurityModalBtn,
+    header #openSeoModalBtn,
+    header #themeToggleBtn,
+    header #pwaInstallBtn,
+    header .hidden {
+        display: none !important;
     }
 }
 
@@ -1388,15 +1418,22 @@ main, .main-container, .tab-pane {
 #pageTitleDisplay {
     min-width: 0;
 }
-#pageTitleDisplay span {
-    display: inline-block;
-    max-width: 100px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    vertical-align: middle;
+@media (max-width: 640px) {
+    #pageTitleDisplay span {
+        display: none !important;
+    }
 }
-@media (min-width: 640px) {
+@media (min-width: 641px) {
+    #pageTitleDisplay span {
+        display: inline-block;
+        max-width: 140px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        vertical-align: middle;
+    }
+}
+@media (min-width: 1024px) {
     #pageTitleDisplay span {
         max-width: none;
     }
