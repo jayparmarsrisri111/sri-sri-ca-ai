@@ -49,6 +49,12 @@ class TaxEngine:
                 "estimated_tax_payable": round(estimated_corp_tax, 2),
                 "post_tax_retained_earnings": round(net_profit - estimated_corp_tax, 2)
             },
+            "corporate_tax": {
+                "net_taxable_profit": round(net_profit, 2),
+                "applicable_corporate_rate": f"{round(corp_rate * 100, 1)}%",
+                "estimated_tax_payable": round(estimated_corp_tax, 2),
+                "post_tax_retained_earnings": round(net_profit - estimated_corp_tax, 2)
+            },
             "acca_ca_compliance_radar": {
                 "audit_readiness": "100% Statutory Compliant",
                 "transfer_pricing_check": "Safe Harbor Compliant",
@@ -58,7 +64,7 @@ class TaxEngine:
 
     @staticmethod
     def calculate_india_taxes(turnover: float, expenses: float, output_gst: float, input_gst: float, deductions_80c: float = 150000) -> Dict[str, Any]:
-        """Calculates Indian GST and Income Tax (Old vs New Regime + 44AD)"""
+        """Calculates Indian GST and Income Tax (Old vs New Regime + 44AD + Corporate 115BAA)"""
         net_business_profit = max(0.0, turnover - expenses)
 
         # 1. GST Computation (GSTR-3B)
@@ -86,11 +92,16 @@ class TaxEngine:
         else:
             tax_new_regime = 140000 + (taxable_income_new - 1500000) * 0.30
 
-        # Section 87A Rebate
+        # Section 87A Rebate & Marginal Relief
         if taxable_income_new <= 700000:
             tax_new_regime = 0.0
         else:
-            tax_new_regime *= 1.04
+            # Section 87A Marginal Relief under Section 115BAC:
+            # Tax payable cannot exceed the excess of income over ₹7,00,000
+            excess_income = taxable_income_new - 700000
+            if tax_new_regime > excess_income:
+                tax_new_regime = excess_income
+            tax_new_regime *= 1.04 # 4% Health & Education Cess
 
         # 4. Old Tax Regime
         taxable_income_old = max(0.0, net_business_profit - min(deductions_80c, 150000))
@@ -111,6 +122,10 @@ class TaxEngine:
 
         better_regime = "New Tax Regime" if tax_new_regime <= tax_old_regime else "Old Tax Regime"
         tax_saving = abs(tax_old_regime - tax_new_regime)
+
+        # Corporate Tax computation (Sec 115BAA company vs Firm)
+        corp_tax_115baa = round(net_business_profit * 0.25168, 2) # 22% + 10% surcharge + 4% cess = 25.168%
+        firm_tax_30 = round(net_business_profit * 0.312, 2)       # 30% + 4% cess = 31.2%
 
         return {
             "country": "India",
@@ -137,6 +152,12 @@ class TaxEngine:
                     "eligible": turnover <= 30000000,
                     "note": "No Books of Accounts Required (Direct return on 6% presumptive profit)"
                 }
+            },
+            "corporate_tax": {
+                "section_115baa_company": corp_tax_115baa,
+                "partnership_firm_llp": firm_tax_30,
+                "effective_rate_company": "25.17% (Sec 115BAA incl. Surcharge & Cess)",
+                "effective_rate_firm": "31.20% (Flat 30% + 4% Cess)"
             },
             "tds_rates": {
                 "194C (Contractor/Advertising)": "1% for Ind/HUF, 2% for Company",

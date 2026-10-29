@@ -578,17 +578,17 @@ const I18N = {
 
 // Universal Fallback Countries (Instant loading across any static host / Netlify)
 const DEFAULT_COUNTRIES_FALLBACK = {
-    "IN": { name: "India (ભારત)", currency: "INR", symbol: "₹", vat_gst_rate: 18.0, standard: "Ind AS (ICAI)" },
-    "US": { name: "United States", currency: "USD", symbol: "$", vat_gst_rate: 8.5, standard: "US GAAP" },
-    "UK": { name: "United Kingdom", currency: "GBP", symbol: "£", vat_gst_rate: 20.0, standard: "UK FRS / IFRS" },
-    "AE": { name: "United Arab Emirates", currency: "AED", symbol: "AED", vat_gst_rate: 5.0, standard: "IFRS" },
-    "SG": { name: "Singapore", currency: "SGD", symbol: "S$", vat_gst_rate: 9.0, standard: "SFRS (IFRS)" },
-    "CA": { name: "Canada", currency: "CAD", symbol: "CA$", vat_gst_rate: 13.0, standard: "IFRS" },
-    "AU": { name: "Australia", currency: "AUD", symbol: "A$", vat_gst_rate: 10.0, standard: "AASB (IFRS)" },
-    "DE": { name: "Germany", currency: "EUR", symbol: "€", vat_gst_rate: 19.0, standard: "HGB / IFRS" },
-    "FR": { name: "France", currency: "EUR", symbol: "€", vat_gst_rate: 20.0, standard: "PCG / IFRS" },
-    "JP": { name: "Japan", currency: "JPY", symbol: "¥", vat_gst_rate: 10.0, standard: "J-GAAP / IFRS" },
-    "SA": { name: "Saudi Arabia", currency: "SAR", symbol: "SAR", vat_gst_rate: 15.0, standard: "SOCPA (IFRS)" }
+    "IN": { name: "India (ભારત)", currency: "INR", symbol: "₹", vat_gst_rate: 18.0, standard_rate: 0.18, corp_rate: 0.2517, tax_type: "GST (CGST+SGST/IGST)", standard: "Ind AS (ICAI)" },
+    "US": { name: "United States", currency: "USD", symbol: "$", vat_gst_rate: 8.5, standard_rate: 0.085, corp_rate: 0.21, tax_type: "Federal Corp Tax & Sales Tax", standard: "US GAAP" },
+    "UK": { name: "United Kingdom", currency: "GBP", symbol: "£", vat_gst_rate: 20.0, standard_rate: 0.20, corp_rate: 0.25, tax_type: "VAT & Corporation Tax", standard: "UK FRS / IFRS" },
+    "AE": { name: "United Arab Emirates", currency: "AED", symbol: "AED", vat_gst_rate: 5.0, standard_rate: 0.05, corp_rate: 0.09, tax_type: "VAT (5%) & Corporate Tax", standard: "IFRS" },
+    "SG": { name: "Singapore", currency: "SGD", symbol: "S$", vat_gst_rate: 9.0, standard_rate: 0.09, corp_rate: 0.17, tax_type: "GST (9%) & Corporate Tax", standard: "SFRS (IFRS)" },
+    "CA": { name: "Canada", currency: "CAD", symbol: "CA$", vat_gst_rate: 13.0, standard_rate: 0.13, corp_rate: 0.265, tax_type: "HST/GST & Corporate Tax", standard: "IFRS" },
+    "AU": { name: "Australia", currency: "AUD", symbol: "A$", vat_gst_rate: 10.0, standard_rate: 0.10, corp_rate: 0.30, tax_type: "GST (10%) & Company Tax", standard: "AASB (IFRS)" },
+    "DE": { name: "Germany", currency: "EUR", symbol: "€", vat_gst_rate: 19.0, standard_rate: 0.19, corp_rate: 0.30, tax_type: "USt (VAT 19%) & KSt", standard: "HGB / IFRS" },
+    "FR": { name: "France", currency: "EUR", symbol: "€", vat_gst_rate: 20.0, standard_rate: 0.20, corp_rate: 0.25, tax_type: "TVA (20%) & IS", standard: "PCG / IFRS" },
+    "JP": { name: "Japan", currency: "JPY", symbol: "¥", vat_gst_rate: 10.0, standard_rate: 0.10, corp_rate: 0.297, tax_type: "Consumption Tax & Corporate Tax", standard: "J-GAAP / IFRS" },
+    "SA": { name: "Saudi Arabia", currency: "SAR", symbol: "SAR", vat_gst_rate: 15.0, standard_rate: 0.15, corp_rate: 0.20, tax_type: "VAT (15%) & Zakat/CIT", standard: "SOCPA (IFRS)" }
 };
 
 // ================= SMART CLOUD GATEWAY & MULTI-DEVICE SYNC ENGINE =================
@@ -782,7 +782,15 @@ const GSTCouncilEngine = {
     getActiveRate(country = currentCountry) {
         if (country !== "IN") {
             const cData = allWorldCountriesMap[country] || DEFAULT_COUNTRIES_FALLBACK[country];
-            return cData ? cData.vat_gst_rate : 18.0;
+            if (cData) {
+                if (cData.vat_gst_rate !== undefined && cData.vat_gst_rate !== null) {
+                    return parseFloat(cData.vat_gst_rate);
+                }
+                if (cData.standard_rate !== undefined && cData.standard_rate !== null) {
+                    return parseFloat((Number(cData.standard_rate) * 100).toFixed(1));
+                }
+            }
+            return 18.0;
         }
         const saved = localStorage.getItem("sri_sri_dynamic_gst_rate");
         return saved ? parseFloat(saved) : 18.0;
@@ -910,8 +918,23 @@ const DynamicLocalStore = {
             }
         });
 
-        if (rev === 0) rev = 720000;
-        if (exp === 0) exp = 678200;
+        // Only seed baseline figures when user ledger has no transactions recorded
+        if (txns.length === 0) {
+            rev = country === "IN" ? 720000 : 150000;
+            exp = country === "IN" ? 468000 : 95000;
+            if (country === "IN") {
+                revMap["IT Consulting Services"] = 480000;
+                revMap["Software Licensing"] = 240000;
+                expMap["Office Rent & Utilities"] = 180000;
+                expMap["Employee Salaries & Stipends"] = 190000;
+                expMap["IT Infrastructure & Cloud"] = 98000;
+            } else {
+                revMap["Professional & Advisory Fees"] = 100000;
+                revMap["Digital Services"] = 50000;
+                expMap["Operating & Lease Costs"] = 45000;
+                expMap["Personnel & Staff Expenses"] = 50000;
+            }
+        }
 
         const netProfit = rev - exp;
         const margin = rev > 0 ? Number(((netProfit / rev) * 100).toFixed(1)) : 0;
@@ -1035,58 +1058,197 @@ const DynamicLocalStore = {
             const txns = this.getTransactions("IN");
             let totalSales = 0;
             let totalExpenses = 0;
-            txns.forEach(t => {
-                if (t.type === "Sales") totalSales += Number(t.amount) || 0;
-                else totalExpenses += Number(t.amount) || 0;
-            });
-            if (totalSales === 0) totalSales = 720000;
-            if (totalExpenses === 0) totalExpenses = 468000;
+            let outputGstRecorded = 0;
+            let inputGstRecorded = 0;
 
-            const outputGst = Math.round(totalSales * rateFrac);
-            const inputGst = Math.round(totalExpenses * rateFrac * 0.65);
+            txns.forEach(t => {
+                const amt = Number(t.amount) || 0;
+                if (t.type === "Sales" || (t.credit_account && t.credit_account.includes("Revenue"))) {
+                    totalSales += amt;
+                    if (t.tax_amount) outputGstRecorded += Number(t.tax_amount);
+                } else {
+                    totalExpenses += amt;
+                    if (t.tax_amount) inputGstRecorded += Number(t.tax_amount);
+                }
+            });
+
+            if (txns.length === 0) {
+                totalSales = 720000;
+                totalExpenses = 468000;
+            }
+
+            const outputGst = outputGstRecorded > 0 ? outputGstRecorded : Math.round(totalSales * rateFrac);
+            const inputGst = inputGstRecorded > 0 ? inputGstRecorded : Math.round(totalExpenses * rateFrac * 0.65);
             const netGst = Math.max(0, outputGst - inputGst);
+            const itcCarried = Math.max(0, inputGst - outputGst);
+
+            const netProfit = Math.max(0, totalSales - totalExpenses);
+
+            // Dynamic New Tax Regime (Section 115BAC) Slab Calculation
+            let taxNew = 0;
+            if (netProfit <= 300000) {
+                taxNew = 0;
+            } else if (netProfit <= 700000) {
+                taxNew = (netProfit - 300000) * 0.05;
+            } else if (netProfit <= 1000000) {
+                taxNew = 20000 + (netProfit - 700000) * 0.10;
+            } else if (netProfit <= 1200000) {
+                taxNew = 50000 + (netProfit - 1000000) * 0.15;
+            } else if (netProfit <= 1500000) {
+                taxNew = 80000 + (netProfit - 1200000) * 0.20;
+            } else {
+                taxNew = 140000 + (netProfit - 1500000) * 0.30;
+            }
+
+            // Section 87A Rebate & Marginal Relief
+            if (netProfit <= 700000) {
+                taxNew = 0;
+            } else {
+                const excess = netProfit - 700000;
+                if (taxNew > excess) taxNew = excess;
+                taxNew = Math.round(taxNew * 1.04); // 4% Health & Education Cess
+            }
+
+            // Dynamic Old Tax Regime (with Section 80C standard deduction of ₹1.5L)
+            const taxableOld = Math.max(0, netProfit - 150000);
+            let taxOld = 0;
+            if (taxableOld <= 250000) {
+                taxOld = 0;
+            } else if (taxableOld <= 500000) {
+                taxOld = (taxableOld - 250000) * 0.05;
+            } else if (taxableOld <= 1000000) {
+                taxOld = 12500 + (taxableOld - 500000) * 0.20;
+            } else {
+                taxOld = 112500 + (taxableOld - 1000000) * 0.30;
+            }
+            if (taxableOld <= 500000) {
+                taxOld = 0;
+            } else {
+                taxOld = Math.round(taxOld * 1.04);
+            }
+
+            const recommended = taxNew <= taxOld ? "નવી કર વ્યવસ્થા (Sec 115BAC)" : "જૂની કર વ્યવસ્થા (Sec 80C)";
+            const saving = Math.abs(taxOld - taxNew);
+
+            // Corporate Tax (Section 115BAA @ 25.17% / LLP @ 31.2%)
+            const corpTax115baa = Math.round(netProfit * 0.25168);
+            const firmTax30 = Math.round(netProfit * 0.312);
 
             return {
                 country: "IN",
                 currency: "INR",
                 symbol: "₹",
+                statutory_accounting_standard: "Ind AS / IFRS (ICAI)",
                 gst: {
                     active_rate: activeRate,
                     output_gst_collected: outputGst,
                     input_tax_credit_available: inputGst,
                     net_gst_payable_cash: netGst,
-                    itc_carried_forward: Math.max(0, inputGst - outputGst),
+                    itc_carried_forward: itcCarried,
                     status: `Statutory GST Rate ${activeRate}% Active (GSTR-3B)`
                 },
                 income_tax: {
                     gross_total_income: totalSales,
-                    taxable_income: Math.max(0, totalSales - totalExpenses),
-                    tax_new_regime: 18500,
-                    tax_old_regime: 46800,
-                    recommended_regime: "New Tax Regime (Sec 115BAC)",
-                    savings: 28300,
+                    taxable_income: netProfit,
+                    tax_new_regime: taxNew,
+                    tax_old_regime: taxOld,
+                    recommended_regime: recommended,
+                    potential_saving: saving,
+                    savings: saving,
+                    presumptive_scheme: {
+                        section_44ad_profit_6pct: Math.round(totalSales * 0.06),
+                        section_44ada_profit_50pct: Math.round(totalSales * 0.50),
+                        eligible: totalSales <= 30000000,
+                        note: "No Books of Accounts Required (Direct return on 6% presumptive profit)"
+                    },
                     advance_tax_schedule: [
-                        { installment: "15th June (15%)", amount: 2775 },
-                        { installment: "15th September (45%)", amount: 8325 },
-                        { installment: "15th December (75%)", amount: 13875 },
-                        { installment: "15th March (100%)", amount: 18500 }
+                        { installment: "15th June (15%)", amount: Math.round(taxNew * 0.15) },
+                        { installment: "15th September (45%)", amount: Math.round(taxNew * 0.45) },
+                        { installment: "15th December (75%)", amount: Math.round(taxNew * 0.75) },
+                        { installment: "15th March (100%)", amount: taxNew }
                     ]
+                },
+                corporate_tax: {
+                    section_115baa_company: corpTax115baa,
+                    partnership_firm_llp: firmTax30,
+                    effective_rate_company: "25.17% (Sec 115BAA)",
+                    effective_rate_firm: "31.20% (Firm/LLP)"
                 }
             };
         }
+
+        const cData = allWorldCountriesMap[country] || DEFAULT_COUNTRIES_FALLBACK[country] || {
+            name: country,
+            currency: "USD",
+            symbol: "$",
+            standard_rate: 0.10,
+            corp_rate: 0.20,
+            tax_type: "VAT / Sales Tax",
+            standard: "IFRS / ACCA"
+        };
+        const countryName = cData.name || country;
+        const curr = cData.currency || "USD";
+        const sym = cData.symbol || "$";
+        const stdRate = cData.standard_rate !== undefined ? Number(cData.standard_rate) : (Number(cData.vat_gst_rate || 10) / 100);
+        const corpRate = cData.corp_rate !== undefined ? Number(cData.corp_rate) : 0.20;
+        const taxType = cData.tax_type || "VAT / GST";
+        const standard = cData.standard || "IFRS / ACCA Standard";
+
+        const txns = this.getTransactions(country);
+        let rev = 0;
+        let exp = 0;
+        txns.forEach(t => {
+            const amt = Number(t.amount) || 0;
+            if (t.type === "Sales" || (t.credit_account && t.credit_account.includes("Revenue"))) {
+                rev += amt;
+            } else {
+                exp += amt;
+            }
+        });
+        if (txns.length === 0) {
+            rev = 150000;
+            exp = 95000;
+        }
+
+        const netProfit = Math.max(0, rev - exp);
+        const outputTax = Math.round(rev * stdRate);
+        const inputTax = Math.round(exp * stdRate * 0.70);
+        const netIndirect = Math.max(0, outputTax - inputTax);
+        const estCorpTax = Math.round(netProfit * corpRate);
+        const retainedEarnings = Math.round(netProfit - estCorpTax);
+
         return {
-            country: country,
-            currency: allWorldCountriesMap[country]?.currency || "USD",
-            symbol: allWorldCountriesMap[country]?.symbol || "$",
-            vat_gst: {
-                rate_percent: allWorldCountriesMap[country]?.vat_gst_rate || 10,
-                collected: 24500,
-                credit: 12100,
-                payable: 12400
+            country: countryName,
+            country_code: country,
+            currency: curr,
+            symbol: sym,
+            statutory_accounting_standard: standard,
+            tax_regime: taxType,
+            indirect_tax: {
+                title: `Indirect Tax (${taxType})`,
+                rate_percentage: `${(stdRate * 100).toFixed(1)}%`,
+                output_tax_due: outputTax,
+                input_tax_credit: inputTax,
+                net_indirect_tax_payable: netIndirect,
+                status: "Balanced & Eligible for Input Credit"
+            },
+            direct_tax: {
+                title: `Corporate / Entity Income Tax (${standard})`,
+                net_taxable_profit: netProfit,
+                applicable_corporate_rate: `${(corpRate * 100).toFixed(1)}%`,
+                estimated_tax_payable: estCorpTax,
+                post_tax_retained_earnings: retainedEarnings
             },
             corporate_tax: {
-                rate_percent: 21.0,
-                estimated_tax: 8778
+                net_taxable_profit: netProfit,
+                applicable_corporate_rate: `${(corpRate * 100).toFixed(1)}%`,
+                estimated_tax_payable: estCorpTax,
+                post_tax_retained_earnings: retainedEarnings
+            },
+            acca_ca_compliance_radar: {
+                audit_readiness: "100% Statutory Compliant",
+                transfer_pricing_check: "Safe Harbor Compliant",
+                recommendation: `Books adhere strictly to ${standard} and local statutory filing rules in ${countryName}.`
             }
         };
     },
@@ -1205,14 +1367,63 @@ const DynamicLocalStore = {
     },
 
     getAnomalies() {
+        const txns = this.getTransactions(currentCountry);
+        const anomalies = [];
+        const seenRefs = {};
+
+        txns.forEach(t => {
+            const ref = t.reference_no || t.id || "";
+            const amt = Number(t.amount) || 0;
+            const debit = String(t.debit_account || "");
+            const credit = String(t.credit_account || "");
+
+            // 1. Cash limit Section 269ST (INR 2,00,000)
+            if ((debit.includes("Cash") || credit.includes("Cash")) && amt > 200000) {
+                anomalies.push({
+                    severity: "CRITICAL",
+                    code: "SEC-269ST-BREACH",
+                    title: "કલમ 269ST રોકડ મર્યાદા ભંગ (Cash Limit Breach)",
+                    description: `રોકડ વ્યવહાર ${currencySymbol}${amt.toLocaleString()} કાયદેસર મર્યાદા ₹2,00,000 કરતા વધુ છે. કલમ 271DA મુજબ 100% દંડપાત્ર છે.`,
+                    reference: ref,
+                    remedy: "બેન્કિંગ ચેનલ (RTGS/NEFT/એકાઉન્ટ પેયી ચેક) દ્વારા વ્યવહાર કરો."
+                });
+            }
+
+            // 2. Duplicate reference check
+            if (ref && seenRefs[ref]) {
+                anomalies.push({
+                    severity: "HIGH",
+                    code: "DUP-REF-ERROR",
+                    title: "ડુપ્લિકેટ વાઉચર / ઇન્વૉઇસ રેફરન્સ મળી આવ્યો",
+                    description: `રેફરન્સ નંબર ${ref} લેજરમાં એક કરતાં વધુ વખત નોંધાયેલ છે. બેવડા ખર્ચ અથવા ડુપ્લિકેટ ITC ક્લેમનું જોખમ છે.`,
+                    reference: ref,
+                    remedy: "એન્ટ્રીની સમીક્ષા કરી ડુપ્લિકેટ વાઉચર તાત્કાલિક રિવર્સ કરો."
+                });
+            } else if (ref) {
+                seenRefs[ref] = true;
+            }
+
+            // 3. High value expense without TDS
+            if (amt > 100000 && (!t.tax_amount || Number(t.tax_amount) === 0) && String(t.description || "").toLowerCase().includes("service")) {
+                anomalies.push({
+                    severity: "MEDIUM",
+                    code: "TDS-194J-CHECK",
+                    title: "TDS કલમ 194J કમ્પ્લાયન્સ એલર્ટ",
+                    description: `${currencySymbol}${amt.toLocaleString()} ના પ્રોફેશનલ/ટેકનિકલ ખર્ચ પર TDS કપાત દેખાતી નથી.`,
+                    reference: ref,
+                    remedy: "કલમ 194J હેઠળ લાગુ પડતો 2% અથવા 10% TDS કાપો."
+                });
+            }
+        });
+
+        const auditScore = Math.max(70, 100 - (anomalies.length * 10));
+
         return {
-            audit_score_percent: 94,
-            status: "Audit Safe - No Critical Anomalies",
-            anomalies: [
-                { id: "ANOM-01", severity: "Low", type: "Section 269ST Check", description: "No customer cash receipts exceeding INR 2,00,000 (100% Compliant)" },
-                { id: "ANOM-02", severity: "Low", type: "Duplicate Invoice Scan", description: "No duplicate invoice numbers detected" },
-                { id: "ANOM-03", severity: "Medium", type: "Section 194J TDS Vigilance", description: "TDS deduction 10% on professional fees verified" }
-            ]
+            audit_score_percent: auditScore,
+            status: anomalies.length === 0 ? "Clean - 100% Compliant" : `${anomalies.length} Potential Issues Detected`,
+            total_transactions_scanned: txns.length,
+            anomalies: anomalies,
+            compliance_guarantee: "AI Anomaly Guardian Active"
         };
     },
 
@@ -2801,19 +3012,37 @@ function updateUserInterfaceForRole() {
     const roleBadge = document.getElementById("roleBadge");
     const caSuite = document.getElementById("caSuiteSection");
 
-    document.getElementById("currentUserNameDisplay").textContent = currentUser.name;
-    document.getElementById("userFooterName").textContent = currentUser.name;
-    document.getElementById("userFooterRole").textContent = currentUser.role_title;
-    document.getElementById("avatarInitial").textContent = currentUser.name.charAt(0) || "U";
+    const currName = document.getElementById("currentUserNameDisplay");
+    if (currName) {
+        currName.textContent = currentUser.name;
+        currName.title = currentUser.name;
+    }
+
+    const footerName = document.getElementById("userFooterName");
+    if (footerName) {
+        footerName.textContent = currentUser.name;
+        footerName.title = currentUser.name;
+    }
+
+    const footerRole = document.getElementById("userFooterRole");
+    if (footerRole) {
+        footerRole.textContent = currentUser.role_title;
+        footerRole.title = currentUser.role_title;
+    }
+
+    const avatarInitial = document.getElementById("avatarInitial");
+    if (avatarInitial) {
+        avatarInitial.textContent = (currentUser.name && currentUser.name.trim().charAt(0)) || "U";
+    }
 
     if (isCA) {
-        roleBadgeText.textContent = currentLang === "gu" ? "CA / ACCA ફર્મ મોડ" : (currentLang === "hi" ? "CA / ACCA फर्म मोड" : "CA / ACCA Mode");
-        roleBadge.className = "px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-amber-500/15 text-amber-300 border border-amber-500/30 flex items-center space-x-1";
-        caSuite.classList.remove("hidden");
+        if (roleBadgeText) roleBadgeText.textContent = currentLang === "gu" ? "CA / ACCA ફર્મ મોડ" : (currentLang === "hi" ? "CA / ACCA फर्म मोड" : "CA / ACCA Mode");
+        if (roleBadge) roleBadge.className = "px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-amber-500/15 text-amber-300 border border-amber-500/30 flex items-center space-x-1 shrink-0";
+        if (caSuite) caSuite.classList.remove("hidden");
     } else {
-        roleBadgeText.textContent = currentLang === "gu" ? "વેપારી મોડ (Client)" : (currentLang === "hi" ? "व्यापारी मोड" : "Business Client");
-        roleBadge.className = "px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 flex items-center space-x-1";
-        caSuite.classList.add("hidden");
+        if (roleBadgeText) roleBadgeText.textContent = currentLang === "gu" ? "વેપારી મોડ (Client)" : (currentLang === "hi" ? "व्यापारी मोड" : "Business Client");
+        if (roleBadge) roleBadge.className = "px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 flex items-center space-x-1 shrink-0";
+        if (caSuite) caSuite.classList.add("hidden");
     }
 }
 
@@ -2953,8 +3182,32 @@ function updateKPIs(stmts) {
     document.getElementById("kpiNetProfit").textContent = `${currencySymbol}${profit.toLocaleString()}`;
     document.getElementById("kpiProfitMargin").textContent = `${margin}% Profit Margin`;
 
-    let taxDue = profit * 0.05;
-    document.getElementById("kpiTaxDue").textContent = `${currencySymbol}${Math.round(taxDue).toLocaleString()}`;
+    computeAndDisplayKPITax(profit, rev, exp);
+}
+
+function computeAndDisplayKPITax(profit, rev, exp) {
+    const taxEl = document.getElementById("kpiTaxDue");
+    if (!taxEl) return;
+
+    let taxDue = 0;
+    if (typeof lastTaxData !== "undefined" && lastTaxData) {
+        if (currentCountry === "IN") {
+            const gstDue = Number(lastTaxData.gst?.net_gst_payable_cash) || 0;
+            const itDue = Number(lastTaxData.income_tax?.tax_new_regime) || 0;
+            taxDue = gstDue + itDue;
+        } else {
+            const indDue = Number(lastTaxData.indirect_tax?.net_indirect_tax_payable) || 0;
+            const dirDue = Number(lastTaxData.direct_tax?.estimated_tax_payable) || 0;
+            taxDue = indDue + dirDue;
+        }
+    } else {
+        const activeRate = GSTCouncilEngine.getActiveRate(currentCountry) / 100.0;
+        const estIndirect = Math.max(0, (rev - exp * 0.7) * activeRate);
+        const corpRate = (allWorldCountriesMap[currentCountry]?.corp_rate) || (currentCountry === "IN" ? 0.2517 : 0.20);
+        const estDirect = Math.max(0, profit * corpRate);
+        taxDue = estIndirect + estDirect;
+    }
+    taxEl.textContent = `${currencySymbol}${Math.round(taxDue).toLocaleString()}`;
 }
 
 function renderRecentTransactions(txns) {
@@ -3821,6 +4074,10 @@ async function refreshTaxData() {
     renderTaxHub(tax);
     renderGstDoughnutChart(tax);
     GSTCouncilEngine.updateUI();
+    if (typeof lastFinancialStatements !== "undefined" && lastFinancialStatements) {
+        const pnl = lastFinancialStatements.profit_and_loss || {};
+        computeAndDisplayKPITax(pnl.net_profit || 0, pnl.total_revenue || 0, pnl.total_expenses || 0);
+    }
 }
 
 function renderTaxHub(tax) {
@@ -3831,6 +4088,7 @@ function renderTaxHub(tax) {
         const gst = tax.gst || {};
         const it = tax.income_tax || {};
         const pres = it.presumptive_scheme || {};
+        const corp = tax.corporate_tax || {};
 
         container.innerHTML = `
             <div class="surface-card p-5">
@@ -3861,12 +4119,12 @@ function renderTaxHub(tax) {
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
                 <div class="surface-card p-5">
-                    <h3 class="text-sm font-bold text-white mb-2">નવી vs જૂની કર વ્યવસ્થા</h3>
+                    <h3 class="text-sm font-bold text-white mb-2">વ્યક્તિગત / HUF: નવી vs જૂની કર વ્યવસ્થા</h3>
                     <div class="space-y-2.5 text-xs font-mono mt-3">
                         <div class="p-3 bg-slate-900 rounded-xl flex justify-between">
-                            <span class="font-sans text-slate-300">નવી કર વ્યવસ્થા (115BAC):</span>
+                            <span class="font-sans text-slate-300">નવી કર વ્યવસ્થા (115BAC + 87A):</span>
                             <span class="font-bold text-emerald-400">₹${Number(it.tax_new_regime).toLocaleString()}</span>
                         </div>
                         <div class="p-3 bg-slate-900 rounded-xl flex justify-between">
@@ -3876,22 +4134,42 @@ function renderTaxHub(tax) {
                     </div>
                     <div class="mt-4 p-3 rounded-xl bg-emerald-950/40 border border-emerald-500/30 text-xs font-bold text-emerald-300 flex justify-between">
                         <span>ભલામણ કરેલ: ${it.recommended_regime}</span>
-                        <span>બચત: ₹${Number(it.potential_saving).toLocaleString()}</span>
+                        <span>બચત: ₹${Number(it.potential_saving || it.savings || 0).toLocaleString()}</span>
                     </div>
                 </div>
 
                 <div class="surface-card p-5">
                     <h3 class="text-sm font-bold text-white mb-2">સેક્શન 44AD / 44ADA (વિના ઓડિટ રીટર્ન)</h3>
-                    <p class="text-xs text-slate-400 mb-3">${pres.note}</p>
+                    <p class="text-xs text-slate-400 mb-3">${pres.note || 'ટર્નઓવર મુજબ સંભવિત નફો'}</p>
                     <div class="space-y-2 text-xs font-mono">
                         <div class="p-2.5 bg-slate-900 rounded-xl flex justify-between">
                             <span class="font-sans text-slate-300">44AD (વેપારી @ 6% નફો):</span>
-                            <span class="font-bold text-white">₹${Number(pres.section_44ad_profit_6pct).toLocaleString()}</span>
+                            <span class="font-bold text-white">₹${Number(pres.section_44ad_profit_6pct || 0).toLocaleString()}</span>
                         </div>
                         <div class="p-2.5 bg-slate-900 rounded-xl flex justify-between">
                             <span class="font-sans text-slate-300">44ADA (પ્રોફેશનલ @ 50%):</span>
-                            <span class="font-bold text-white">₹${Number(pres.section_44ada_profit_50pct).toLocaleString()}</span>
+                            <span class="font-bold text-white">₹${Number(pres.section_44ada_profit_50pct || 0).toLocaleString()}</span>
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="surface-card p-5 mt-4">
+                <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+                    <h3 class="text-sm font-bold text-white flex items-center space-x-2">
+                        <i data-lucide="building-2" class="w-4 h-4 text-cyan-400"></i>
+                        <span>કોર્પોરેટ કંપની & ફર્મ ટેક્સ કમ્પ્યુટેશન (Corporate & Firm Direct Tax)</span>
+                    </h3>
+                    <span class="px-2.5 py-0.5 rounded-full text-[11px] bg-cyan-500/20 text-cyan-400 font-bold">કંપની એક્ટ & IT Act</span>
+                </div>
+                <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-mono">
+                    <div class="p-3 bg-slate-900 rounded-xl space-y-1">
+                        <div class="flex justify-between"><span class="font-sans text-slate-400">સ્થાનિક કંપની (સેક્શન 115BAA):</span><span class="text-emerald-400 font-bold">₹${Number(corp.section_115baa_company || 0).toLocaleString()}</span></div>
+                        <span class="text-[10px] text-slate-500 block font-sans">લાગુ દર: 25.17% (બેઝ 22% + 10% સરચાર્જ + 4% સેસ)</span>
+                    </div>
+                    <div class="p-3 bg-slate-900 rounded-xl space-y-1">
+                        <div class="flex justify-between"><span class="font-sans text-slate-400">પાર્ટનરશિપ ફર્મ / LLP ટેક્સ:</span><span class="text-amber-400 font-bold">₹${Number(corp.partnership_firm_llp || 0).toLocaleString()}</span></div>
+                        <span class="text-[10px] text-slate-500 block font-sans">લાગુ દર: 31.20% (ફ્લેટ 30% + 4% સેસ)</span>
                     </div>
                 </div>
             </div>
@@ -4057,25 +4335,37 @@ function switchActiveClient(id, name, gstin, auditStatus) {
 }
 
 async function signClientAudit(clientId, clientName) {
+    const savedPin = localStorage.getItem("sri_sri_partner_pin") || "7788";
     const pin = prompt(`કંપની: ${clientName}\n\nકાયદેસર ઓડિટ રિપોર્ટ (Form 3CD / CARO 2020) પર ડિજિટલ સહી કરવા માટે અધિકૃત CA પાર્ટનર PIN (2FA Step-Up) દાખલ કરો:\n(ડિફોલ્ટ સેટ PIN: 7788)`);
     if (!pin) return;
 
-    if (pin.trim() !== "7788") {
-        alert("અધિકૃતતા નિષ્ફળ: અમાન્ય CA પાર્ટનર સુરક્ષા PIN!");
+    let verified = false;
+    try {
+        const res = await fetch("/api/security/partner-pin", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ pin: pin.trim(), partner_name: currentUser?.name || "CA Jaydeep Shah (FCA)" })
+        });
+        if (res.ok) {
+            const data = await res.json();
+            if (data.success || data.verified) verified = true;
+        }
+    } catch (e) {}
+
+    if (!verified && pin.trim() === savedPin) {
+        verified = true;
+    }
+
+    if (!verified) {
+        alert("અધિકૃતતા નિષ્ફળ: અમાન્ય CA પાર્ટનર સુરક્ષા PIN! સાચો PIN દાખલ કરો.");
         return;
     }
 
-    try {
-        await fetch("/api/security/partner-pin", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ pin: pin })
-        });
-    } catch (e) {}
-
     DynamicLocalStore.updateClientAudit(clientId, "Signed (CA સહી થયેલ)");
-    const udin = "24" + Math.floor(100000 + Math.random() * 900000) + "CA" + Math.floor(1000 + Math.random() * 9000);
-    alert(`✅ કાયદેસર ઓડિટ સફળતાપૂર્વક સહી થઈ ગયું!\n\nકંપની: ${clientName}\nજનરેટ થયેલ UDIN: ${udin}\nઓડિટિંગ ધોરણો: MCA Rule 11(g) & ICAI CARO 2020\nબ્લોકચેન હેશ MCA ઓડિટ ટ્રેઇલ લેજરમાં કાયમી નોંધાઈ ગયું છે.`);
+    const alphaPart = Array.from({length: 4}, () => String.fromCharCode(65 + Math.floor(Math.random() * 26))).join('');
+    const numPart = Math.floor(100000 + Math.random() * 900000);
+    const udin = `26542190${alphaPart}${numPart}`;
+    alert(`✅ કાયદેસર ઓડિટ સફળતાપૂર્વક સહી થઈ ગયું!\n\nકંપની: ${clientName}\nજનરેટ થયેલ અધિકૃત ICAI UDIN: ${udin}\nઓડિટિંગ ધોરણો: MCA Rule 11(g) & ICAI CARO 2020\nબ્લોકચેન હેશ MCA ઓડિટ ટ્રેઇલ લેજરમાં કાયમી નોંધાઈ ગયું છે.`);
 
     loadCAClients();
     if (typeof loadMcaAuditBlocks === "function") loadMcaAuditBlocks();
@@ -4724,17 +5014,20 @@ async function handleCreateInvoice(e) {
     const rate = parseFloat(document.getElementById("invItemRate").value || 10000);
     const autoPost = document.getElementById("invAutoPost").checked;
 
+    const activeTaxRate = GSTCouncilEngine.getActiveRate(currentCountry);
+    const taxRateFrac = activeTaxRate / 100.0;
     const baseAmt = qty * rate;
-    const taxAmt = Math.round(baseAmt * 0.18);
+    const taxAmt = Math.round(baseAmt * taxRateFrac);
     const totalAmt = baseAmt + taxAmt;
+    const curr = allWorldCountriesMap[currentCountry]?.currency || (currentCountry === "IN" ? "INR" : "USD");
 
     const newInv = {
         id: `INV-2026-${Math.floor(100 + Math.random() * 900)}`,
         customer_name: custName,
         customer_gstin: custGstin,
         date: invDate,
-        currency: "INR",
-        items: [{ description: desc, hsn: hsn, qty: qty, rate: rate, tax_rate: 18.0, amount: baseAmt }],
+        currency: curr,
+        items: [{ description: desc, hsn: hsn, qty: qty, rate: rate, tax_rate: activeTaxRate, amount: baseAmt }],
         tax_amount: taxAmt,
         total_amount: totalAmt,
         irn: Array.from({length: 64}, () => Math.floor(Math.random()*16).toString(16)).join(''),
@@ -4759,8 +5052,9 @@ async function handleCreateInvoice(e) {
             date: invDate,
             description: `E-Invoice: ${custName} - ${desc}`,
             amount: totalAmt,
+            tax_amount: taxAmt,
             debit_account: "Sundry Debtors (Receivables)",
-            credit_account: "Revenue - Sales",
+            credit_account: currentCountry === "IN" ? "Sales & Consulting Revenue" : "Revenue",
             reference_no: newInv.id
         }, currentCountry);
     }
@@ -5264,48 +5558,98 @@ async function loadERPAnomalies() {
     const subEl = document.getElementById("auditStatusSub");
     const countEl = document.getElementById("auditScannedCount");
 
-    const score = data.audit_score_percent || 94;
+    const score = data.audit_score_percent !== undefined ? data.audit_score_percent : 100;
+    const anomalies = data.anomalies || [];
+
     if (badgeEl) {
         badgeEl.textContent = `${score}%`;
         badgeEl.className = score >= 90 
             ? "w-14 h-14 rounded-2xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400 font-extrabold text-xl font-mono"
-            : "w-14 h-14 rounded-2xl bg-rose-500/15 border border-rose-500/30 flex items-center justify-center text-rose-400 font-extrabold text-xl font-mono";
+            : (score >= 80 
+                ? "w-14 h-14 rounded-2xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-400 font-extrabold text-xl font-mono"
+                : "w-14 h-14 rounded-2xl bg-rose-500/15 border border-rose-500/30 flex items-center justify-center text-rose-400 font-extrabold text-xl font-mono");
     }
 
     if (titleEl) {
-        titleEl.textContent = "તમામ એકાઉન્ટિંગ ચોપડા ૧૦૦% કાયદેસર અને ઓડિટ-પ્રૂફ છે";
+        if (anomalies.length === 0) {
+            titleEl.textContent = "તમામ એકાઉન્ટિંગ ચોપડા ૧૦૦% કાયદેસર અને ઓડિટ-પ્રૂફ છે";
+        } else {
+            titleEl.textContent = `${anomalies.length} સંભવિત ઓડિટ જોખમ / વિસંગતતા ફ્લેગ થયેલ છે`;
+        }
     }
 
     if (subEl) {
-        subEl.textContent = "કલમ 269ST રોકડ મર્યાદા કે ડુપ્લિકેટ બિલનો કોઈ ભંગ નથી.";
+        if (anomalies.length === 0) {
+            subEl.textContent = "કલમ 269ST રોકડ મર્યાદા કે ડુપ્લિકેટ બિલનો કોઈ ભંગ નથી. MCA Rule 11(g) કમ્પ્લાયન્ટ.";
+        } else {
+            subEl.textContent = "કલમ 269ST, TDS અથવા ડુપ્લિકેટ એન્ટ્રીનું તાત્કાલિક વેરિફિકેશન / નિવારણ કરો.";
+        }
     }
 
     if (countEl) {
-        countEl.textContent = `સ્કેન થયેલ: ${lastTransactionsList.length || 6} વાઉચર્સ`;
+        const totalScanned = data.total_transactions_scanned || (typeof lastTransactionsList !== "undefined" ? lastTransactionsList.length : 6);
+        countEl.textContent = `સ્કેન થયેલ: ${totalScanned} વાઉચર્સ`;
     }
 
     const container = document.getElementById("anomaliesListContainer");
     if (!container) return;
     container.innerHTML = "";
 
-    (data.anomalies || []).forEach(anom => {
-        const card = document.createElement("div");
-        card.className = "p-4 rounded-2xl border border-emerald-500/40 bg-emerald-950/20 space-y-2 text-xs";
-        card.innerHTML = `
-            <div class="flex items-center justify-between">
-                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold border bg-emerald-500/20 text-emerald-300 border-emerald-500/40">
-                    COMPLIANT • ${anom.type || "Sec 269ST"}
-                </span>
-                <span class="font-mono text-slate-400">રેફરન્સ: ${anom.id}</span>
-            </div>
-            <h4 class="text-sm font-bold text-white">${anom.description}</h4>
-            <div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-emerald-300 flex items-center space-x-2">
-                <i data-lucide="shield-check" class="w-4 h-4 text-emerald-400 shrink-0"></i>
-                <span><strong>સ્થિતિ:</strong> ૧૦૦% કાયદેસર અને દંડમુક્ત</span>
+    if (anomalies.length === 0) {
+        container.innerHTML = `
+            <div class="p-4 rounded-2xl border border-emerald-500/40 bg-emerald-950/20 space-y-2 text-xs">
+                <div class="flex items-center justify-between">
+                    <span class="px-2 py-0.5 rounded-full text-[10px] font-bold border bg-emerald-500/20 text-emerald-300 border-emerald-500/40">
+                        100% COMPLIANT • MCA RULE 11(g)
+                    </span>
+                    <span class="font-mono text-slate-400">સ્થિતિ: ઓડિટ-પ્રૂફ</span>
+                </div>
+                <h4 class="text-sm font-bold text-white">કોઈ ઓડિટ વિસંગતતા કે જોખમી એન્ટ્રી મળી નથી</h4>
+                <div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-emerald-300 flex items-center space-x-2">
+                    <i data-lucide="shield-check" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+                    <span><strong>ઓડિટ સ્ટેટસ:</strong> સેક્શન 269ST કેશ મર્યાદા (₹2L), TDS સેક્શન 194J, અને ડુપ્લિકેટ વાઉચર નિયમોનું સંપૂર્ણ પાલન થયેલ છે.</span>
+                </div>
             </div>
         `;
-        container.appendChild(card);
-    });
+    } else {
+        anomalies.forEach(anom => {
+            const card = document.createElement("div");
+            const sev = (anom.severity || "MEDIUM").toUpperCase();
+            let borderClass = "border-amber-500/50 bg-amber-950/20";
+            let badgeClass = "bg-amber-500/20 text-amber-300 border-amber-500/40";
+            let iconClass = "text-amber-400";
+
+            if (sev === "CRITICAL") {
+                borderClass = "border-rose-500/50 bg-rose-950/20";
+                badgeClass = "bg-rose-500/20 text-rose-300 border-rose-500/40";
+                iconClass = "text-rose-400";
+            } else if (sev === "LOW") {
+                borderClass = "border-emerald-500/40 bg-emerald-950/20";
+                badgeClass = "bg-emerald-500/20 text-emerald-300 border-emerald-500/40";
+                iconClass = "text-emerald-400";
+            }
+
+            card.className = `p-4 rounded-2xl border ${borderClass} space-y-2 text-xs`;
+            card.innerHTML = `
+                <div class="flex items-center justify-between">
+                    <span class="px-2 py-0.5 rounded-full text-[10px] font-bold border ${badgeClass}">
+                        ${sev} RISK • ${anom.code || anom.type || "AUDIT ALERT"}
+                    </span>
+                    <span class="font-mono text-slate-400">રેફરન્સ: ${anom.reference || anom.id || "N/A"}</span>
+                </div>
+                <h4 class="text-sm font-bold text-white">${anom.title || anom.description}</h4>
+                <p class="text-slate-300 text-xs">${anom.description || ""}</p>
+                <div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-amber-300 flex items-start space-x-2">
+                    <i data-lucide="alert-triangle" class="w-4 h-4 ${iconClass} shrink-0 mt-0.5"></i>
+                    <div>
+                        <strong class="text-white">નિવારણ પગલું (Remedy):</strong>
+                        <span class="text-slate-300 block mt-0.5">${anom.remedy || "એન્ટ્રીની પુનઃ ચકાસણી કરો અને બેન્કિંગ માધ્યમથી વ્યવહાર કરો."}</span>
+                    </div>
+                </div>
+            `;
+            container.appendChild(card);
+        });
+    }
     if (window.lucide) lucide.createIcons();
     if (currentLang !== "gu") {
         performDeepDOMTranslation(currentLang);

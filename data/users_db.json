@@ -185,5 +185,27 @@
     "company_or_firm_name": "Test Enterprise",
     "membership_or_gstin": "",
     "clients_count": 0
+  },
+  {
+    "id": "USR-018",
+    "name": "Test User",
+    "email": "test_1793282315@srisri.com",
+    "password": "pbkdf2:sha256:100000$6c7890edd94fa4c4041ead66ba6bbe63$16de9aa98d0c58add11a093d959b4919860b30e8585e70e484d346a7d996e260",
+    "role": "user",
+    "role_title": "Business Owner / Client",
+    "company_or_firm_name": "Test Enterprise",
+    "membership_or_gstin": "",
+    "clients_count": 0
+  },
+  {
+    "id": "USR-019",
+    "name": "Test User",
+    "email": "test_1793284320@srisri.com",
+    "password": "pbkdf2:sha256:100000$67ce804583665ec348d6a654de68b94f$8b5a068f5236684dd790ff6bd604be31aa39fdc7cd2b28404f407af5a1e38965",
+    "role": "user",
+    "role_title": "Business Owner / Client",
+    "company_or_firm_name": "Test Enterprise",
+    "membership_or_gstin": "",
+    "clients_count": 0
   }
 ]
