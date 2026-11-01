@@ -92,17 +92,19 @@ body {
     display: block !important;
 }
 
-/* 3D Brand Logo Showcase Badge (Right Side on Laptop & Desktop) */
+/* 3D Brand Logo Showcase Badge (Guaranteed visible on right side of hero card) */
 .hero-logo-badge {
     display: flex !important;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
 }
 
 .hero-logo-badge img {
     width: 140px !important;
     height: 140px !important;
+    min-width: 140px !important;
+    min-height: 140px !important;
     max-width: 140px !important;
     max-height: 140px !important;
     border-radius: 1rem !important;
@@ -112,6 +114,7 @@ body {
     border: 1.5px solid rgba(125, 211, 252, 0.8) !important;
     box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 0 20px rgba(14, 165, 233, 0.3) !important;
     transition: transform 0.3s ease !important;
+    display: block !important;
 }
 
 .hero-logo-badge img:hover {
@@ -119,8 +122,22 @@ body {
 }
 
 @media (max-width: 639px) {
-    .hero-logo-badge {
-        display: none !important;
+    .hero-logo-badge img {
+        width: 80px !important;
+        height: 80px !important;
+        min-width: 80px !important;
+        min-height: 80px !important;
+        max-width: 80px !important;
+        max-height: 80px !important;
+    }
+}
+
+/* Guarantee Executive Banner has row orientation with space-between on desktop and laptop */
+@media (min-width: 640px) {
+    .surface-card > div.flex {
+        flex-direction: row !important;
+        justify-content: space-between !important;
+        align-items: center !important;
     }
 }
 
