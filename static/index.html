@@ -244,7 +244,7 @@
     <!-- Lucide Icons CDN -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <!-- Custom Stylesheet -->
-    <link rel="stylesheet" href="styles.css?v=2026.10.29.7">
+    <link rel="stylesheet" href="styles.css?v=2026.11.01.1">
     <!-- Instant Anti-Google-Translate-Banner Shield -->
     <style>
         body > .skiptranslate,
@@ -346,11 +346,11 @@
             }
         }
     </style>
-    <!-- Automatic PWA & Cache Invalidation for Version 2026.10.29.4 -->
+    <!-- Automatic PWA & Cache Invalidation for Version 2026.11.01.1 -->
     <script>
         (function() {
             try {
-                var v = '2026.10.29.6';
+                var v = '2026.11.01.1';
                 if (localStorage.getItem('sri_sri_ca_app_version') !== v) {
                     localStorage.setItem('sri_sri_ca_app_version', v);
                     if ('caches' in window) {
@@ -549,7 +549,7 @@
     </aside>
 
     <!-- ================= MAIN WORKSPACE AREA ================= -->
-    <div class="flex-1 flex flex-col min-w-0 w-full max-w-full overflow-x-hidden">
+    <div id="mainWorkspace" class="main-workspace-container flex-1 flex flex-col min-w-0 w-full max-w-full overflow-x-hidden">
 
         <!-- Top Header Navigation -->
         <header class="sticky top-0 z-30 h-14 sm:h-16 bg-slate-950/95 backdrop-blur-xl border-b border-amber-500/30 flex items-center justify-between gap-1.5 sm:gap-4 px-2 sm:px-6 max-w-full shadow-lg">
@@ -3043,6 +3043,8 @@
                 </div>
             </form>
         </div>
+    </div>
+
     <!-- Modal: Hybrid Cloud Gateway, Multi-Device Sync & Fortress Sync -->
     <div id="cloudSyncModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md hidden flex items-center justify-center p-4">
         <div class="bg-slate-900 border border-cyan-500/40 rounded-3xl max-w-2xl w-full p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
@@ -3461,7 +3463,7 @@
 
 
     <!-- Frontend Script -->
-    <script src="app.js?v=2026.10.29.7"></script>
+    <script src="app.js?v=2026.11.01.1"></script>
     <script>
         lucide.createIcons();
     </script>

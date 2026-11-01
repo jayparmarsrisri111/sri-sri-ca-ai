@@ -1601,7 +1601,10 @@ function setupPwaEngine() {
 async function fetchWorldCountries() {
     populateCountryDropdown();
     try {
-        const res = await fetch("/api/countries");
+        const controller = typeof AbortController !== "undefined" ? new AbortController() : null;
+        const timeoutId = controller ? setTimeout(() => controller.abort(), 2000) : null;
+        const res = await fetch("/api/countries", controller ? { signal: controller.signal } : {});
+        if (timeoutId) clearTimeout(timeoutId);
         if (res.ok) {
             allWorldCountriesMap = await res.json();
             populateCountryDropdown();
@@ -3135,10 +3138,14 @@ async function loadAllData() {
     let stmts = null;
 
     try {
+        const controller = typeof AbortController !== "undefined" ? new AbortController() : null;
+        const timeoutId = controller ? setTimeout(() => controller.abort(), 2000) : null;
+        const fetchOpts = controller ? { signal: controller.signal } : {};
         const [txnsRes, stmtsRes] = await Promise.all([
-            fetch(`/api/transactions?country=${currentCountry}`),
-            fetch(`/api/financial-statements?country=${currentCountry}`)
+            fetch(`/api/transactions?country=${currentCountry}`, fetchOpts),
+            fetch(`/api/financial-statements?country=${currentCountry}`, fetchOpts)
         ]);
+        if (timeoutId) clearTimeout(timeoutId);
         if (txnsRes.ok && stmtsRes.ok) {
             txns = await txnsRes.json();
             stmts = await stmtsRes.json();

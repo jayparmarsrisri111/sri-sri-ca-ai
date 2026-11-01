@@ -43,6 +43,39 @@ body {
     background-attachment: fixed;
     color: var(--text-primary);
     overflow-x: hidden !important;
+    display: flex !important;
+    flex-direction: column !important;
+    min-height: 100vh !important;
+    min-height: 100dvh !important;
+}
+
+@media (min-width: 1024px) {
+    body {
+        flex-direction: row !important;
+    }
+}
+
+/* Bulletproof Main Workspace Container & Responsive Display */
+.main-workspace-container {
+    flex: 1 1 0% !important;
+    min-width: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow-x: hidden !important;
+    position: relative !important;
+    z-index: 10 !important;
+}
+
+/* Native Hidden & Tab Display Protection (Zero external CDN dependency) */
+.hidden,
+[hidden] {
+    display: none !important;
+}
+
+.tab-pane.hidden {
+    display: none !important;
 }
 
 .font-mono {
