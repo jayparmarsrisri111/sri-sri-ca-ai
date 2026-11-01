@@ -79,7 +79,7 @@ body {
 }
 
 /* Native Hidden & Tab Display Protection (Zero external CDN dependency) */
-.hidden,
+.hidden:not([class*="sm:"]):not([class*="md:"]):not([class*="lg:"]):not([class*="xl:"]):not([class*="2xl:"]),
 [hidden] {
     display: none !important;
 }
@@ -90,6 +90,38 @@ body {
 
 .tab-pane:not(.hidden) {
     display: block !important;
+}
+
+/* 3D Brand Logo Showcase Badge (Right Side on Laptop & Desktop) */
+.hero-logo-badge {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.hero-logo-badge img {
+    width: 140px !important;
+    height: 140px !important;
+    max-width: 140px !important;
+    max-height: 140px !important;
+    border-radius: 1rem !important;
+    object-fit: cover !important;
+    background-color: #ffffff !important;
+    padding: 4px !important;
+    border: 1.5px solid rgba(125, 211, 252, 0.8) !important;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 0 20px rgba(14, 165, 233, 0.3) !important;
+    transition: transform 0.3s ease !important;
+}
+
+.hero-logo-badge img:hover {
+    transform: scale(1.05) !important;
+}
+
+@media (max-width: 639px) {
+    .hero-logo-badge {
+        display: none !important;
+    }
 }
 
 .font-mono {
