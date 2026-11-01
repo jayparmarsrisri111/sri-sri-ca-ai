@@ -121,19 +121,18 @@ body {
     transform: scale(1.05) !important;
 }
 
-@media (max-width: 639px) {
-    .hero-logo-badge img {
-        width: 80px !important;
-        height: 80px !important;
-        min-width: 80px !important;
-        min-height: 80px !important;
-        max-width: 80px !important;
-        max-height: 80px !important;
+/* On Mobile phones & portrait screens (< 768px): Hide this logo badge so hero card is clean and balanced */
+@media (max-width: 767px) {
+    .hero-logo-badge {
+        display: none !important;
     }
 }
 
-/* Guarantee Executive Banner has row orientation with space-between on desktop and laptop */
-@media (min-width: 640px) {
+/* On Laptop and Desktop (>= 768px): Proudly display 3D Brand Logo on the right side in horizontal row */
+@media (min-width: 768px) {
+    .hero-logo-badge {
+        display: flex !important;
+    }
     .surface-card > div.flex {
         flex-direction: row !important;
         justify-content: space-between !important;

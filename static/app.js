@@ -1549,7 +1549,7 @@ function setupPwaEngine() {
             navigator.serviceWorker.addEventListener('controllerchange', () => {
                 window.location.reload();
             });
-            navigator.serviceWorker.register('/sw.js?v=2026.11.02.3', { scope: '/' })
+            navigator.serviceWorker.register('/sw.js?v=2026.11.02.4', { scope: '/' })
                 .then(reg => {
                     if (reg.update) reg.update();
                     console.log('✅ Sri Sri ❤️ PWA Service Worker Registered:', reg.scope);

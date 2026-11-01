@@ -4,7 +4,7 @@
  * Offline Resilience & High-Performance Asset Caching
  */
 
-const CACHE_NAME = 'sri-sri-ca-v2026.11.02.3';
+const CACHE_NAME = 'sri-sri-ca-v2026.11.02.4';
 const STATIC_ASSETS = [
     './',
     './index.html',
