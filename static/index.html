@@ -244,7 +244,7 @@
     <!-- Lucide Icons CDN -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <!-- Custom Stylesheet -->
-    <link rel="stylesheet" href="styles.css?v=2026.11.01.1">
+    <link rel="stylesheet" href="styles.css?v=2026.11.02.1">
     <!-- Instant Anti-Google-Translate-Banner Shield -->
     <style>
         body > .skiptranslate,
@@ -340,37 +340,41 @@
                 display: none !important;
             }
         }
-        @media (min-width: 1024px) {
+        @media (min-width: 768px) {
             header #openSidebarBtn {
                 display: none !important;
             }
         }
     </style>
-    <!-- Automatic PWA & Cache Invalidation for Version 2026.11.01.1 -->
+    <!-- Automatic PWA & Cache Invalidation for Version 2026.11.02.1 -->
     <script>
         (function() {
             try {
-                var v = '2026.11.01.1';
-                if (localStorage.getItem('sri_sri_ca_app_version') !== v) {
+                var v = '2026.11.02.1';
+                var lastV = localStorage.getItem('sri_sri_ca_app_version');
+                if (lastV !== v) {
                     localStorage.setItem('sri_sri_ca_app_version', v);
                     if ('caches' in window) {
                         caches.keys().then(function(keys) {
                             keys.forEach(function(k) {
-                                if (k !== 'sri-sri-ca-v2.2') caches.delete(k);
+                                caches.delete(k);
                             });
                         });
                     }
                     if ('serviceWorker' in navigator) {
                         navigator.serviceWorker.getRegistrations().then(function(regs) {
-                            regs.forEach(function(r) { r.update(); });
+                            regs.forEach(function(r) { r.unregister(); });
                         });
+                    }
+                    if (lastV && lastV !== v) {
+                        window.location.reload(true);
                     }
                 }
             } catch(e) {}
         })();
     </script>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col lg:flex-row antialiased overflow-x-hidden">
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col md:flex-row antialiased overflow-x-hidden">
 
     <!-- Mobile Sidebar Backdrop Overlay -->
     <div id="sidebarBackdrop" class="sidebar-backdrop"></div>
@@ -383,7 +387,7 @@
     </div>
 
     <!-- ================= LEFT SIDEBAR ================= -->
-    <aside id="appSidebar" class="app-sidebar flex flex-col h-screen h-[100dvh] lg:sticky lg:top-0 shrink-0 overflow-hidden">
+    <aside id="appSidebar" class="app-sidebar flex flex-col h-screen h-[100dvh] md:sticky md:top-0 shrink-0 overflow-hidden">
         <!-- Top Fixed Section: Logo, Mode Badge, Quick Mobile Tools -->
         <div class="shrink-0">
             <!-- Sidebar Header / Logo -->
@@ -398,7 +402,7 @@
                         <p class="text-[10px] text-slate-400 font-medium truncate" data-i18n="tagline_short">ગ્લોબલ ટેક્સ & એકાઉન્ટિંગ</p>
                     </div>
                 </div>
-                <button id="closeSidebarBtn" class="lg:hidden text-slate-400 hover:text-white p-1.5 rounded-lg hover:bg-slate-800/60 transition shrink-0" title="બંધ કરો">
+                <button id="closeSidebarBtn" class="md:hidden text-slate-400 hover:text-white p-1.5 rounded-lg hover:bg-slate-800/60 transition shrink-0" title="બંધ કરો">
                     <i data-lucide="x" class="w-5 h-5"></i>
                 </button>
             </div>
@@ -418,8 +422,8 @@
                 </div>
             </div>
 
-            <!-- Mobile Quick Access Utilities (< 1024px) -->
-            <div class="lg:hidden mx-3 mb-2.5 p-2 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-1.5">
+            <!-- Mobile Quick Access Utilities (< 768px) -->
+            <div class="md:hidden mx-3 mb-2.5 p-2 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-1.5">
                 <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-1">ક્વિક ટૂલ્સ (Mobile Tools):</div>
                 <div class="grid grid-cols-4 gap-1.5 text-center">
                     <button id="mobileVoiceCABtn" type="button" class="p-1.5 sm:p-2 rounded-xl bg-gradient-to-r from-emerald-600/20 to-teal-600/20 border border-emerald-500/40 text-emerald-300 hover:bg-emerald-500/30 transition flex flex-col items-center justify-center cursor-pointer">
@@ -554,7 +558,7 @@
         <!-- Top Header Navigation -->
         <header class="sticky top-0 z-30 h-14 sm:h-16 bg-slate-950/95 backdrop-blur-xl border-b border-amber-500/30 flex items-center justify-between gap-1.5 sm:gap-4 px-2 sm:px-6 max-w-full shadow-lg">
             <div class="flex items-center space-x-2 sm:space-x-3 shrink-0 min-w-0">
-                <button id="openSidebarBtn" class="lg:hidden text-slate-300 hover:text-white p-1.5 sm:p-2 rounded-xl bg-slate-900/90 border border-slate-700/80 hover:border-amber-400/50 transition shrink-0 active:scale-95 shadow-sm" title="મેનુ ખોલો">
+                <button id="openSidebarBtn" class="md:hidden text-slate-300 hover:text-white p-1.5 sm:p-2 rounded-xl bg-slate-900/90 border border-slate-700/80 hover:border-amber-400/50 transition shrink-0 active:scale-95 shadow-sm" title="મેનુ ખોલો">
                     <i data-lucide="menu" class="w-4 h-4 sm:w-5 sm:h-5"></i>
                 </button>
                 <div class="flex items-center space-x-2 min-w-0">
@@ -3463,7 +3467,7 @@
 
 
     <!-- Frontend Script -->
-    <script src="app.js?v=2026.11.01.1"></script>
+    <script src="app.js?v=2026.11.02.1"></script>
     <script>
         lucide.createIcons();
     </script>
